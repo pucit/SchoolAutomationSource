@@ -1,0 +1,41 @@
+﻿
+ @RenderBody()
+
+@*<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<title>Rainbow Grammer School</title>
+<meta charset="iso-8859-1">
+<link rel="stylesheet" href="../../Content/layout.css"type="text/css" />
+<!--[if lt IE 9]><script src="../sms/scripts/html5shiv.js"></script><![endif]-->
+
+
+</head>
+<body style="background-color:White; height:100%">
+<div class="wrapper row1 row" id="logo1" style="width: 100%">
+  <header id="header" class="clear">
+    <hgroup>
+      <h1><strong>Rainbow</strong> Grammer</h1>
+      <h2>&emsp; &emsp;&emsp;&emsp;&emsp;&emsp;  &emsp;&emsp;&emsp;&emsp;&emsp; &emsp;&emsp; &emsp;&emsp;(The School System)</h2>
+    </hgroup>
+    <nav>
+      <ul>
+        <li>@Html.ActionLink("Home","Index","Home")</li>
+        <li>@Html.ActionLink("About", "About", "Home")</li>
+        <li>@Html.ActionLink("Admissions", "admissions1", "Home")</li>
+        <li>@Html.ActionLink("Contact", "contact", "Home")</li>
+        <li>@Html.ActionLink("SignIn", "signin", "Home")</li>
+        </ul>
+    </nav>
+    </div>
+            @RenderBody()
+<!-- Footer -->
+<!-- Copyright -->
+<div class="wrapper row4">
+  <div id="copyright" class="clear" >
+    <p class="fl_left">Copyright &copy; 2013 - All Rights Reserved - <a href="https://www.facebook.com/chronosolutions" title="Chrono Solutions">Chrono Solutions</a></p>
+    <p class="fl_right">Developed By: &nbsp <a href="https://www.facebook.com/chronosolutions" title="Developing Team">Chrono Solutions</a></p>
+  </div>
+</div>
+</body>
+</html>*@

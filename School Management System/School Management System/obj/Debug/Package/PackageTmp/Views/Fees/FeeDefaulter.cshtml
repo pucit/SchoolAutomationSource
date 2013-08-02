@@ -1,0 +1,21 @@
+﻿@{
+    ViewBag.Title = "FeeDefaulter";
+}
+
+
+<link rel="stylesheet" href="../../Content/Site.css"type="text/css" />
+@{
+    
+    Layout = "../Shared/Layout_1.cshtml";
+    
+    }
+
+
+<h2>Fee Defaulter Menu</h2>
+
+@Html.ActionLink("All Students", "DefaulterStudents")
+<br />
+@Html.ActionLink("Particular Class Students", "DefaulterClassStudents")
+<br />
+<br />
+@Html.ActionLink("Back to reports", "Reports")

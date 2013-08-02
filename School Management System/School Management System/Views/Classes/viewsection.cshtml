@@ -1,0 +1,53 @@
+﻿@model IEnumerable<School_Management_System.Models.section>
+
+
+<link rel="stylesheet" href="../../Content/Site.css"type="text/css" />
+@{
+    
+    Layout = "../Shared/Layout_1.cshtml";
+    
+    }
+
+
+
+@{
+    ViewBag.Title = "viewsection";
+}
+
+<h2>viewsection</h2>
+
+<p>
+@Html.ActionLink("Add Section", "viewadd", new { id=ViewBag.cId })
+</p>
+
+<table>
+    <tr>
+       
+        <th>
+            Section Name
+        </th>
+        <th>
+            Class Id
+        </th>
+         <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        
+        <td>
+            @item.sectionName
+        </td>
+        <td>
+            @item.classId
+        </td>
+
+        <td>           
+            @Html.ActionLink("Delete Section", "viewdelete", new { id=item.sectionId })            
+        </td>
+    </tr>
+}
+
+</table>
+<br/><br/><br/>
+

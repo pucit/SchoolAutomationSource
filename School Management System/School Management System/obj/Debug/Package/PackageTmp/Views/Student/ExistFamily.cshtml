@@ -1,0 +1,64 @@
+﻿@model IEnumerable<School_Management_System.Models.family>
+@{
+    
+    Layout = "../Shared/Layout_1.cshtml";
+    
+    }
+@{
+    ViewBag.Title = "ExistFamily";
+}
+
+<h2>Existing Families</h2>
+<br /><br />
+<table>
+    <tr>
+        <th>
+            familyId
+        </th>
+        <th>
+            FatherName
+        </th>
+        <th>
+            FatherNIC
+        </th>
+        
+        <th>
+            MotherName
+        </th>
+       
+        <th></th>
+    </tr>
+
+@foreach (var item in Model)
+{
+    <tr>
+        <td>
+            @item.familyId
+        </td>
+        <td>
+            @item.FatherName
+        </td>
+        <td>
+            @item.FatherNIC
+        </td>
+        
+        <td>
+            @item.MotherName
+        </td>       
+        
+      
+        
+        <td>
+            @Html.ActionLink("ADD Student", "Create", new { id = item.familyId }) |
+            @Html.ActionLink("DELETE Family", "Delete", new { id = item.familyId }) |
+            @Html.ActionLink("EDIT Family", "Edit", new { id = item.familyId })
+        </td>
+    </tr>
+}
+
+</table>
+
+<br />
+<br />
+<br />
+<a href="../Home/Index" style="color:red; font-size:20px;">  Back to HOME  </a>

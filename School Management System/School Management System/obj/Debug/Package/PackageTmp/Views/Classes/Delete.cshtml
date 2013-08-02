@@ -1,0 +1,42 @@
+﻿@model School_Management_System.Models.@class
+
+
+<link rel="stylesheet" href="../../Content/Site.css"type="text/css" />
+@{
+    
+    Layout = "../Shared/Layout_1.cshtml";
+    
+    }
+
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<fieldset>
+    <legend>class</legend>
+
+    <div class="display-label">classId</div>
+    <div class="display-field">@Model.classId</div>
+
+    <div class="display-label">className</div>
+    <div class="display-field">@Model.className</div>
+
+    <div class="display-label">class Fee English medium</div>
+    <div class="display-field">@Model.classFee</div>
+
+    <div class="display-label">class Fee Urdu Medium</div>
+    <div class="display-field">@Model.classFeeU</div>
+
+</fieldset>
+@using (Html.BeginForm()) {
+    <p>
+        <input type="submit" value="Delete" />
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+}
+
+

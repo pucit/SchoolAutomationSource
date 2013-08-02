@@ -1,0 +1,82 @@
+﻿@{
+    
+    Layout = "../Shared/Layout_1.cshtml";
+    
+    }
+
+@model IEnumerable<School_Management_System.Models.result>
+
+@{  
+    ViewBag.Title = "Class Wise Result Report";
+    int totalStudents = 0;
+    int passStudents = 0;
+    int failStudent = 0;
+    
+ }
+<h2>Class Wise Result Report</h2>
+<br /><br />
+<table>
+    <tr>
+        <th>
+                Exam Name
+        </th>
+        <th>
+            Class Name
+        </th>
+        <th>
+            Student Name
+        </th>
+        <th>
+            Subject Name
+        </th>
+        <th>
+            Obtained Marks
+        </th>
+        <th>
+            Status
+        </th>
+    </tr>
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.exam.examName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.class_subject.@class.className)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.student.StudentName)
+        </td>
+        <td>
+         @Html.DisplayFor(modelItem => item.class_subject.subject.subjectName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.obtainedMarks)
+        </td>
+        <td>
+         @{
+             totalStudents=totalStudents+1;
+             if(item.obtainedMarks >= item.class_subject.passingMarks)
+             {
+                 @Html.Label("Pass")
+                 passStudents = passStudents + 1;
+             }
+             else
+             {
+                 @Html.Label("Fail")
+             }
+          }
+             
+        </td>
+    </tr>
+}
+    @{failStudent = totalStudents - passStudents;}
+</table>
+<br />
+<div>
+                <ul >
+                   <li>Total Students: @totalStudents</li>
+                    <li>Passing Students: @passStudents</li>
+                    <li>Fail Students: @failStudent</li>
+                </ul>
+</div>

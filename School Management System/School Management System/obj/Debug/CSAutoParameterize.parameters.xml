@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<parameters>
+  <parameter name="schooldbEntities-Web.config Connection String" description="schooldbEntities Connection String used in web.config by the application to access the database." defaultvalue="metadata=res://*/Models.SchoolModel.csdl|res://*/Models.SchoolModel.ssdl|res://*/Models.SchoolModel.msl;provider=MySql.Data.MySqlClient;provider connection string='server=53c9ebbc-1c92-4b71-a629-a187013cac61.mysql.sequelizer.com;database=db53c9ebbc1c924b71a629a187013cac61;uid=vbjsaivgmpozmqmt;pwd=GfPb6GCSWwNDRwfBjEVAFmFwzXWCkjiUYFQ2LbpqHL6LMtEhDfU72bovGrHhT8FL'" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="C:\\Users\\Usman\\Documents\\Visual\ Studio\ 2010\\Projects\\School\ Management\ System\\School\ Management\ System\\obj\\Debug\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='schooldbEntities']/@connectionString" />
+  </parameter>
+</parameters>

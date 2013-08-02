@@ -1,0 +1,95 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Rainbow Grammar | The School System</title>
+
+<link REL="SHORTCUT ICON" HREF="http://starblazestudios.com/favicon.ico">
+
+<link href="../../css/style.css" type="text/css" rel="stylesheet" media="all" />
+
+<script type="text/javascript" src="../../scripts/jquery-1.4.1.min.js"></script>
+<script type="text/javascript" src="../../scripts/jquery.backgroundPosition.js"></script>
+<script type="text/javascript" src="../../scripts/script.js"></script>
+<script type="text/javascript" src="../../scripts/cufon-yui.js"></script>
+<script type="text/javascript"  src="../../scripts/SansationRegular_400.font.js"></script>
+<script type="text/javascript"  src="../../scripts/SansationLight_300.font.js"></script>
+
+<script type="text/javascript">
+    Cufon.replace('h1, h2 ,#portfolio-filter a', { hover: true, fontFamily: 'SansationLight' });
+    Cufon.replace('#topNav a,h3, h4', { hover: true, fontFamily: 'SansationRegular' });
+</script>
+</head>
+
+<body>
+	<div id="wrap">
+		<div id="container">
+			
+			
+			<!-- ## HEADER ## -->
+			
+			<div id="header" height="10">
+			<h1>Rainbow Grammar School </h1>
+             <h3 style="text-align:right;">@Html.ActionLink("LOG OUT","signout","Home") </h3>
+				
+				<ul id="topNav">
+					<li>@Html.ActionLink("ADMISSION","Index","Student")</li>
+				
+					<li>@Html.ActionLink("ACADEMIC","Index","Academic")</li>					
+                    	<li>@Html.ActionLink("ATTENDANCE", "Index", "Attendance/Index")</li>
+					<li>@Html.ActionLink("RESULT","Index","Result")</li>
+					<li>@Html.ActionLink("FEE","Family","Home")</li>					
+					<li>@Html.ActionLink("Salary", "ViewSalaryReports", "Attendance")</li>
+                    
+				</ul>
+			</div><!-- end: header -->
+			
+			
+			<!-- ## INFORMATION ## -->
+			
+            <div id="signinform">
+
+            
+                @RenderBody()
+				
+
+            </div>
+
+
+			<div id="info">
+				<p>
+				
+				<!-- WRITE YOUR TEXT HERE -->
+
+				</p>
+			</div><!-- end: INFORMATION -->
+			
+			
+			
+			<!-- ## LINKS ## -->
+			
+			<!-- end: Bottom Links -->
+			
+		</div><!--end: container -->
+		
+		<!-- ## FOOTER ## -->
+		
+		<div id="footer">
+			<div id="footerContainer">
+				<p>
+					Open to working with anyone on creatively challenging
+					projects anywhere in the world.<br />
+					
+					
+					
+					Software Solutions<br/><br/><br/>
+					Copyright &copy; 2013 - All Rights Reserved - <a href="https://www.facebook.com/chronosolutions" title="Chrono Solutions">Chrono Solutions</a>
+				</p>
+			</div><!-- end: Footer Container -->
+		</div><!-- end: footer -->
+			
+	</div><!--end: wrap -->
+
+</body>
+
+</html>

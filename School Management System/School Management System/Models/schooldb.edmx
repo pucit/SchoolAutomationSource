@@ -1,0 +1,942 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="schooldbModel.Store" Alias="Self" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.6" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityContainer Name="schooldbModelStoreContainer">
+          <EntitySet Name="attendance" EntityType="schooldbModel.Store.attendance" store:Type="Tables" Schema="schooldb" />
+          <EntitySet Name="class_subject" EntityType="schooldbModel.Store.class_subject" store:Type="Tables" Schema="schooldb" />
+          <EntitySet Name="classes" EntityType="schooldbModel.Store.classes" store:Type="Tables" Schema="schooldb" />
+          <EntitySet Name="exam" EntityType="schooldbModel.Store.exam" store:Type="Tables" Schema="schooldb" />
+          <EntitySet Name="family" EntityType="schooldbModel.Store.family" store:Type="Tables" Schema="schooldb" />
+          <EntitySet Name="fees" EntityType="schooldbModel.Store.fees" store:Type="Tables" Schema="schooldb" />
+          <EntitySet Name="login" EntityType="schooldbModel.Store.login" store:Type="Tables" Schema="schooldb" />
+          <EntitySet Name="result" EntityType="schooldbModel.Store.result" store:Type="Tables" Schema="schooldb" />
+          <EntitySet Name="sections" EntityType="schooldbModel.Store.sections" store:Type="Tables" Schema="schooldb" />
+          <EntitySet Name="student" EntityType="schooldbModel.Store.student" store:Type="Tables" Schema="schooldb" />
+          <EntitySet Name="studentattendance" EntityType="schooldbModel.Store.studentattendance" store:Type="Tables" Schema="schooldb" />
+          <EntitySet Name="subject" EntityType="schooldbModel.Store.subject" store:Type="Tables" Schema="schooldb" />
+          <EntitySet Name="teacher" EntityType="schooldbModel.Store.teacher" store:Type="Tables" Schema="schooldb" />
+          <EntitySet Name="timings" EntityType="schooldbModel.Store.timings" store:Type="Tables" Schema="schooldb" />
+          <AssociationSet Name="class_subject_ibfk_1" Association="schooldbModel.Store.class_subject_ibfk_1">
+            <End Role="subject" EntitySet="subject" />
+            <End Role="class_subject" EntitySet="class_subject" />
+          </AssociationSet>
+          <AssociationSet Name="class_subject_ibfk_2" Association="schooldbModel.Store.class_subject_ibfk_2">
+            <End Role="classes" EntitySet="classes" />
+            <End Role="class_subject" EntitySet="class_subject" />
+          </AssociationSet>
+          <AssociationSet Name="fees_ibfk_1" Association="schooldbModel.Store.fees_ibfk_1">
+            <End Role="student" EntitySet="student" />
+            <End Role="fees" EntitySet="fees" />
+          </AssociationSet>
+          <AssociationSet Name="result_ibfk_1" Association="schooldbModel.Store.result_ibfk_1">
+            <End Role="student" EntitySet="student" />
+            <End Role="result" EntitySet="result" />
+          </AssociationSet>
+          <AssociationSet Name="result_ibfk_2" Association="schooldbModel.Store.result_ibfk_2">
+            <End Role="class_subject" EntitySet="class_subject" />
+            <End Role="result" EntitySet="result" />
+          </AssociationSet>
+          <AssociationSet Name="result_ibfk_3" Association="schooldbModel.Store.result_ibfk_3">
+            <End Role="exam" EntitySet="exam" />
+            <End Role="result" EntitySet="result" />
+          </AssociationSet>
+          <AssociationSet Name="sections_ibfk_1" Association="schooldbModel.Store.sections_ibfk_1">
+            <End Role="classes" EntitySet="classes" />
+            <End Role="sections" EntitySet="sections" />
+          </AssociationSet>
+          <AssociationSet Name="student_ibfk_1" Association="schooldbModel.Store.student_ibfk_1">
+            <End Role="classes" EntitySet="classes" />
+            <End Role="student" EntitySet="student" />
+          </AssociationSet>
+          <AssociationSet Name="student_ibfk_2" Association="schooldbModel.Store.student_ibfk_2">
+            <End Role="sections" EntitySet="sections" />
+            <End Role="student" EntitySet="student" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="attendance">
+          <Key>
+            <PropertyRef Name="AttendanceDate" />
+            <PropertyRef Name="teacherId" />
+          </Key>
+          <Property Name="attendanceId" Type="int" />
+          <Property Name="AttendanceDate" Type="datetime" Nullable="false" />
+          <Property Name="teacherId" Type="int" Nullable="false" />
+          <Property Name="IsPresent" Type="varchar" MaxLength="5" />
+          <Property Name="SalaryDeduction" Type="double" />
+          <Property Name="AttendanceExitDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="class_subject">
+          <Key>
+            <PropertyRef Name="csId" />
+          </Key>
+          <Property Name="csId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="subjectId" Type="int" Nullable="false" />
+          <Property Name="classId" Type="int" Nullable="false" />
+          <Property Name="totalMarks" Type="int" Nullable="false" />
+          <Property Name="passingMarks" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="classes">
+          <Key>
+            <PropertyRef Name="classId" />
+          </Key>
+          <Property Name="classId" Type="int" Nullable="false" />
+          <Property Name="className" Type="varchar" MaxLength="15" />
+          <Property Name="classFee" Type="int" />
+          <Property Name="classFeeU" Type="int" />
+        </EntityType>
+        <EntityType Name="exam">
+          <Key>
+            <PropertyRef Name="examId" />
+          </Key>
+          <Property Name="examId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="examName" Type="varchar" Nullable="false" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="family">
+          <Key>
+            <PropertyRef Name="familyId" />
+          </Key>
+          <Property Name="familyId" Type="int" Nullable="false" />
+          <Property Name="FatherName" Type="varchar" MaxLength="20" />
+          <Property Name="FatherNIC" Type="varchar" MaxLength="15" />
+          <Property Name="FatherEducation" Type="varchar" MaxLength="20" />
+          <Property Name="FatherIncome" Type="varchar" MaxLength="20" />
+          <Property Name="FatherOccupation" Type="varchar" MaxLength="20" />
+          <Property Name="MotherName" Type="varchar" MaxLength="20" />
+          <Property Name="MotherNIC" Type="varchar" MaxLength="15" />
+          <Property Name="MotherEducation" Type="varchar" MaxLength="20" />
+          <Property Name="MotherIncome" Type="varchar" MaxLength="20" />
+          <Property Name="MotherOccupation" Type="varchar" MaxLength="20" />
+          <Property Name="Religion" Type="varchar" MaxLength="20" />
+          <Property Name="Caste" Type="varchar" MaxLength="20" />
+          <Property Name="Nationality" Type="varchar" MaxLength="20" />
+          <Property Name="FamilyAddress" Type="varchar" MaxLength="145" />
+          <Property Name="PhoneNumber" Type="varchar" MaxLength="15" />
+          <Property Name="CellNumber" Type="varchar" MaxLength="20" />
+          <Property Name="Discount" Type="double" />
+          <Property Name="familycol" Type="varchar" MaxLength="45" />
+        </EntityType>
+        <EntityType Name="fees">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Month" Type="varchar" Nullable="false" MaxLength="100" />
+          <Property Name="Year" Type="varchar" Nullable="false" MaxLength="100" />
+          <Property Name="Basic_Fee" Type="float" Nullable="false" />
+          <Property Name="Concession" Type="float" />
+          <Property Name="Net_Fee" Type="float" Nullable="false" />
+          <Property Name="Is_Paid" Type="bit" Nullable="false" />
+          <Property Name="studentId" Type="int" Nullable="false" />
+          <Property Name="Day" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="login">
+          <Key>
+            <PropertyRef Name="username" />
+          </Key>
+          <Property Name="username" Type="varchar" Nullable="false" MaxLength="10" />
+          <Property Name="password" Type="varchar" Nullable="false" MaxLength="45" />
+        </EntityType>
+        <EntityType Name="result">
+          <Key>
+            <PropertyRef Name="examId" />
+            <PropertyRef Name="studentId" />
+            <PropertyRef Name="csId" />
+          </Key>
+          <Property Name="examId" Type="int" Nullable="false" />
+          <Property Name="studentId" Type="int" Nullable="false" />
+          <Property Name="csId" Type="int" Nullable="false" />
+          <Property Name="obtainedMarks" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sections">
+          <Key>
+            <PropertyRef Name="sectionId" />
+          </Key>
+          <Property Name="sectionId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="sectionName" Type="varchar" MaxLength="45" />
+          <Property Name="classId" Type="int" />
+        </EntityType>
+        <EntityType Name="student">
+          <Key>
+            <PropertyRef Name="studentId" />
+          </Key>
+          <Property Name="studentId" Type="int" Nullable="false" />
+          <Property Name="DateOfAdmission" Type="datetime" />
+          <Property Name="EducationMedium" Type="varchar" MaxLength="20" />
+          <Property Name="StudyClass" Type="varchar" MaxLength="20" />
+          <Property Name="classId" Type="int" />
+          <Property Name="StudentGender" Type="varchar" MaxLength="10" />
+          <Property Name="StudentName" Type="varchar" MaxLength="20" />
+          <Property Name="StudentDOB" Type="datetime" />
+          <Property Name="StudentAddress" Type="varchar" MaxLength="50" />
+          <Property Name="Telephone" Type="varchar" MaxLength="15" />
+          <Property Name="CellPhone" Type="varchar" MaxLength="15" />
+          <Property Name="StudentRollNumber" Type="varchar" MaxLength="20" />
+          <Property Name="StudentFee" Type="double" />
+          <Property Name="SchoolBranch" Type="varchar" MaxLength="20" />
+          <Property Name="familyId" Type="int" />
+          <Property Name="StudentStatus" Type="int" />
+          <Property Name="sectionId" Type="int" />
+        </EntityType>
+        <EntityType Name="studentattendance">
+          <Key>
+            <PropertyRef Name="StudentId" />
+            <PropertyRef Name="Date" />
+          </Key>
+          <Property Name="StudentId" Type="int" Nullable="false" />
+          <Property Name="Date" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="subject">
+          <Key>
+            <PropertyRef Name="subjectId" />
+          </Key>
+          <Property Name="subjectId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="subjectName" Type="varchar" Nullable="false" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="teacher">
+          <Key>
+            <PropertyRef Name="teacherId" />
+          </Key>
+          <Property Name="teacherId" Type="int" Nullable="false" />
+          <Property Name="TeacherName" Type="varchar" MaxLength="20" />
+          <Property Name="TeacherDOB" Type="datetime" />
+          <Property Name="JoinDate" Type="datetime" />
+          <Property Name="TeacherAddress" Type="varchar" MaxLength="50" />
+          <Property Name="Telephone" Type="decimal" Precision="15" />
+          <Property Name="CellPhone" Type="decimal" Precision="11" />
+          <Property Name="MaritalStatus" Type="varchar" MaxLength="10" />
+          <Property Name="Gender" Type="varchar" MaxLength="10" />
+          <Property Name="Designation" Type="varchar" MaxLength="20" />
+          <Property Name="MonthlyTotal" Type="double" />
+          <Property Name="BasicSalary" Type="double" />
+          <Property Name="Account_Number" Type="varchar" MaxLength="45" />
+          <Property Name="Status" Type="varchar" MaxLength="10" />
+          <Property Name="PaymentMode" Type="varchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="timings">
+          <Key>
+            <PropertyRef Name="TimingsId" />
+          </Key>
+          <Property Name="TimingsId" Type="int" Nullable="false" />
+          <Property Name="TimeIn" Type="time" />
+          <Property Name="TimeOut" Type="time" />
+        </EntityType>
+        <Association Name="class_subject_ibfk_1">
+          <End Role="subject" Type="schooldbModel.Store.subject" Multiplicity="1" />
+          <End Role="class_subject" Type="schooldbModel.Store.class_subject" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="subject">
+              <PropertyRef Name="subjectId" />
+            </Principal>
+            <Dependent Role="class_subject">
+              <PropertyRef Name="subjectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="class_subject_ibfk_2">
+          <End Role="classes" Type="schooldbModel.Store.classes" Multiplicity="1" />
+          <End Role="class_subject" Type="schooldbModel.Store.class_subject" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="classes">
+              <PropertyRef Name="classId" />
+            </Principal>
+            <Dependent Role="class_subject">
+              <PropertyRef Name="classId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fees_ibfk_1">
+          <End Role="student" Type="schooldbModel.Store.student" Multiplicity="1" />
+          <End Role="fees" Type="schooldbModel.Store.fees" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="student">
+              <PropertyRef Name="studentId" />
+            </Principal>
+            <Dependent Role="fees">
+              <PropertyRef Name="studentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="result_ibfk_1">
+          <End Role="student" Type="schooldbModel.Store.student" Multiplicity="1" />
+          <End Role="result" Type="schooldbModel.Store.result" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="student">
+              <PropertyRef Name="studentId" />
+            </Principal>
+            <Dependent Role="result">
+              <PropertyRef Name="studentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="result_ibfk_2">
+          <End Role="class_subject" Type="schooldbModel.Store.class_subject" Multiplicity="1" />
+          <End Role="result" Type="schooldbModel.Store.result" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="class_subject">
+              <PropertyRef Name="csId" />
+            </Principal>
+            <Dependent Role="result">
+              <PropertyRef Name="csId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="result_ibfk_3">
+          <End Role="exam" Type="schooldbModel.Store.exam" Multiplicity="1" />
+          <End Role="result" Type="schooldbModel.Store.result" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="exam">
+              <PropertyRef Name="examId" />
+            </Principal>
+            <Dependent Role="result">
+              <PropertyRef Name="examId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="sections_ibfk_1">
+          <End Role="classes" Type="schooldbModel.Store.classes" Multiplicity="0..1" />
+          <End Role="sections" Type="schooldbModel.Store.sections" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="classes">
+              <PropertyRef Name="classId" />
+            </Principal>
+            <Dependent Role="sections">
+              <PropertyRef Name="classId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="student_ibfk_1">
+          <End Role="classes" Type="schooldbModel.Store.classes" Multiplicity="0..1" />
+          <End Role="student" Type="schooldbModel.Store.student" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="classes">
+              <PropertyRef Name="classId" />
+            </Principal>
+            <Dependent Role="student">
+              <PropertyRef Name="classId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="student_ibfk_2">
+          <End Role="sections" Type="schooldbModel.Store.sections" Multiplicity="0..1" />
+          <End Role="student" Type="schooldbModel.Store.student" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="sections">
+              <PropertyRef Name="sectionId" />
+            </Principal>
+            <Dependent Role="student">
+              <PropertyRef Name="sectionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="schooldbModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityContainer Name="schooldbEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="attendances" EntityType="schooldbModel.attendance" />
+          <EntitySet Name="classes" EntityType="schooldbModel.class" />
+          <EntitySet Name="families" EntityType="schooldbModel.family" />
+          <EntitySet Name="fees" EntityType="schooldbModel.fee" />
+          <EntitySet Name="sections" EntityType="schooldbModel.section" />
+          <EntitySet Name="students" EntityType="schooldbModel.student" />
+          <EntitySet Name="timings" EntityType="schooldbModel.timing" />
+          <AssociationSet Name="sections_ibfk_1" Association="schooldbModel.sections_ibfk_1">
+            <End Role="classes" EntitySet="classes" />
+            <End Role="sections" EntitySet="sections" />
+          </AssociationSet>
+          <AssociationSet Name="student_ibfk_1" Association="schooldbModel.student_ibfk_1">
+            <End Role="classes" EntitySet="classes" />
+            <End Role="student" EntitySet="students" />
+          </AssociationSet>
+          <AssociationSet Name="fees_ibfk_1" Association="schooldbModel.fees_ibfk_1">
+            <End Role="student" EntitySet="students" />
+            <End Role="fees" EntitySet="fees" />
+          </AssociationSet>
+          <EntitySet Name="teachers" EntityType="schooldbModel.teacher" />
+          <AssociationSet Name="student_ibfk_2" Association="schooldbModel.student_ibfk_2">
+            <End Role="section" EntitySet="sections" />
+            <End Role="student" EntitySet="students" />
+          </AssociationSet>
+          <EntitySet Name="class_subject" EntityType="schooldbModel.class_subject" />
+          <EntitySet Name="exams" EntityType="schooldbModel.exam" />
+          <EntitySet Name="results" EntityType="schooldbModel.result" />
+          <EntitySet Name="subjects" EntityType="schooldbModel.subject" />
+          <AssociationSet Name="class_subject_ibfk_1" Association="schooldbModel.class_subject_ibfk_1">
+            <End Role="subject" EntitySet="subjects" />
+            <End Role="class_subject" EntitySet="class_subject" />
+          </AssociationSet>
+          <AssociationSet Name="class_subject_ibfk_2" Association="schooldbModel.class_subject_ibfk_2">
+            <End Role="class" EntitySet="classes" />
+            <End Role="class_subject" EntitySet="class_subject" />
+          </AssociationSet>
+          <AssociationSet Name="result_ibfk_2" Association="schooldbModel.result_ibfk_2">
+            <End Role="class_subject" EntitySet="class_subject" />
+            <End Role="result" EntitySet="results" />
+          </AssociationSet>
+          <AssociationSet Name="result_ibfk_3" Association="schooldbModel.result_ibfk_3">
+            <End Role="exam" EntitySet="exams" />
+            <End Role="result" EntitySet="results" />
+          </AssociationSet>
+          <AssociationSet Name="result_ibfk_1" Association="schooldbModel.result_ibfk_1">
+            <End Role="student" EntitySet="students" />
+            <End Role="result" EntitySet="results" />
+          </AssociationSet>
+          <EntitySet Name="studentattendances" EntityType="schooldbModel.studentattendance" />
+          <EntitySet Name="logins" EntityType="schooldbModel.login" />
+        </EntityContainer>
+        <EntityType Name="attendance">
+          <Key>
+            <PropertyRef Name="AttendanceDate" />
+            <PropertyRef Name="teacherId" />
+          </Key>
+          <Property Name="attendanceId" Type="Int32" />
+          <Property Name="AttendanceDate" Type="DateTime" Nullable="false" />
+          <Property Name="teacherId" Type="Int32" Nullable="false" />
+          <Property Name="IsPresent" Type="String" MaxLength="5" Unicode="false" FixedLength="false" />
+          <Property Name="SalaryDeduction" Type="Double" />
+          <Property Name="AttendanceExitDate" Type="DateTime" />
+        </EntityType>
+        <EntityType Name="class">
+          <Key>
+            <PropertyRef Name="classId" />
+          </Key>
+          <Property Name="classId" Type="Int32" Nullable="false" />
+          <Property Name="className" Type="String" MaxLength="15" Unicode="false" FixedLength="false" />
+          <Property Name="classFee" Type="Int32" />
+          <NavigationProperty Name="sections" Relationship="schooldbModel.sections_ibfk_1" FromRole="classes" ToRole="sections" />
+          <NavigationProperty Name="students" Relationship="schooldbModel.student_ibfk_1" FromRole="classes" ToRole="student" />
+          <NavigationProperty Name="class_subject" Relationship="schooldbModel.class_subject_ibfk_2" FromRole="class" ToRole="class_subject" />
+          <Property Type="Int32" Name="classFeeU" />
+        </EntityType>
+        <EntityType Name="family">
+          <Key>
+            <PropertyRef Name="familyId" />
+          </Key>
+          <Property Name="familyId" Type="Int32" Nullable="false" />
+          <Property Name="FatherName" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
+          <Property Name="FatherNIC" Type="String" MaxLength="15" Unicode="false" FixedLength="false" />
+          <Property Name="FatherEducation" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
+          <Property Name="FatherIncome" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
+          <Property Name="FatherOccupation" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
+          <Property Name="MotherName" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
+          <Property Name="MotherNIC" Type="String" MaxLength="15" Unicode="false" FixedLength="false" />
+          <Property Name="MotherEducation" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
+          <Property Name="MotherIncome" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
+          <Property Name="MotherOccupation" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
+          <Property Name="Religion" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
+          <Property Name="Caste" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
+          <Property Name="Nationality" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
+          <Property Type="String" Name="FamilyAddress" MaxLength="145" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="PhoneNumber" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="CellNumber" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="Double" Name="Discount" />
+          <Property Type="String" Name="familycol" MaxLength="45" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="fee">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Month" Type="String" Nullable="false" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="Year" Type="String" Nullable="false" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="Basic_Fee" Type="Single" Nullable="false" />
+          <Property Name="Concession" Type="Single" />
+          <Property Name="Net_Fee" Type="Single" Nullable="false" />
+          <Property Name="Is_Paid" Type="Boolean" Nullable="false" />
+          <Property Name="studentId" Type="Int32" Nullable="false" />
+          <Property Name="Day" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="student" Relationship="schooldbModel.fees_ibfk_1" FromRole="fees" ToRole="student" />
+        </EntityType>
+        <EntityType Name="section">
+          <Key>
+            <PropertyRef Name="sectionId" />
+          </Key>
+          <Property Name="sectionId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="sectionName" Type="String" MaxLength="45" Unicode="false" FixedLength="false" />
+          <Property Name="classId" Type="Int32" />
+          <NavigationProperty Name="class" Relationship="schooldbModel.sections_ibfk_1" FromRole="sections" ToRole="classes" />
+          <NavigationProperty Name="students" Relationship="schooldbModel.student_ibfk_2" FromRole="section" ToRole="student" />
+        </EntityType>
+        <EntityType Name="student">
+          <Key>
+            <PropertyRef Name="studentId" />
+          </Key>
+          <Property Name="studentId" Type="Int32" Nullable="false" />
+          <Property Name="DateOfAdmission" Type="DateTime" />
+          <Property Name="EducationMedium" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
+          <Property Name="StudyClass" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
+          <Property Name="classId" Type="Int32" />
+          <Property Name="StudentGender" Type="String" MaxLength="10" Unicode="false" FixedLength="false" />
+          <Property Name="StudentName" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
+          <Property Name="StudentDOB" Type="DateTime" />
+          <Property Name="StudentAddress" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="Telephone" Type="String" />
+          <Property Name="CellPhone" Type="String" />
+          <Property Name="StudentRollNumber" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
+          <Property Name="StudentFee" Type="Double" />
+          <Property Name="SchoolBranch" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
+          <Property Name="familyId" Type="Int32" />
+          <Property Name="StudentStatus" Type="Int32" />
+          <NavigationProperty Name="class" Relationship="schooldbModel.student_ibfk_1" FromRole="student" ToRole="classes" />
+          <NavigationProperty Name="fees" Relationship="schooldbModel.fees_ibfk_1" FromRole="student" ToRole="fees" />
+          <Property Type="Int32" Name="sectionId" />
+          <NavigationProperty Name="section" Relationship="schooldbModel.student_ibfk_2" FromRole="student" ToRole="section" />
+          <NavigationProperty Name="results" Relationship="schooldbModel.result_ibfk_1" FromRole="student" ToRole="result" />
+        </EntityType>
+        <EntityType Name="timing">
+          <Key>
+            <PropertyRef Name="TimingsId" />
+          </Key>
+          <Property Name="TimingsId" Type="Int32" Nullable="false" />
+          <Property Name="TimeIn" Type="Time" />
+          <Property Name="TimeOut" Type="Time" />
+        </EntityType>
+        <Association Name="sections_ibfk_1">
+          <End Role="classes" Type="schooldbModel.class" Multiplicity="0..1" />
+          <End Role="sections" Type="schooldbModel.section" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="classes">
+              <PropertyRef Name="classId" />
+            </Principal>
+            <Dependent Role="sections">
+              <PropertyRef Name="classId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="student_ibfk_1">
+          <End Role="classes" Type="schooldbModel.class" Multiplicity="0..1" />
+          <End Role="student" Type="schooldbModel.student" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="classes">
+              <PropertyRef Name="classId" />
+            </Principal>
+            <Dependent Role="student">
+              <PropertyRef Name="classId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fees_ibfk_1">
+          <End Role="student" Type="schooldbModel.student" Multiplicity="1" />
+          <End Role="fees" Type="schooldbModel.fee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="student">
+              <PropertyRef Name="studentId" />
+            </Principal>
+            <Dependent Role="fees">
+              <PropertyRef Name="studentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="teacher">
+          <Key>
+            <PropertyRef Name="teacherId" />
+          </Key>
+          <Property Type="Int32" Name="teacherId" Nullable="false" />
+          <Property Type="String" Name="TeacherName" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="TeacherDOB" />
+          <Property Type="DateTime" Name="JoinDate" />
+          <Property Type="String" Name="TeacherAddress" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="Decimal" Name="Telephone" />
+          <Property Type="Decimal" Name="CellPhone" />
+          <Property Type="String" Name="MaritalStatus" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Gender" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Designation" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="Double" Name="MonthlyTotal" />
+          <Property Type="Double" Name="BasicSalary" />
+          <Property Type="String" Name="Account_Number" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Status" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="PaymentMode" MaxLength="10" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <Association Name="student_ibfk_2">
+          <End Type="schooldbModel.section" Role="section" Multiplicity="0..1" />
+          <End Type="schooldbModel.student" Role="student" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="section">
+              <PropertyRef Name="sectionId" />
+            </Principal>
+            <Dependent Role="student">
+              <PropertyRef Name="sectionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="class_subject">
+          <Key>
+            <PropertyRef Name="csId" />
+          </Key>
+          <Property Type="Int32" Name="csId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="subjectId" Nullable="false" />
+          <Property Type="Int32" Name="classId" Nullable="false" />
+          <Property Type="Int32" Name="totalMarks" Nullable="false" />
+          <Property Type="Int32" Name="passingMarks" Nullable="false" />
+          <NavigationProperty Name="subject" Relationship="schooldbModel.class_subject_ibfk_1" FromRole="class_subject" ToRole="subject" />
+          <NavigationProperty Name="class" Relationship="schooldbModel.class_subject_ibfk_2" FromRole="class_subject" ToRole="class" />
+          <NavigationProperty Name="results" Relationship="schooldbModel.result_ibfk_2" FromRole="class_subject" ToRole="result" />
+        </EntityType>
+        <EntityType Name="exam">
+          <Key>
+            <PropertyRef Name="examId" />
+          </Key>
+          <Property Type="Int32" Name="examId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="examName" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="results" Relationship="schooldbModel.result_ibfk_3" FromRole="exam" ToRole="result" />
+        </EntityType>
+        <EntityType Name="result">
+          <Key>
+            <PropertyRef Name="examId" />
+            <PropertyRef Name="studentId" />
+            <PropertyRef Name="csId" />
+          </Key>
+          <Property Type="Int32" Name="examId" Nullable="false" />
+          <Property Type="Int32" Name="studentId" Nullable="false" />
+          <Property Type="Int32" Name="csId" Nullable="false" />
+          <Property Type="Int32" Name="obtainedMarks" Nullable="false" />
+          <NavigationProperty Name="class_subject" Relationship="schooldbModel.result_ibfk_2" FromRole="result" ToRole="class_subject" />
+          <NavigationProperty Name="exam" Relationship="schooldbModel.result_ibfk_3" FromRole="result" ToRole="exam" />
+          <NavigationProperty Name="student" Relationship="schooldbModel.result_ibfk_1" FromRole="result" ToRole="student" />
+        </EntityType>
+        <EntityType Name="subject">
+          <Key>
+            <PropertyRef Name="subjectId" />
+          </Key>
+          <Property Type="Int32" Name="subjectId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="subjectName" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="class_subject" Relationship="schooldbModel.class_subject_ibfk_1" FromRole="subject" ToRole="class_subject" />
+        </EntityType>
+        <Association Name="class_subject_ibfk_1">
+          <End Type="schooldbModel.subject" Role="subject" Multiplicity="1" />
+          <End Type="schooldbModel.class_subject" Role="class_subject" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="subject">
+              <PropertyRef Name="subjectId" />
+            </Principal>
+            <Dependent Role="class_subject">
+              <PropertyRef Name="subjectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="class_subject_ibfk_2">
+          <End Type="schooldbModel.class" Role="class" Multiplicity="1" />
+          <End Type="schooldbModel.class_subject" Role="class_subject" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="class">
+              <PropertyRef Name="classId" />
+            </Principal>
+            <Dependent Role="class_subject">
+              <PropertyRef Name="classId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="result_ibfk_2">
+          <End Type="schooldbModel.class_subject" Role="class_subject" Multiplicity="1" />
+          <End Type="schooldbModel.result" Role="result" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="class_subject">
+              <PropertyRef Name="csId" />
+            </Principal>
+            <Dependent Role="result">
+              <PropertyRef Name="csId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="result_ibfk_3">
+          <End Type="schooldbModel.exam" Role="exam" Multiplicity="1" />
+          <End Type="schooldbModel.result" Role="result" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="exam">
+              <PropertyRef Name="examId" />
+            </Principal>
+            <Dependent Role="result">
+              <PropertyRef Name="examId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="result_ibfk_1">
+          <End Type="schooldbModel.student" Role="student" Multiplicity="1" />
+          <End Type="schooldbModel.result" Role="result" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="student">
+              <PropertyRef Name="studentId" />
+            </Principal>
+            <Dependent Role="result">
+              <PropertyRef Name="studentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="studentattendance">
+          <Key>
+            <PropertyRef Name="StudentId" />
+            <PropertyRef Name="Date" />
+          </Key>
+          <Property Type="Int32" Name="StudentId" Nullable="false" />
+          <Property Type="DateTime" Name="Date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="login">
+          <Key>
+            <PropertyRef Name="username" />
+          </Key>
+          <Property Type="String" Name="username" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="password" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="schooldbModelStoreContainer" CdmEntityContainer="schooldbEntities">
+          <EntitySetMapping Name="attendances"><EntityTypeMapping TypeName="schooldbModel.attendance"><MappingFragment StoreEntitySet="attendance">
+            <ScalarProperty Name="attendanceId" ColumnName="attendanceId" />
+            <ScalarProperty Name="AttendanceDate" ColumnName="AttendanceDate" />
+            <ScalarProperty Name="teacherId" ColumnName="teacherId" />
+            <ScalarProperty Name="IsPresent" ColumnName="IsPresent" />
+            <ScalarProperty Name="SalaryDeduction" ColumnName="SalaryDeduction" />
+            <ScalarProperty Name="AttendanceExitDate" ColumnName="AttendanceExitDate" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="classes"><EntityTypeMapping TypeName="schooldbModel.class"><MappingFragment StoreEntitySet="classes">
+            <ScalarProperty Name="classFeeU" ColumnName="classFeeU" />
+                <ScalarProperty Name="classId" ColumnName="classId" />
+            <ScalarProperty Name="className" ColumnName="className" />
+            <ScalarProperty Name="classFee" ColumnName="classFee" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="families"><EntityTypeMapping TypeName="schooldbModel.family"><MappingFragment StoreEntitySet="family">
+            <ScalarProperty Name="familycol" ColumnName="familycol" />
+                <ScalarProperty Name="Discount" ColumnName="Discount" />
+                <ScalarProperty Name="CellNumber" ColumnName="CellNumber" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="FamilyAddress" ColumnName="FamilyAddress" />
+                <ScalarProperty Name="familyId" ColumnName="familyId" />
+            <ScalarProperty Name="FatherName" ColumnName="FatherName" />
+            <ScalarProperty Name="FatherNIC" ColumnName="FatherNIC" />
+            <ScalarProperty Name="FatherEducation" ColumnName="FatherEducation" />
+            <ScalarProperty Name="FatherIncome" ColumnName="FatherIncome" />
+            <ScalarProperty Name="FatherOccupation" ColumnName="FatherOccupation" />
+            <ScalarProperty Name="MotherName" ColumnName="MotherName" />
+            <ScalarProperty Name="MotherNIC" ColumnName="MotherNIC" />
+            <ScalarProperty Name="MotherEducation" ColumnName="MotherEducation" />
+            <ScalarProperty Name="MotherIncome" ColumnName="MotherIncome" />
+            <ScalarProperty Name="MotherOccupation" ColumnName="MotherOccupation" />
+            <ScalarProperty Name="Religion" ColumnName="Religion" />
+            <ScalarProperty Name="Caste" ColumnName="Caste" />
+            <ScalarProperty Name="Nationality" ColumnName="Nationality" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="fees"><EntityTypeMapping TypeName="schooldbModel.fee"><MappingFragment StoreEntitySet="fees">
+            <ScalarProperty Name="Id" ColumnName="Id" />
+            <ScalarProperty Name="Month" ColumnName="Month" />
+            <ScalarProperty Name="Year" ColumnName="Year" />
+            <ScalarProperty Name="Basic_Fee" ColumnName="Basic_Fee" />
+            <ScalarProperty Name="Concession" ColumnName="Concession" />
+            <ScalarProperty Name="Net_Fee" ColumnName="Net_Fee" />
+            <ScalarProperty Name="Is_Paid" ColumnName="Is_Paid" />
+            <ScalarProperty Name="studentId" ColumnName="studentId" />
+            <ScalarProperty Name="Day" ColumnName="Day" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="sections"><EntityTypeMapping TypeName="schooldbModel.section"><MappingFragment StoreEntitySet="sections">
+            <ScalarProperty Name="sectionId" ColumnName="sectionId" />
+            <ScalarProperty Name="sectionName" ColumnName="sectionName" />
+            <ScalarProperty Name="classId" ColumnName="classId" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="students"><EntityTypeMapping TypeName="schooldbModel.student"><MappingFragment StoreEntitySet="student">
+                <ScalarProperty Name="sectionId" ColumnName="sectionId" />
+                <ScalarProperty Name="CellPhone" ColumnName="CellPhone" />
+                <ScalarProperty Name="studentId" ColumnName="studentId" />
+            <ScalarProperty Name="DateOfAdmission" ColumnName="DateOfAdmission" />
+            <ScalarProperty Name="EducationMedium" ColumnName="EducationMedium" />
+            <ScalarProperty Name="StudyClass" ColumnName="StudyClass" />
+            <ScalarProperty Name="classId" ColumnName="classId" />
+            <ScalarProperty Name="StudentGender" ColumnName="StudentGender" />
+            <ScalarProperty Name="StudentName" ColumnName="StudentName" />
+            <ScalarProperty Name="StudentDOB" ColumnName="StudentDOB" />
+            <ScalarProperty Name="StudentAddress" ColumnName="StudentAddress" />
+            <ScalarProperty Name="Telephone" ColumnName="Telephone" />
+            <ScalarProperty Name="StudentRollNumber" ColumnName="StudentRollNumber" />
+            <ScalarProperty Name="StudentFee" ColumnName="StudentFee" />
+            <ScalarProperty Name="SchoolBranch" ColumnName="SchoolBranch" />
+            <ScalarProperty Name="familyId" ColumnName="familyId" />
+            <ScalarProperty Name="StudentStatus" ColumnName="StudentStatus" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="timings"><EntityTypeMapping TypeName="schooldbModel.timing"><MappingFragment StoreEntitySet="timings">
+            <ScalarProperty Name="TimingsId" ColumnName="TimingsId" />
+            <ScalarProperty Name="TimeIn" ColumnName="TimeIn" />
+            <ScalarProperty Name="TimeOut" ColumnName="TimeOut" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="teachers">
+            <EntityTypeMapping TypeName="schooldbModel.teacher">
+              <MappingFragment StoreEntitySet="teacher">
+                <ScalarProperty Name="PaymentMode" ColumnName="PaymentMode" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Account_Number" ColumnName="Account_Number" />
+                <ScalarProperty Name="BasicSalary" ColumnName="BasicSalary" />
+                <ScalarProperty Name="MonthlyTotal" ColumnName="MonthlyTotal" />
+                <ScalarProperty Name="Designation" ColumnName="Designation" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="MaritalStatus" ColumnName="MaritalStatus" />
+                <ScalarProperty Name="CellPhone" ColumnName="CellPhone" />
+                <ScalarProperty Name="Telephone" ColumnName="Telephone" />
+                <ScalarProperty Name="TeacherAddress" ColumnName="TeacherAddress" />
+                <ScalarProperty Name="JoinDate" ColumnName="JoinDate" />
+                <ScalarProperty Name="TeacherDOB" ColumnName="TeacherDOB" />
+                <ScalarProperty Name="TeacherName" ColumnName="TeacherName" />
+                <ScalarProperty Name="teacherId" ColumnName="teacherId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="class_subject">
+            <EntityTypeMapping TypeName="schooldbModel.class_subject">
+              <MappingFragment StoreEntitySet="class_subject">
+                <ScalarProperty Name="passingMarks" ColumnName="passingMarks" />
+                <ScalarProperty Name="totalMarks" ColumnName="totalMarks" />
+                <ScalarProperty Name="classId" ColumnName="classId" />
+                <ScalarProperty Name="subjectId" ColumnName="subjectId" />
+                <ScalarProperty Name="csId" ColumnName="csId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="exams">
+            <EntityTypeMapping TypeName="schooldbModel.exam">
+              <MappingFragment StoreEntitySet="exam">
+                <ScalarProperty Name="examName" ColumnName="examName" />
+                <ScalarProperty Name="examId" ColumnName="examId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="results">
+            <EntityTypeMapping TypeName="schooldbModel.result">
+              <MappingFragment StoreEntitySet="result">
+                <ScalarProperty Name="obtainedMarks" ColumnName="obtainedMarks" />
+                <ScalarProperty Name="csId" ColumnName="csId" />
+                <ScalarProperty Name="studentId" ColumnName="studentId" />
+                <ScalarProperty Name="examId" ColumnName="examId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="subjects">
+            <EntityTypeMapping TypeName="schooldbModel.subject">
+              <MappingFragment StoreEntitySet="subject">
+                <ScalarProperty Name="subjectName" ColumnName="subjectName" />
+                <ScalarProperty Name="subjectId" ColumnName="subjectId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="studentattendances">
+            <EntityTypeMapping TypeName="schooldbModel.studentattendance">
+              <MappingFragment StoreEntitySet="studentattendance">
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="StudentId" ColumnName="StudentId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="logins">
+            <EntityTypeMapping TypeName="schooldbModel.login">
+              <MappingFragment StoreEntitySet="login">
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="username" ColumnName="username" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams>
+      <Diagram Name="schooldb">
+        <EntityTypeShape EntityType="schooldbModel.attendance" Width="1.5" PointX="5.75" PointY="0.75" Height="2.1725878906249996" IsExpanded="true" />
+        <EntityTypeShape EntityType="schooldbModel.class" Width="1.5" PointX="0.75" PointY="3.75" Height="1.9802864583333335" IsExpanded="true" />
+        <EntityTypeShape EntityType="schooldbModel.family" Width="1.5" PointX="7.75" PointY="0.75" Height="3.7109993489583335" IsExpanded="true" />
+        <EntityTypeShape EntityType="schooldbModel.fee" Width="1.5" PointX="5.25" PointY="4.5" Height="2.9417936197916656" IsExpanded="true" />
+        <EntityTypeShape EntityType="schooldbModel.section" Width="1.5" PointX="3" PointY="1.125" Height="1.7879850260416674" IsExpanded="true" />
+        <EntityTypeShape EntityType="schooldbModel.student" Width="1.5" PointX="3" PointY="3.75" Height="4.4802050781250005" IsExpanded="true" />
+        <EntityTypeShape EntityType="schooldbModel.timing" Width="1.5" PointX="9.75" PointY="0.75" Height="1.5956835937499996" IsExpanded="true" />
+        <AssociationConnector Association="schooldbModel.sections_ibfk_1" ManuallyRouted="false">
+          <ConnectorPoint PointX="1.29687375" PointY="3.75" />
+          <ConnectorPoint PointX="1.29687375" PointY="1.9024572460937492" />
+          <ConnectorPoint PointX="2.5416666666666665" PointY="1.9024572460937486" />
+          <ConnectorPoint PointX="2.7083333333333335" PointY="1.9024572460937492" />
+          <ConnectorPoint PointX="3" PointY="1.9024572460937492" />
+        </AssociationConnector>
+        <AssociationConnector Association="schooldbModel.student_ibfk_1" ManuallyRouted="false">
+          <ConnectorPoint PointX="2.25" PointY="4.9324446614583337" />
+          <ConnectorPoint PointX="2.5416666666666665" PointY="4.9324446614583328" />
+          <ConnectorPoint PointX="2.7083333333333335" PointY="4.9324446614583337" />
+          <ConnectorPoint PointX="3" PointY="4.9324446614583337" />
+        </AssociationConnector>
+        <AssociationConnector Association="schooldbModel.fees_ibfk_1" ManuallyRouted="false">
+          <ConnectorPoint PointX="4.5" PointY="5.9708968098958328" />
+          <ConnectorPoint PointX="4.791666666666667" PointY="5.9708968098958319" />
+          <ConnectorPoint PointX="4.958333333333333" PointY="5.9708968098958328" />
+          <ConnectorPoint PointX="5.25" PointY="5.9708968098958328" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="schooldbModel.teacher" Width="1.5" PointX="7.375" PointY="5.75" Height="3.9033007812499996" />
+        <AssociationConnector Association="schooldbModel.student_ibfk_2" >
+          <ConnectorPoint PointX="4.5" PointY="3.1052864583333331" />
+          <ConnectorPoint PointX="4.875" PointY="3.4802864583333335" />
+          <ConnectorPoint PointX="4.875" PointY="7.4202550924479169" />
+          <ConnectorPoint PointX="4.5" PointY="7.4202550924479169" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="schooldbModel.class_subject" Width="1.5" PointX="3" PointY="0.75" Height="2.5571907552083317" />
+        <EntityTypeShape EntityType="schooldbModel.exam" Width="1.5" PointX="8" PointY="13.625" Height="1.5956835937499996" />
+        <EntityTypeShape EntityType="schooldbModel.result" Width="1.5" PointX="10.25" PointY="8.25" Height="2.3648893229166674" />
+        <EntityTypeShape EntityType="schooldbModel.subject" Width="1.5" PointX="0.75" PointY="10.375" Height="1.5956835937500031" />
+        <AssociationConnector Association="schooldbModel.class_subject_ibfk_1" >
+          <ConnectorPoint PointX="2.25" PointY="10.376152846153847" />
+          <ConnectorPoint PointX="2.625" PointY="10.001152846153847" />
+          <ConnectorPoint PointX="2.625" PointY="1.2949766230468738" />
+          <ConnectorPoint PointX="3" PointY="1.2949766230468738" />
+        </AssociationConnector>
+        <AssociationConnector Association="schooldbModel.class_subject_ibfk_2" >
+          <ConnectorPoint PointX="1.8046893750000002" PointY="3.75" />
+          <ConnectorPoint PointX="1.8046893750000002" PointY="2.6360765006510412" />
+          <ConnectorPoint PointX="2.5416666666666665" PointY="2.6360765006510407" />
+          <ConnectorPoint PointX="2.7083333333333335" PointY="2.6360765006510412" />
+          <ConnectorPoint PointX="3" PointY="2.6360765006510412" />
+        </AssociationConnector>
+        <AssociationConnector Association="schooldbModel.result_ibfk_2" >
+          <ConnectorPoint PointX="4.5" PointY="1.8963912291666656" />
+          <ConnectorPoint PointX="5.5" PointY="1.8963912291666656" />
+          <ConnectorPoint PointX="5.5" PointY="3.1725878906249996" />
+          <ConnectorPoint PointX="7.5" PointY="3.1725878906249996" />
+          <ConnectorPoint PointX="7.5" PointY="5.5" />
+          <ConnectorPoint PointX="9.125" PointY="5.5" />
+          <ConnectorPoint PointX="9.125" PointY="5.6725065104166656" />
+          <ConnectorPoint PointX="11" PointY="5.6725065104166656" />
+          <ConnectorPoint PointX="11" PointY="8.25" />
+        </AssociationConnector>
+        <AssociationConnector Association="schooldbModel.result_ibfk_3" >
+          <ConnectorPoint PointX="9.21875" PointY="13.625" />
+          <ConnectorPoint PointX="9.21875" PointY="9.4324446614583337" />
+          <ConnectorPoint PointX="10.25" PointY="9.4324446614583337" />
+        </AssociationConnector>
+        <AssociationConnector Association="schooldbModel.result_ibfk_1" >
+          <ConnectorPoint PointX="3.75" PointY="8.807109375" />
+          <ConnectorPoint PointX="3.75" PointY="9.4324446614583337" />
+          <ConnectorPoint PointX="7.125" PointY="9.4324446614583337" />
+          <ConnectorPoint PointX="7.125" PointY="9.90330078125" />
+          <ConnectorPoint PointX="9.1354166666666661" PointY="9.90330078125" />
+          <ConnectorPoint PointX="9.3020833333333339" PointY="9.90330078125" />
+          <ConnectorPoint PointX="9.875" PointY="9.90330078125" />
+          <ConnectorPoint PointX="9.875" PointY="9.4324446614583337" />
+          <ConnectorPoint PointX="10.25" PointY="9.4324446614583337" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="schooldbModel.studentattendance" Width="1.5" PointX="3.375" PointY="9.75" Height="1.4033821614583388" />
+        <EntityTypeShape EntityType="schooldbModel.login" Width="1.5" PointX="10.375" PointY="3.75" Height="1.4033821614583388" />
+      </Diagram>
+    </Diagrams>
+  </Designer>
+</edmx:Edmx>

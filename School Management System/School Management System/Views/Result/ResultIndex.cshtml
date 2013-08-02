@@ -1,0 +1,29 @@
+﻿@{
+    
+    Layout = "../Shared/Layout_1.cshtml";
+    
+    }
+
+@{
+    ViewBag.Title = "ResultIndex";
+ }
+
+<script src="../../Scripts/jquery-1.7.1.min.js"></script>
+
+ <script type="text/javascript">
+     $(document).ready(function () {
+         var response = '@(ViewBag.response)';
+         if (response == "Result Updated Successfully...")
+             alert("@ViewBag.response"); 
+     });
+     
+ </script>
+<h2>ADD NEW SUBJECTS TO CLASS</h2>
+<br /><br />
+<div>
+                <ul style="color:black; font-size:30px;">
+                    <li>@Html.ActionLink("Add Subjects To Class", "SubjectClass", "Result")</li>
+                    <li>@Html.ActionLink("Add Subject Result", "Result", "Result")</li>
+                    <li>@Html.ActionLink("Add Class Result", "ClassResult", "Result")</li>
+                </ul>
+</div>

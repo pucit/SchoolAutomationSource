@@ -1,0 +1,69 @@
+﻿@model IEnumerable<School_Management_System.Models.teacher>
+
+@{
+    ViewBag.Title = "Bank";
+}
+
+<h2>Employees via BANK</h2>
+<br /><br />
+
+<table>
+    <tr>
+        <th>
+            Employee ID
+        </th>
+        <th>
+            Employee Name
+        </th>
+        <th>
+            Gender
+        </th>
+        <th>
+            CellPhone
+        </th>        
+        <th>
+            Designation
+        </th>
+        <th>
+            BasicSalary
+        </th>
+        <th>
+            Account Number
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+           @item.teacherId
+        </td>
+        <td>
+            @item.TeacherName
+        </td>
+        
+        <td>
+            @item.Gender
+        </td>
+        <td>
+            @String.Format("{0:F}", item.CellPhone)
+        </td>
+        <td>
+            @item.Designation
+        </td>
+        <td>
+            @String.Format("{0:F}", item.BasicSalary)
+        </td>
+        <td>
+            @item.Account_Number
+        </td>
+    </tr>
+}
+
+</table>
+
+
+<br />
+<br />
+<br />
+<br />
+<a href="../Salary/index" style="color:red; font-size:20px;">  Back to SALARY MENU  </a>

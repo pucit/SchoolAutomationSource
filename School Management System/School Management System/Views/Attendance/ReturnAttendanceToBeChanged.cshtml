@@ -1,0 +1,54 @@
+﻿@model IEnumerable<School_Management_System.Models.AttendanceInfo>
+
+<table>
+    <tr>
+        <th>
+            teacherId
+        </th>
+        <th>
+            teacherName
+        </th>
+        <th>
+            isPresent
+        </th>
+        <th>
+            Enter Time
+        </th>
+        <th>
+            Exit Time
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.teacherId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.teacherName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.isPresent)
+        </td>
+        @if (item.isPresent.Equals("P"))
+        {
+            <td>
+                @Html.DisplayFor(modelItem => item.enterHour) :
+                @Html.DisplayFor(modelItem => item.enterMinute)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.exitHour) :
+                @Html.DisplayFor(modelItem => item.exitMinute)
+            </td>
+        }
+        else { 
+            <td></td><td></td>
+        }
+        <td>
+            @Html.ActionLink("Edit", "EditDailyAttendance", item)
+        </td>
+    </tr>
+}
+
+</table>

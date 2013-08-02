@@ -1,0 +1,59 @@
+﻿@model IEnumerable<School_Management_System.Models.class_subject>
+
+@{
+    
+    Layout = "../Shared/Layout_1.cshtml";
+    
+    }
+
+
+@{
+    int idd = -1;
+    ViewBag.Title = "Add Subject";
+    idd = ViewBag.id;
+}
+
+<h2>Add Subject</h2>
+<br /><br />
+<p>
+    @Html.ActionLink("Create New", "subclassCreate", new {id=idd })
+</p>
+<table>
+    <tr>
+        <th>
+            Subject Name
+        </th>
+        <th>
+            class Name
+        </th>
+        <th>
+            Total Marks
+        </th>
+        <th>
+            Passing Marks
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+          
+            @Html.DisplayFor(modelItem => item.subject.subjectName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.@class.className)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.totalMarks)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.passingMarks)
+        </td>
+        <td>
+            @Html.ActionLink("Delete", "subclassDelete", new { sid=item.subjectId,cid=item.classId })
+        </td>
+    </tr>
+}
+
+</table>

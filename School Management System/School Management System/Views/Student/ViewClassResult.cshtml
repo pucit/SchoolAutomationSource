@@ -1,0 +1,130 @@
+﻿@model IEnumerable<School_Management_System.Models.student>
+
+
+<link rel="stylesheet" href="../../Content/Site.css"type="text/css" />
+@{
+    
+    Layout = "../Shared/Layout_1.cshtml";
+    
+    }
+
+
+@{
+    ViewBag.Title = "ViewClassResult";
+}
+
+<h2>Search Results - Category CLASS</h2>
+<br /><br />
+
+@{
+    var girls = 0;
+    var boys = 0;
+    var sum = 0;
+    }
+
+<table>
+    <tr>       
+        <th>
+            Admission Date
+        </th>
+        <th>
+            Study Medium
+        </th>
+        <th>
+            Roll Number
+        </th>                        
+        <th>
+            Name
+        </th>
+        <th>
+            Gender
+        </th>
+        <th>
+            classId
+        </th>
+        <th>
+            Section
+        </th>        
+        <th>
+            Address
+        </th>        
+        <th>
+            CellPhone
+        </th>        
+        <th>
+            Fee
+        </th>
+        <th>
+            Family ID
+        </th>
+        <th>
+            Status
+        </th>
+        <th></th>
+    </tr>
+    @foreach (var item in Model)
+    {
+    <tr>        
+        <td>
+            @String.Format("{0:g}", item.DateOfAdmission)
+        </td>
+        <td>
+            @item.EducationMedium
+        </td>
+        <td>
+            @item.StudentRollNumber
+        </td>
+        <td>
+            @item.StudentName
+        </td>
+        <td>
+        @{
+        if (item.StudentGender.Equals("Male")) { boys++; }
+        else { girls++; }
+            }
+            @item.StudentGender
+        </td>
+        <td>
+            @item.classId
+        </td>
+        <td>
+            @item.StudyClass
+        </td>   
+        <td>
+            @item.StudentAddress
+        </td>        
+        <td>
+            @String.Format("{0:F}", item.CellPhone)
+        </td>        
+        <td>
+            @String.Format("{0:F}", item.StudentFee)
+        </td>        
+        <td>
+            @item.familyId
+        </td>
+        <td>
+            @item.StudentStatus
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "EditStudent", new { id = item.studentId }) |
+            @Html.ActionLink("Delete", "DeleteStudent", new { id = item.studentId })
+        </td>
+    </tr>
+    }
+
+</table>
+
+<br/>
+    <h4>BOYS: &nbsp &nbsp &nbsp @boys <br /></h4>
+    <h4>GIRLS: &nbsp &nbsp &nbsp @girls <br /></h4>
+    @{
+        sum = boys + girls;
+            
+            }
+    <h4>TOTAL: &nbsp &nbsp &nbsp @sum <br /></h4>
+    <br/>
+
+<br />
+<br />
+<br />
+<a href="../Student/ViewClass/1" style="color:red; font-size:20px;">  Back to CLASS SEARCH  </a>

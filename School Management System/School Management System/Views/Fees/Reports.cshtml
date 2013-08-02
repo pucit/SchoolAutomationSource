@@ -1,0 +1,25 @@
+﻿@{
+    ViewBag.Title = "Reports";
+}
+
+
+<link rel="stylesheet" href="../../Content/Site.css"type="text/css" />
+@{
+    
+    Layout = "../Shared/Layout_1.cshtml";
+    
+    }
+
+
+<h2>Reports</h2>
+<br />
+@Html.ActionLink("Fee Defaulter List", "FeeDefaulter")
+<br /><br />
+@Html.ActionLink("Fee Paid List", "FeePaid")
+<br /><br />
+@Html.ActionLink("Section Wise Fee Report", "SectionWiseFeeReport")
+<br /><br />
+@Html.ActionLink("Year Wise Fee Report", "YearWiseFeeReport")
+<br /><br />
+<br />
+@Html.ActionLink("Back to index", "../Home/Family")

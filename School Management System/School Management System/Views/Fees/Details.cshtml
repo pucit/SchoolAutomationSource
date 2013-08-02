@@ -1,0 +1,92 @@
+﻿@model School_Management_System.Models.ReportStructure
+
+
+<link rel="stylesheet" href="../../Content/Site.css"type="text/css" />
+@{
+    
+    Layout = "../Shared/Layout_1.cshtml";
+    
+    }
+
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<font color="blue"> Year: &nbsp&nbsp&nbsp&nbsp @ViewBag.year
+</font>
+<br />
+<br />
+
+<table>
+    <tr>
+    <th>
+        Month
+    </th>
+    @foreach (var item in Model.stdList)
+    {
+        <th>
+            @item.StudentName
+        </th>
+    }
+    <th>
+        Total Fee
+    </th>
+    <th>
+        Net Fee
+    </th>
+    <th>
+        Day
+    </th>
+    <th>
+        Is Paid
+    </th>
+    </tr>
+    
+    @for (int i = 0, j = 0; i < Model.month.Count; i++ )
+    {
+        <tr>
+            <td>
+                @Model.month[i]
+            </td>
+            @if (j < Model.feesList.Count && Model.feesList[j].Month == Model.month[i])
+            {
+                    foreach (var tmp in Model.feeList)
+                    {
+                        <td>
+                            @tmp   
+                        </td>
+                    }
+                <td>
+                    @Model.totalFee
+                </td>
+
+                <td>
+                    @Model.netFee
+                </td>
+
+                <td>
+                    @Model.feesList[j].Day
+                </td>
+                <td>
+                    @if (Model.feesList[j].Is_Paid)
+                    {
+                        <font color="green">@Model.feesList[j].Is_Paid</font>
+                    }
+                    else
+                    {
+                        <font color="red">@Model.feesList[j].Is_Paid</font>
+                    }
+                </td>
+                    j++;
+            }
+        </tr>
+    }
+
+</table>
+
+<br /><br /><br />
+@Html.ActionLink("Back to Home","../Home/Family")
+

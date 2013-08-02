@@ -1,0 +1,2367 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>DocX</name>
+    </assembly>
+    <members>
+        <member name="T:Novacode.DocProperty">
+            <summary>
+            Represents a field of type document property. This field displays the value stored in a custom property.
+            </summary>
+        </member>
+        <member name="P:Novacode.DocProperty.Name">
+            <summary>
+            The custom property to display.
+            </summary>
+        </member>
+        <member name="T:Novacode.DocX">
+            <summary>
+            Represents a document.
+            </summary>
+        </member>
+        <member name="M:Novacode.DocX.InsertParagraph(System.String,System.Boolean)">
+             <summary>
+             Insert a new Paragraph at the end of this document.
+             </summary>
+             <param name="text">The text of this Paragraph.</param>
+             <param name="trackChanges">Should this insertion be tracked as a change?</param>
+             <returns>A new Paragraph.</returns>
+             <example>
+             Inserting a new Paragraph at the end of a document with text formatting.
+             <code>
+             // Load a document.
+             using (DocX document = DocX.Load(@"C:\Example\Test.docx"))
+             {
+                 // Insert a new Paragraph at the end of this document.
+                 document.InsertParagraph("New text", false);
+            
+                 // Save all changes made to this document.
+                 document.Save();
+             }// Release this document from memory
+             </code>
+             </example>
+        </member>
+        <member name="M:Novacode.DocX.InsertParagraph(System.String,System.Boolean,Novacode.Formatting)">
+             <summary>
+             Insert a new Paragraph at the end of a document with text formatting.
+             </summary>
+             <param name="text">The text of this Paragraph.</param>
+             <param name="trackChanges">Should this insertion be tracked as a change?</param>
+             <param name="formatting">The formatting for the text of this Paragraph.</param>
+             <returns>A new Paragraph.</returns>
+             <example>
+             Inserting a new Paragraph at the end of a document with text formatting.
+             <code>
+             // Load a document.
+             using (DocX document = DocX.Load(@"C:\Example\Test.docx"))
+             {
+                 // Create a Formatting object
+                 Formatting formatting = new Formatting();
+                 formatting.Bold = true;
+                 formatting.FontColor = Color.Red;
+                 formatting.Size = 30;
+            
+                 // Insert a new Paragraph at the end of this document with text formatting.
+                 document.InsertParagraph("New text", false, formatting);
+            
+                 // Save all changes made to this document.
+                 document.Save();
+             }// Release this document from memory
+             </code>
+             </example>
+        </member>
+        <member name="M:Novacode.DocX.FindAll(System.String)">
+             <summary>
+             Find all instances of a string in this document and return their indexes in a List.
+             </summary>
+             <param name="str">The string to find</param>
+             <returns>A list of indexes.</returns>
+             <example>
+             Find all instances of Hello in this document.
+             <code>
+             // Load a document
+             using (DocX document = DocX.Load(@"Test.docx"))
+             {
+                 // Find all instances of 'Hello' in this document.
+                 List&lt;int&gt; hellos = document.FindAll("Hello");
+            
+                 // Print out each index that 'Hello' was found at.
+                 foreach (int index in hellos)
+                     Console.WriteLine("Line {0}", index);
+            
+             }// Release this document from memory.
+             </code>
+             </example>
+        </member>
+        <member name="M:Novacode.DocX.FindAll(System.String,System.Text.RegularExpressions.RegexOptions)">
+             <summary>
+             Find all instances of a string in this document and return their indexes in a List.
+             </summary>
+             <param name="str">The string to find</param>
+             <param name="options">The options to use when finding a string match.</param>
+             <returns>A list of indexes.</returns>
+             <example>
+             Find all instances of Hello in this document (Ignore case).
+             <code>
+             // Load a document
+             using (DocX document = DocX.Load(@"Test.docx"))
+             {
+                 // Find all instances of 'Hello' in this document.
+                 List&lt;int&gt; hellos = document.FindAll("Hello", RegexOptions.IgnoreCase);
+            
+                 // Print out each index that 'Hello' was found at.
+                 foreach (int index in hellos)
+                     Console.WriteLine("Line {0}", index);
+            
+             }// Release this document from memory.
+             </code>
+             </example>
+        </member>
+        <member name="M:Novacode.DocX.InsertDocument(Novacode.DocX)">
+             <summary>
+             Insert the contents of another document at the end of this document. 
+             </summary>
+             <param name="document">The document to insert at the end of this document.</param>
+             <example>
+             Create a new document and insert an old document into it.
+             <code>
+             // Create a new document.
+             using (DocX newDocument = DocX.Create(@"NewDocument.docx"))
+             {
+                 // Load an old document.
+                 using (DocX oldDocument = DocX.Load(@"OldDocument.docx"))
+                 {
+                     // Insert the old document into the new document.
+                     newDocument.InsertDocument(oldDocument);
+            
+                     // Save the new document.
+                     newDocument.Save();
+                 }// Release the old document from memory.
+             }// Release the new document from memory.
+             </code>
+             <remarks>
+             If the document being inserted contains Images, CustomProperties and or custom styles, these will be correctly inserted into the new document. In the case of Images, new ID's are generated for the Images being inserted to avoid ID conflicts. CustomProperties with the same name will be ignored not replaced.
+             </remarks>
+             </example>
+        </member>
+        <member name="M:Novacode.DocX.InsertParagraph(System.Int32,System.String,System.Boolean)">
+             <summary>
+             Insert a new Paragraph into this document at a specified index.
+             </summary>
+             <param name="index">The character index to insert this document at.</param>
+             <param name="text">The text of this Paragraph.</param>
+             <param name="trackChanges">Should this insertion be tracked as a change?</param>
+             <returns>A new Paragraph.</returns>
+             <example>
+             Insert a new Paragraph into the middle of a document.
+             <code>
+             // Load a document.
+             using (DocX document = DocX.Load(@"C:\Example\Test.docx"))
+             {
+                 // Find the middle character index of this document.
+                 int index = document.Text.Length / 2;
+            
+                 // Insert a new Paragraph at the middle of this document.
+                 document.InsertParagraph(index, "New text", false);
+            
+                 // Save all changes made to this document.
+                 document.Save();
+            }// Release this document from memory
+             </code>
+             </example>
+        </member>
+        <member name="M:Novacode.DocX.InsertParagraph(System.Int32,Novacode.Paragraph)">
+             <summary>
+             Insert a Paragraph into this document, this Paragraph may have come from the same or another document.
+             </summary>
+             <param name="index">The index to insert this Paragragraph at.</param>
+             <param name="p">The Paragraph to insert.</param>
+             <returns>The Paragraph now associated with this document.</returns>
+             <example>
+             Take a Paragraph from document a, and insert it into document b at a specified position.
+             <code>
+             // Place holder for a Paragraph.
+             Paragraph p;
+            
+             // Load document a.
+             using (DocX documentA = DocX.Load(@"C:\Example\a.docx"))
+             {
+                 // Get the first paragraph from this document.
+                 p = documentA.Paragraphs[0];
+             }
+            
+             // Load document b.
+             using (DocX documentB = DocX.Load(@"C:\Example\b.docx"))
+             {
+                 /* 
+                  * Insert the Paragraph that was extracted from document a, into docment b. 
+                  * This creates a new Paragraph that is now associated with document b.
+                  */ 
+                  Paragraph newParagraph = documentB.InsertParagraph(0, p);
+            
+                 // Save all changes made to document b.
+                 documentB.Save();
+             }// Release this document from memory.
+             </code>
+             </example>
+        </member>
+        <member name="M:Novacode.DocX.InsertParagraph(Novacode.Paragraph)">
+             <summary>
+             Insert a Paragraph into this document, this Paragraph may have come from the same or another document.
+             </summary>
+             <param name="p">The Paragraph to insert.</param>
+             <returns>The Paragraph now associated with this document.</returns>
+             <example>
+             Take a Paragraph from document a, and insert it into the end of document b.
+             <code>
+             // Place holder for a Paragraph.
+             Paragraph p;
+            
+             // Load document a.
+             using (DocX documentA = DocX.Load(@"C:\Example\a.docx"))
+             {
+                 // Get the first paragraph from this document.
+                 p = documentA.Paragraphs[0];
+             }
+            
+             // Load document b.
+             using (DocX documentB = DocX.Load(@"C:\Example\b.docx"))
+             {
+                 /* 
+                  * Insert the Paragraph that was extracted from document a, into docment b. 
+                  * This creates a new Paragraph that is now associated with document b.
+                  */ 
+                  Paragraph newParagraph = documentB.InsertParagraph(p);
+            
+                 // Save all changes made to document b.
+                 documentB.Save();
+             }// Release this document from memory.
+             </code> 
+             </example>
+        </member>
+        <member name="M:Novacode.DocX.InsertTable(System.Int32,System.Int32)">
+             <summary>
+             Insert a new Table at the end of this document.
+             </summary>
+             <param name="coloumnCount">The number of coloumns to create.</param>
+             <param name="rowCount">The number of rows to create.</param>
+             <returns>A new Table.</returns>
+             <example>
+             Insert a new Table with 2 coloumns and 3 rows, at the end of a document.
+             <code>
+             // Create a document.
+             using (DocX document = DocX.Create(@"C:\Example\Test.docx"))
+             {
+                 // Create a new Table with 2 coloumns and 3 rows.
+                 Table newTable = document.InsertTable(2, 3);
+            
+                 // Set the design of this Table.
+                 newTable.Design = TableDesign.LightShadingAccent2;
+            
+                 // Set the coloumn names.
+                 newTable.Rows[0].Cells[0].Paragraph.InsertText("Ice Cream", false);
+                 newTable.Rows[0].Cells[1].Paragraph.InsertText("Price", false);
+            
+                 // Fill row 1
+                 newTable.Rows[1].Cells[0].Paragraph.InsertText("Chocolate", false);
+                 newTable.Rows[1].Cells[1].Paragraph.InsertText("€3:50", false);
+            
+                 // Fill row 2
+                 newTable.Rows[2].Cells[0].Paragraph.InsertText("Vanilla", false);
+                 newTable.Rows[2].Cells[1].Paragraph.InsertText("€3:00", false);
+            
+                 // Save all changes made to document b.
+                 document.Save();
+             }// Release this document from memory.
+             </code>
+             </example>
+        </member>
+        <member name="M:Novacode.DocX.InsertTable(System.Int32,Novacode.Table)">
+             <summary>
+             Insert a Table into this document. The Table's source can be a completely different document.
+             </summary>
+             <param name="t">The Table to insert.</param>
+             <param name="index">The index to insert this Table at.</param>
+             <returns>The Table now associated with this document.</returns>
+             <example>
+             Extract a Table from document a and insert it into document b, at index 10.
+             <code>
+             // Place holder for a Table.
+             Table t;
+            
+             // Load document a.
+             using (DocX documentA = DocX.Load(@"C:\Example\a.docx"))
+             {
+                 // Get the first Table from this document.
+                 t = documentA.Tables[0];
+             }
+            
+             // Load document b.
+             using (DocX documentB = DocX.Load(@"C:\Example\b.docx"))
+             {
+                 /* 
+                  * Insert the Table that was extracted from document a, into document b. 
+                  * This creates a new Table that is now associated with document b.
+                  */
+                 Table newTable = documentB.InsertTable(10, t);
+            
+                 // Save all changes made to document b.
+                 documentB.Save();
+             }// Release this document from memory.
+             </code>
+             </example>
+        </member>
+        <member name="M:Novacode.DocX.InsertTable(Novacode.Table)">
+             <summary>
+             Insert a Table into this document. The Table's source can be a completely different document.
+             </summary>
+             <param name="t">The Table to insert.</param>
+             <returns>The Table now associated with this document.</returns>
+             <example>
+             Extract a Table from document a and insert it at the end of document b.
+             <code>
+             // Place holder for a Table.
+             Table t;
+            
+             // Load document a.
+             using (DocX documentA = DocX.Load(@"C:\Example\a.docx"))
+             {
+                 // Get the first Table from this document.
+                 t = documentA.Tables[0];
+             }
+            
+             // Load document b.
+             using (DocX documentB = DocX.Load(@"C:\Example\b.docx"))
+             {
+                 /* 
+                  * Insert the Table that was extracted from document a, into document b. 
+                  * This creates a new Table that is now associated with document b.
+                  */
+                 Table newTable = documentB.InsertTable(t);
+            
+                 // Save all changes made to document b.
+                 documentB.Save();
+             }// Release this document from memory.
+             </code>
+             </example>
+        </member>
+        <member name="M:Novacode.DocX.InsertTable(System.Int32,System.Int32,System.Int32)">
+             <summary>
+             Insert a new Table at the end of this document.
+             </summary>
+             <param name="coloumnCount">The number of coloumns to create.</param>
+             <param name="rowCount">The number of rows to create.</param>
+             <param name="index">The index to insert this Table at.</param>
+             <returns>A new Table.</returns>
+             <example>
+             Insert a new Table with 2 coloumns and 3 rows, at index 37 in this document.
+             <code>
+             // Create a document.
+             using (DocX document = DocX.Load(@"C:\Example\Test.docx"))
+             {
+                 // Create a new Table with 2 coloumns and 3 rows. Insert this Table at index 37.
+                 Table newTable = document.InsertTable(37, 2, 3);
+            
+                 // Set the design of this Table.
+                 newTable.Design = TableDesign.LightShadingAccent3;
+            
+                 // Set the coloumn names.
+                 newTable.Rows[0].Cells[0].Paragraph.InsertText("Ice Cream", false);
+                 newTable.Rows[0].Cells[1].Paragraph.InsertText("Price", false);
+            
+                 // Fill row 1
+                 newTable.Rows[1].Cells[0].Paragraph.InsertText("Chocolate", false);
+                 newTable.Rows[1].Cells[1].Paragraph.InsertText("€3:50", false);
+            
+                 // Fill row 2
+                 newTable.Rows[2].Cells[0].Paragraph.InsertText("Vanilla", false);
+                 newTable.Rows[2].Cells[1].Paragraph.InsertText("€3:00", false);
+            
+                 // Save all changes made to document b.
+                 document.Save();
+             }// Release this document from memory.
+             </code>
+             </example>
+        </member>
+        <member name="M:Novacode.DocX.InsertParagraph(System.Int32,System.String,System.Boolean,Novacode.Formatting)">
+             <summary>
+             Insert a new Paragraph into this document at a specified index with text formatting.
+             </summary>
+             <param name="index">The character index to insert this document at.</param>
+             <param name="text">The text of this Paragraph.</param>
+             <param name="trackChanges">Should this insertion be tracked as a change?</param>
+             <param name="formatting">The formatting for the text of this Paragraph.</param>
+             <returns>A new Paragraph.</returns>
+             /// <example>
+             Insert a new Paragraph into the middle of a document with text formatting.
+             <code>
+             // Load a document.
+             using (DocX document = DocX.Load(@"C:\Example\Test.docx"))
+             {
+                 // Create a Formatting object
+                 Formatting formatting = new Formatting();
+                 formatting.Bold = true;
+                 formatting.FontColor = Color.Red;
+                 formatting.Size = 30;
+            
+                 //  Middle character index of this document.
+                 int index = document.Text.Length / 2;
+            
+                 // Insert a new Paragraph in the middle of this document.
+                 document.InsertParagraph(index, "New text", false, formatting);
+            
+                 // Save all changes made to this document.
+                 document.Save();
+             }// Release this document from memory
+             </code>
+             <remarks>You must add a reference to System.Drawing in order to use Color.Red.</remarks>
+             </example>
+        </member>
+        <member name="M:Novacode.DocX.Create(System.IO.Stream)">
+             <summary>
+             Creates a document using a Stream.
+             </summary>
+             <param name="stream">The Stream to create the document from.</param>
+             <returns>Returns a DocX object which represents the document.</returns>
+             <example>
+             Creating a document from a FileStream.
+             <code>
+             // Use a FileStream fs to create a new document.
+             using(FileStream fs = new FileStream(@"C:\Example\Test.docx", FileMode.Create))
+             {
+                 // Load the document using fs
+                 using (DocX document = DocX.Create(fs))
+                 {
+                     // Do something with the document here.
+            
+                     // Save all changes made to this document.
+                     document.Save();
+                 }// Release this document from memory.
+             }
+             </code>
+             </example>
+             <example>
+             Creating a document in a SharePoint site.
+             <code>
+             using(SPSite mySite = new SPSite("http://server/sites/site"))
+             {
+                 // Open a connection to the SharePoint site
+                 using(SPWeb myWeb = mySite.OpenWeb())
+                 {
+                     // Create a MemoryStream ms.
+                     using (MemoryStream ms = new MemoryStream())
+                     {
+                         // Create a document using ms.
+                         using (DocX document = DocX.Create(ms))
+                         {
+                             // Do something with the document here.
+            
+                             // Save all changes made to this document.
+                             document.Save();
+                         }// Release this document from memory
+            
+                         // Add the document to the SharePoint site
+                         web.Files.Add("filename", ms.ToArray(), true);
+                     }
+                 }
+             }
+             </code>
+             </example>
+             <seealso cref="M:Novacode.DocX.Create(System.String)"/>
+             <seealso cref="M:Novacode.DocX.Load(System.IO.Stream)"/>
+             <seealso cref="M:Novacode.DocX.Load(System.String)"/>
+             <seealso cref="M:Novacode.DocX.Save"/>
+        </member>
+        <member name="M:Novacode.DocX.Create(System.String)">
+             <summary>
+             Creates a document using a fully qualified or relative filename.
+             </summary>
+             <param name="filename">The fully qualified or relative filename.</param>
+             <returns>Returns a DocX object which represents the document.</returns>
+             <example>
+             <code>
+             // Create a document using a relative filename.
+             using (DocX document = DocX.Create(@"..\Test.docx"))
+             {
+                 // Do something with the document here.
+            
+                 // Save all changes made to this document.
+                 document.Save();
+             }// Release this document from memory
+             </code>
+             <code>
+             // Create a document using a relative filename.
+             using (DocX document = DocX.Create(@"..\Test.docx"))
+             {
+                 // Do something with the document here.
+            
+                 // Save all changes made to this document.
+                 document.Save();
+             }// Release this document from memory
+             </code>
+             <seealso cref="M:Novacode.DocX.Create(System.IO.Stream)"/>
+             <seealso cref="M:Novacode.DocX.Load(System.IO.Stream)"/>
+             <seealso cref="M:Novacode.DocX.Load(System.String)"/>
+             <seealso cref="M:Novacode.DocX.Save"/>
+             </example>
+        </member>
+        <member name="M:Novacode.DocX.AddDefaultStylesXml(System.IO.Packaging.Package)">
+            <summary>
+            If this document does not contain a /word/styles.xml add the default one generated by Microsoft Word.
+            </summary>
+            <param name="package"></param>
+            <param name="mainDocumentPart"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Novacode.DocX.Load(System.IO.Stream)">
+             <summary>
+             Loads a document into a DocX object using a Stream.
+             </summary>
+             <param name="stream">The Stream to load the document from.</param>
+             <returns>
+             Returns a DocX object which represents the document.
+             </returns>
+             <example>
+             Loading a document from a FileStream.
+             <code>
+             // Open a FileStream fs to a document.
+             using (FileStream fs = new FileStream(@"C:\Example\Test.docx", FileMode.Open))
+             {
+                 // Load the document using fs.
+                 using (DocX document = DocX.Load(fs))
+                 {
+                     // Do something with the document here.
+                        
+                     // Save all changes made to the document.
+                     document.Save();
+                 }// Release this document from memory.
+             }
+             </code>
+             </example>
+             <example>
+             Loading a document from a SharePoint site.
+             <code>
+             // Get the SharePoint site that you want to access.
+             using (SPSite mySite = new SPSite("http://server/sites/site"))
+             {
+                 // Open a connection to the SharePoint site
+                 using (SPWeb myWeb = mySite.OpenWeb())
+                 {
+                     // Grab a document stored on this site.
+                     SPFile file = web.GetFile("Source_Folder_Name/Source_File");
+            
+                     // DocX.Load requires a Stream, so open a Stream to this document.
+                     Stream str = new MemoryStream(file.OpenBinary());
+            
+                     // Load the file using the Stream str.
+                     using (DocX document = DocX.Load(str))
+                     {
+                         // Do something with the document here.
+            
+                         // Save all changes made to the document.
+                         document.Save();
+                     }// Release this document from memory.
+                 }
+             }
+             </code>
+             </example>
+             <seealso cref="M:Novacode.DocX.Load(System.String)"/>
+             <seealso cref="M:Novacode.DocX.Create(System.IO.Stream)"/>
+             <seealso cref="M:Novacode.DocX.Create(System.String)"/>
+             <seealso cref="M:Novacode.DocX.Save"/>
+        </member>
+        <member name="M:Novacode.DocX.Load(System.String)">
+             <summary>
+             Loads a document into a DocX object using a fully qualified or relative filename.
+             </summary>
+             <param name="filename">The fully qualified or relative filename.</param>
+             <returns>
+             Returns a DocX object which represents the document.
+             </returns>
+             <example>
+             <code>
+             // Load a document using its fully qualified filename
+             using (DocX document = DocX.Load(@"C:\Example\Test.docx"))
+             {
+                 // Do something with the document here
+            
+                 // Save all changes made to document.
+                 document.Save();
+             }// Release this document from memory.
+             </code>
+             <code>
+             // Load a document using its relative filename.
+             using(DocX document = DocX.Load(@"..\..\Test.docx"))
+             { 
+                 // Do something with the document here.
+                            
+                 // Save all changes made to document.
+                 document.Save();
+             }// Release this document from memory.
+             </code>
+             <seealso cref="M:Novacode.DocX.Load(System.IO.Stream)"/>
+             <seealso cref="M:Novacode.DocX.Create(System.IO.Stream)"/>
+             <seealso cref="M:Novacode.DocX.Create(System.String)"/>
+             <seealso cref="M:Novacode.DocX.Save"/>
+             </example>
+        </member>
+        <member name="M:Novacode.DocX.AddImage(System.String)">
+             <summary>
+             Add an Image into this document from a fully qualified or relative filename.
+             </summary>
+             <param name="filename">The fully qualified or relative filename.</param>
+             <returns>An Image file.</returns>
+             <example>
+             Add an Image into this document from a fully qualified filename.
+             <code>
+             // Load a document.
+             using (DocX document = DocX.Load(@"C:\Example\Test.docx"))
+             {
+                 // Add an Image from a file.
+                 document.AddImage(@"C:\Example\Image.png");
+            
+                 // Save all changes made to this document.
+                 document.Save();
+             }// Release this document from memory.
+             </code>
+             </example>
+             <seealso cref="M:Novacode.DocX.AddImage(System.IO.Stream)"/>
+             <seealso cref="M:Novacode.Paragraph.InsertPicture(System.String,System.String,System.String)"/>
+        </member>
+        <member name="M:Novacode.DocX.IsSameFile(System.IO.Stream,System.IO.Stream)">
+            <!-- 
+            Bug found and fixed by trnilse. To see the change, 
+            please compare this release to the previous release using TFS compare.
+            -->
+        </member>
+        <member name="M:Novacode.DocX.AddImage(System.IO.Stream)">
+             <summary>
+             Add an Image into this document from a Stream.
+             </summary>
+             <param name="stream">A Stream stream.</param>
+             <returns>An Image file.</returns>
+             <example>
+             Add an Image into a document using a Stream. 
+             <code>
+             // Open a FileStream fs to an Image.
+             using (FileStream fs = new FileStream(@"C:\Example\Image.jpg", FileMode.Open))
+             {
+                 // Load a document.
+                 using (DocX document = DocX.Load(@"C:\Example\Test.docx"))
+                 {
+                     // Add an Image from a filestream fs.
+                     document.AddImage(fs);
+            
+                     // Save all changes made to this document.
+                     document.Save();
+                 }// Release this document from memory.
+             }
+             </code>
+             </example>
+             <seealso cref="M:Novacode.DocX.AddImage(System.String)"/>
+             <seealso cref="M:Novacode.Paragraph.InsertPicture(System.String,System.String,System.String)"/>
+        </member>
+        <member name="M:Novacode.DocX.Save">
+             <summary>
+             Save this document back to the location it was loaded from.
+             </summary>
+             <example>
+             <code>
+             // Load a document.
+             using (DocX document = DocX.Load(@"C:\Example\Test.docx"))
+             {
+                 // Add an Image from a file.
+                 document.AddImage(@"C:\Example\Image.jpg");
+            
+                 // Save all changes made to this document.
+                 document.Save();
+             }// Release this document from memory.
+             </code>
+             </example>
+             <seealso cref="M:Novacode.DocX.SaveAs(System.String)"/>
+             <seealso cref="M:Novacode.DocX.Create(System.IO.Stream)"/>
+             <seealso cref="M:Novacode.DocX.Create(System.String)"/>
+             <seealso cref="M:Novacode.DocX.Load(System.IO.Stream)"/>
+             <seealso cref="M:Novacode.DocX.Load(System.String)"/> 
+             <!-- 
+             Bug found and fixed by krugs525 on August 12 2009.
+             Use TFS compare to see exact code change.
+             -->
+        </member>
+        <member name="M:Novacode.DocX.SaveAs(System.String)">
+             <summary>
+             Save this document to a file.
+             </summary>
+             <param name="filename">The filename to save this document as.</param>
+             <example>
+             Load a document from one file and save it to another.
+             <code>
+             // Load a document using its fully qualified filename.
+             DocX document = DocX.Load(@"C:\Example\Test1.docx");
+            
+             // Insert a new Paragraph
+             document.InsertParagraph("Hello world!", false);
+            
+             // Save the document to a new location.
+             document.SaveAs(@"C:\Example\Test2.docx");
+             </code>
+             </example>
+             <example>
+             Load a document from a Stream and save it to a file.
+             <code>
+             DocX document;
+             using (FileStream fs1 = new FileStream(@"C:\Example\Test1.docx", FileMode.Open))
+             {
+                 // Load a document using a stream.
+                 document = DocX.Load(fs1);
+            
+                 // Insert a new Paragraph
+                 document.InsertParagraph("Hello world again!", false);
+             }
+                
+             // Save the document to a new location.
+             document.SaveAs(@"C:\Example\Test2.docx");
+             </code>
+             </example>
+             <seealso cref="M:Novacode.DocX.Save"/>
+             <seealso cref="M:Novacode.DocX.Create(System.IO.Stream)"/>
+             <seealso cref="M:Novacode.DocX.Create(System.String)"/>
+             <seealso cref="M:Novacode.DocX.Load(System.IO.Stream)"/>
+             <seealso cref="M:Novacode.DocX.Load(System.String)"/>
+        </member>
+        <member name="M:Novacode.DocX.SaveAs(System.IO.Stream)">
+             <summary>
+             Save this document to a Stream.
+             </summary>
+             <param name="stream">The Stream to save this document to.</param>
+             <example>
+             Load a document from a file and save it to a Stream.
+             <code>
+             // Place holder for a document.
+             DocX document;
+            
+             using (FileStream fs1 = new FileStream(@"C:\Example\Test1.docx", FileMode.Open))
+             {
+                 // Load a document using a stream.
+                 document = DocX.Load(fs1);
+            
+                 // Insert a new Paragraph
+                 document.InsertParagraph("Hello world again!", false);
+             }
+            
+             using (FileStream fs2 = new FileStream(@"C:\Example\Test2.docx", FileMode.Create))
+             {
+                 // Save the document to a different stream.
+                 document.SaveAs(fs2);
+             }
+            
+             // Release this document from memory.
+             document.Dispose();
+             </code>
+             </example>
+             <example>
+             Load a document from one Stream and save it to another.
+             <code>
+             DocX document;
+             using (FileStream fs1 = new FileStream(@"C:\Example\Test1.docx", FileMode.Open))
+             {
+                 // Load a document using a stream.
+                 document = DocX.Load(fs1);
+            
+                 // Insert a new Paragraph
+                 document.InsertParagraph("Hello world again!", false);
+             }
+             
+             using (FileStream fs2 = new FileStream(@"C:\Example\Test2.docx", FileMode.Create))
+             {
+                 // Save the document to a different stream.
+                 document.SaveAs(fs2);
+             }
+             </code>
+             </example>
+             <seealso cref="M:Novacode.DocX.Save"/>
+             <seealso cref="M:Novacode.DocX.Create(System.IO.Stream)"/>
+             <seealso cref="M:Novacode.DocX.Create(System.String)"/>
+             <seealso cref="M:Novacode.DocX.Load(System.IO.Stream)"/>
+             <seealso cref="M:Novacode.DocX.Load(System.String)"/>
+        </member>
+        <member name="M:Novacode.DocX.AddCustomProperty(Novacode.CustomProperty)">
+             <summary>
+             Add a custom property to this document. If a custom property already exists with the same name it will be replace. CustomProperty names are case insensitive.
+             </summary>
+             <param name="cp">The CustomProperty to add to this document.</param>
+             <example>
+             Add a custom properties of each type to a document.
+             <code>
+             // Load Example.docx
+             using (DocX document = DocX.Load(@"C:\Example\Test.docx"))
+             {
+                 // A CustomProperty called forename which stores a string.
+                 CustomProperty forename;
+            
+                 // If this document does not contain a custom property called 'forename', create one.
+                 if (!document.CustomProperties.ContainsKey("forename"))
+                 {
+                     // Create a new custom property called 'forename' and set its value.
+                     document.AddCustomProperty(new CustomProperty("forename", "Cathal"));
+                 }
+            
+                 // Get this documents custom property called 'forename'.
+                 forename = document.CustomProperties["forename"];
+            
+                 // Print all of the information about this CustomProperty to Console.
+                 Console.WriteLine(string.Format("Name: '{0}', Value: '{1}'\nPress any key...", forename.Name, forename.Value));
+                 
+                 // Save all changes made to this document.
+                 document.Save();
+             } // Release this document from memory.
+            
+             // Wait for the user to press a key before exiting.
+             Console.ReadKey();
+             </code>
+             </example>
+             <seealso cref="T:Novacode.CustomProperty"/>
+             <seealso cref="P:Novacode.DocX.CustomProperties"/>
+        </member>
+        <member name="M:Novacode.DocX.ReplaceText(System.String,System.String,System.Boolean,System.Text.RegularExpressions.RegexOptions)">
+            <summary>
+            Replace text in this document, not case sensetive.
+            </summary>
+            <example>
+            Replace every instance of "old" in this document with "new".
+            <code>
+            // Load a document.
+            using (DocX document = DocX.Load(@"C:\Example\Test.docx"))
+            {
+                // Replace every instance of "old" in this document with "new".
+                document.ReplaceText("old", "new", false, RegexOptions.IgnoreCase);
+                           
+                // Save all changes made to this document.
+                document.Save();
+            }// Release this document from memory.
+            </code>
+            </example>
+            <param name="oldValue">The text to replace.</param>
+            <param name="newValue">The new text to insert.</param>
+            <param name="trackChanges">Should this change be tracked?</param>
+            <param name="options">RegexOptions to use for this text replace.</param>
+        </member>
+        <member name="M:Novacode.DocX.ReplaceText(System.String,System.String,System.Boolean)">
+            <summary>
+            Replace text in this document, case sensetive.
+            </summary>
+            <example>
+            Replace every instance of "old" in this document with "new".
+            <code>
+            // Load a document.
+            using (DocX document = DocX.Load(@"C:\Example\Test.docx"))
+            {
+                // Replace every instance of "old" in this document with "new".
+                document.ReplaceText("old", "new", false);
+                           
+                // Save all changes made to this document.
+                document.Save();
+            }// Release this document from memory.
+            </code>
+            </example>
+            <param name="oldValue">The text to replace.</param>
+            <param name="newValue">The new text to insert.</param>
+            <param name="trackChanges">Should this change be tracked?</param>
+            <param name="options">RegexOptions to use for this text replace.</param>
+        </member>
+        <member name="M:Novacode.DocX.Dispose">
+             <summary>
+             Releases all resources used by this document.
+             </summary>
+             <example>
+             If you take advantage of the using keyword, Dispose() is automatically called for you.
+             <code>
+             // Load document.
+             using (DocX document = DocX.Load(@"C:\Example\Test.docx"))
+             {
+                  // The document is only in memory while in this scope.
+            
+             }// Dispose() is automatically called at this point.
+             </code>
+             </example>
+             <example>
+             This example is equilivant to the one above example.
+             <code>
+             // Load document.
+             DocX document = DocX.Load(@"C:\Example\Test.docx");
+             
+             // Do something with the document here.
+            
+             // Dispose of the document.
+             document.Dispose();
+             </code>
+             </example>
+        </member>
+        <member name="P:Novacode.DocX.Paragraphs">
+             <summary>
+             Returns a list of Paragraphs in this document.
+             </summary>
+             <example>
+             Write to Console the Text from each Paragraph in this document.
+             <code>
+             // Load a document
+             DocX document = DocX.Load(@"C:\Example\Test.docx");
+            
+             // Loop through each Paragraph in this document.
+             foreach (Paragraph p in document.Paragraphs)
+             {
+                 // Write this Paragraphs Text to Console.
+                 Console.WriteLine(p.Text);
+             }
+            
+             // Wait for the user to press a key before closing the console window.
+             Console.ReadKey();
+             </code>
+             </example>
+             <seealso cref="M:Novacode.Paragraph.InsertText(System.String,System.Boolean)"/>
+             <seealso cref="M:Novacode.Paragraph.InsertText(System.Int32,System.String,System.Boolean)"/>
+             <seealso cref="M:Novacode.Paragraph.InsertText(System.String,System.Boolean,Novacode.Formatting)"/>
+             <seealso cref="M:Novacode.Paragraph.InsertText(System.Int32,System.String,System.Boolean,Novacode.Formatting)"/>
+             <seealso cref="M:Novacode.Paragraph.RemoveText(System.Int32,System.Boolean)"/>
+             <seealso cref="M:Novacode.Paragraph.RemoveText(System.Int32,System.Int32,System.Boolean)"/>
+             <seealso cref="M:Novacode.Paragraph.ReplaceText(System.String,System.String,System.Boolean)"/>
+             <seealso cref="M:Novacode.Paragraph.ReplaceText(System.String,System.String,System.Boolean,System.Text.RegularExpressions.RegexOptions)"/>
+             <seealso cref="M:Novacode.Paragraph.InsertPicture(System.String,System.String,System.String)"/>
+        </member>
+        <member name="P:Novacode.DocX.Tables">
+            <summary>
+            Returns a list of Tables in this Paragraph.
+            </summary>
+        </member>
+        <member name="P:Novacode.DocX.Images">
+             <summary>
+             Returns a list of Images in this document.
+             </summary>
+             <example>
+             Get the unique Id of every Image in this document.
+             <code>
+             // Load a document.
+             DocX document = DocX.Load(@"C:\Example\Test.docx");
+            
+             // Loop through each Image in this document.
+             foreach (Novacode.Image i in document.Images)
+             {
+                 // Get the unique Id which identifies this Image.
+                 string uniqueId = i.Id;
+             }
+            
+             </code>
+             </example>
+             <seealso cref="M:Novacode.DocX.AddImage(System.String)"/>
+             <seealso cref="M:Novacode.DocX.AddImage(System.IO.Stream)"/>
+             <seealso cref="P:Novacode.Paragraph.Pictures"/>
+             <seealso cref="M:Novacode.Paragraph.InsertPicture(System.String,System.String,System.String)"/>
+        </member>
+        <member name="P:Novacode.DocX.CustomProperties">
+             <summary>
+             Returns a list of custom properties in this document.
+             </summary>
+             <example>
+             Method 1: Get the name, type and value of each CustomProperty in this document.
+             <code>
+             // Load Example.docx
+             DocX document = DocX.Load(@"C:\Example\Test.docx");
+            
+             /*
+              * No two custom properties can have the same name,
+              * so a Dictionary is the perfect data structure to store them in.
+              * Each custom property can be accessed using its name.
+              */
+             foreach (string name in document.CustomProperties.Keys)
+             {
+                 // Grab a custom property using its name.
+                 CustomProperty cp = document.CustomProperties[name];
+            
+                 // Write this custom properties details to Console.
+                 Console.WriteLine(string.Format("Name: '{0}', Value: {1}", cp.Name, cp.Value));
+             }
+            
+             Console.WriteLine("Press any key...");
+            
+             // Wait for the user to press a key before closing the Console.
+             Console.ReadKey();
+             </code>
+             </example>
+             <example>
+             Method 2: Get the name, type and value of each CustomProperty in this document.
+             <code>
+             // Load Example.docx
+             DocX document = DocX.Load(@"C:\Example\Test.docx");
+             
+             /*
+              * No two custom properties can have the same name,
+              * so a Dictionary is the perfect data structure to store them in.
+              * The values of this Dictionary are CustomProperties.
+              */
+             foreach (CustomProperty cp in document.CustomProperties.Values)
+             {
+                 // Write this custom properties details to Console.
+                 Console.WriteLine(string.Format("Name: '{0}', Value: {1}", cp.Name, cp.Value));
+             }
+            
+             Console.WriteLine("Press any key...");
+            
+             // Wait for the user to press a key before closing the Console.
+             Console.ReadKey();
+             </code>
+             </example>
+             <seealso cref="M:Novacode.DocX.AddCustomProperty(Novacode.CustomProperty)"/>
+        </member>
+        <member name="P:Novacode.DocX.Text">
+             <summary>
+             Get the Text of this document.
+             </summary>
+             <example>
+             Write to Console the Text from this document.
+             <code>
+             // Load a document
+             DocX document = DocX.Load(@"C:\Example\Test.docx");
+            
+             // Get the text of this document.
+             string text = document.Text;
+            
+             // Write the text of this document to Console.
+             Console.Write(text);
+            
+             // Wait for the user to press a key before closing the console window.
+             Console.ReadKey();
+             </code>
+             </example>
+        </member>
+        <member name="T:Novacode.TableDesign">
+            <summary>
+            Designs\Styles that can be applied to a table.
+            </summary>
+        </member>
+        <member name="T:Novacode.Table">
+            <summary>
+            Represents a Table in a document.
+            </summary>
+        </member>
+        <member name="M:Novacode.Table.InsertRow">
+             <summary>
+             Insert a row at the end of this table.
+             </summary>
+             <example>
+             <code>
+             // Load a document.
+             using (DocX document = DocX.Load(@"C:\Example\Test.docx"))
+             {
+                 // Get the first table in this document.
+                 Table table = document.Tables[0];
+                    
+                 // Insert a new row at the end of this table.
+                 Row row = table.InsertRow();
+            
+                 // Loop through each cell in this new row.
+                 foreach (Cell c in row.Cells)
+                 {
+                     // Set the text of each new cell to "Hello".
+                     c.Paragraph.InsertText("Hello", false);
+                 }
+            
+                 // Save the document to a new file.
+                 document.SaveAs(@"C:\Example\Test2.docx");
+             }// Release this document from memory.
+             </code>
+             </example>
+             <returns>A new row.</returns>
+        </member>
+        <member name="M:Novacode.Table.Remove">
+             <summary>
+             Remove this Table from this document.
+             </summary>
+             <example>
+             Remove the first Table from this document.
+             <code>
+             // Load a document into memory.
+             using (DocX document = DocX.Load(@"Test.docx"))
+             {
+                 // Get the first Table in this document.
+                 Table t = d.Tables[0];
+                    
+                 // Remove this Table.
+                 t.Remove();
+            
+                 // Save all changes made to the document.
+                 document.Save();
+             } // Release this document from memory.
+             </code>
+             </example>
+        </member>
+        <member name="M:Novacode.Table.InsertColumn">
+             <summary>
+             Insert a column to the right of a Table.
+             </summary>
+             <example>
+             <code>
+             // Load a document.
+             using (DocX document = DocX.Load(@"C:\Example\Test.docx"))
+             {
+                 // Get the first Table in this document.
+                 Table table = document.Tables[0];
+            
+                 // Insert a new column to this right of this table.
+                 table.InsertColumn();
+            
+                 // Set the new coloumns text to "Row no."
+                 table.Rows[0].Cells[table.ColumnCount - 1].Paragraph.InsertText("Row no.", false);
+            
+                 // Loop through each row in the table.
+                 for (int i = 1; i &lt; table.Rows.Count; i++)
+                 {
+                     // The current row.
+                     Row row = table.Rows[i];
+            
+                     // The cell in this row that belongs to the new coloumn.
+                     Cell cell = row.Cells[table.ColumnCount - 1];
+            
+                     // The Paragraph that this cell houses.
+                     Paragraph p = cell.Paragraph;
+            
+                     // Insert this rows index.
+                     p.InsertText(i.ToString(), false);
+                 }
+            
+                 document.Save();
+             }// Release this document from memory.
+             </code>
+             </example>
+        </member>
+        <member name="M:Novacode.Table.RemoveRow">
+             <summary>
+             Remove the last row from this Table.
+             </summary>
+             <example>
+             Remove the last row from a Table.
+             <code>
+             // Load a document.
+             using (DocX document = DocX.Load(@"C:\Example\Test.docx"))
+             {
+                 // Get the first table in this document.
+                 Table table = document.Tables[0];
+            
+                 // Remove the last row from this table.
+                 table.RemoveRow();
+            
+                 // Save the document.
+                 document.Save();
+             }// Release this document from memory.
+             </code>
+             </example>
+        </member>
+        <member name="M:Novacode.Table.RemoveRow(System.Int32)">
+             <summary>
+             Remove a row from this Table.
+             </summary>
+             <param name="index">The row to remove.</param>
+             <example>
+             Remove the first row from a Table.
+             <code>
+             // Load a document.
+             using (DocX document = DocX.Load(@"C:\Example\Test.docx"))
+             {
+                 // Get the first table in this document.
+                 Table table = document.Tables[0];
+            
+                 // Remove the first row from this table.
+                 table.RemoveRow(0);
+            
+                 // Save the document.
+                 document.Save();
+             }// Release this document from memory.
+             </code>
+             </example>
+        </member>
+        <member name="M:Novacode.Table.RemoveColumn">
+             <summary>
+             Remove the last column for this Table.
+             </summary>
+             <example>
+             Remove the last column from a Table.
+             <code>
+             // Load a document.
+             using (DocX document = DocX.Load(@"C:\Example\Test.docx"))
+             {
+                 // Get the first table in this document.
+                 Table table = document.Tables[0];
+            
+                 // Remove the last column from this table.
+                 table.RemoveColumn();
+            
+                 // Save the document.
+                 document.Save();
+             }// Release this document from memory.
+             </code>
+             </example>
+        </member>
+        <member name="M:Novacode.Table.RemoveColumn(System.Int32)">
+             <summary>
+             Remove a coloumn from this Table.
+             </summary>
+             <param name="index">The coloumn to remove.</param>
+             <example>
+             Remove the first column from a Table.
+             <code>
+             // Load a document.
+             using (DocX document = DocX.Load(@"C:\Example\Test.docx"))
+             {
+                 // Get the first table in this document.
+                 Table table = document.Tables[0];
+            
+                 // Remove the first column from this table.
+                 table.RemoveColumn(0);
+            
+                 // Save the document.
+                 document.Save();
+             }// Release this document from memory.
+             </code>
+             </example>
+        </member>
+        <member name="M:Novacode.Table.InsertRow(System.Int32)">
+             <summary>
+             Insert a row into this table.
+             </summary>
+             <example>
+             <code>
+             // Load a document.
+             using (DocX document = DocX.Load(@"C:\Example\Test.docx"))
+             {
+                 // Get the first table in this document.
+                 Table table = document.Tables[0];
+                    
+                 // Insert a new row at index 1 in this table.
+                 Row row = table.InsertRow(1);
+            
+                 // Loop through each cell in this new row.
+                 foreach (Cell c in row.Cells)
+                 {
+                     // Set the text of each new cell to "Hello".
+                     c.Paragraph.InsertText("Hello", false);
+                 }
+            
+                 // Save the document to a new file.
+                 document.SaveAs(@"C:\Example\Test2.docx");
+             }// Release this document from memory.
+             </code>
+             </example>
+             <param name="index">Index to insert row at.</param>
+             <returns>A new Row</returns>
+        </member>
+        <member name="M:Novacode.Table.InsertColumn(System.Int32)">
+             <summary>
+             Insert a column into a table.
+             </summary>
+             <param name="index">The index to insert the column at.</param>
+             <example>
+             Insert a column to the left of a table.
+             <code>
+             // Load a document.
+             using (DocX document = DocX.Load(@"C:\Example\Test.docx"))
+             {
+                 // Get the first Table in this document.
+                 Table table = document.Tables[0];
+            
+                 // Insert a new column to this left of this table.
+                 table.InsertColumn(0);
+            
+                 // Set the new coloumns text to "Row no."
+                 table.Rows[0].Cells[table.ColumnCount - 1].Paragraph.InsertText("Row no.", false);
+            
+                 // Loop through each row in the table.
+                 for (int i = 1; i &lt; table.Rows.Count; i++)
+                 {
+                     // The current row.
+                     Row row = table.Rows[i];
+            
+                     // The cell in this row that belongs to the new coloumn.
+                     Cell cell = row.Cells[table.ColumnCount - 1];
+            
+                     // The Paragraph that this cell houses.
+                     Paragraph p = cell.Paragraph;
+            
+                     // Insert this rows index.
+                     p.InsertText(i.ToString(), false);
+                 }
+            
+                 document.Save();
+             }// Release this document from memory.
+             </code>
+             </example>
+        </member>
+        <member name="P:Novacode.Table.RowCount">
+            <summary>
+            Returns the number of rows in this table.
+            </summary>
+        </member>
+        <member name="P:Novacode.Table.ColumnCount">
+            <summary>
+            Returns the number of coloumns in this table.
+            </summary>
+        </member>
+        <member name="P:Novacode.Table.Rows">
+            <summary>
+            Returns a list of rows in this table.
+            </summary>
+        </member>
+        <member name="P:Novacode.Table.AutoFit">
+            <summary>
+            Auto size this table according to some rule.
+            </summary>
+        </member>
+        <member name="P:Novacode.Table.Design">
+            <summary>
+            The design\style to apply to this table.
+            </summary>
+        </member>
+        <member name="P:Novacode.Table.Index">
+             <summary>
+             Returns the index of this Table.
+             </summary>
+             <example>
+             Replace the first table in this document with a new Table.
+             <code>
+             // Load a document into memory.
+             using (DocX document = DocX.Load(@"Test.docx"))
+             {
+                 // Get the first Table in this document.
+                 Table t = document.Tables[0];
+            
+                 // Get the character index of Table t in this document.
+                 int index = t.Index;
+            
+                 // Remove Table t.
+                 t.Remove();
+            
+                 // Insert a new Table at the original index of Table t.
+                 Table newTable = document.InsertTable(index, 4, 4);
+            
+                 // Set the design of this new Table, so that we can see it.
+                 newTable.Design = TableDesign.LightShadingAccent1;
+            
+                 // Save all changes made to the document.
+                 document.Save();
+             } // Release this document from memory.
+             </code>
+             </example>
+        </member>
+        <member name="T:Novacode.Row">
+            <summary>
+            Represents a single row in a Table.
+            </summary>
+        </member>
+        <member name="P:Novacode.Row.Cells">
+            <summary>
+            A list of Cells in this Row.
+            </summary>
+        </member>
+        <member name="T:Novacode.Formatting">
+            <summary>
+            A text formatting.
+            </summary>
+        </member>
+        <member name="M:Novacode.Formatting.#ctor">
+            <summary>
+            A text formatting.
+            </summary>
+        </member>
+        <member name="P:Novacode.Formatting.Bold">
+            <summary>
+            This formatting will apply Bold.
+            </summary>
+        </member>
+        <member name="P:Novacode.Formatting.Italic">
+            <summary>
+            This formatting will apply Italic.
+            </summary>
+        </member>
+        <member name="P:Novacode.Formatting.StrikeThrough">
+            <summary>
+            This formatting will apply StrickThrough.
+            </summary>
+        </member>
+        <member name="P:Novacode.Formatting.Script">
+            <summary>
+            The script that this formatting should be, normal, superscript or subscript.
+            </summary>
+        </member>
+        <member name="P:Novacode.Formatting.Size">
+            <summary>
+            The Size of this text, must be between 0 and 1638.
+            </summary>
+        </member>
+        <member name="P:Novacode.Formatting.PercentageScale">
+            <summary>
+            Percentage scale must be one of the following values 200, 150, 100, 90, 80, 66, 50 or 33.
+            </summary>
+        </member>
+        <member name="P:Novacode.Formatting.Kerning">
+            <summary>
+            The Kerning to apply to this text must be one of the following values 8, 9, 10, 11, 12, 14, 16, 18, 20, 22, 24, 26, 28, 36, 48, 72.
+            </summary>
+        </member>
+        <member name="P:Novacode.Formatting.Position">
+            <summary>
+            Text position must be in the range (-1585 - 1585).
+            </summary>
+        </member>
+        <member name="P:Novacode.Formatting.Spacing">
+            <summary>
+            Text spacing must be in the range (-1585 - 1585).
+            </summary>
+        </member>
+        <member name="P:Novacode.Formatting.FontColor">
+            <summary>
+            The colour of the text.
+            </summary>
+        </member>
+        <member name="P:Novacode.Formatting.Highlight">
+            <summary>
+            Highlight colour.
+            </summary>
+        </member>
+        <member name="P:Novacode.Formatting.UnderlineStyle">
+            <summary>
+            The Underline style that this formatting applies.
+            </summary>
+        </member>
+        <member name="P:Novacode.Formatting.UnderlineColor">
+            <summary>
+            The underline colour.
+            </summary>
+        </member>
+        <member name="P:Novacode.Formatting.Misc">
+            <summary>
+            Misc settings.
+            </summary>
+        </member>
+        <member name="P:Novacode.Formatting.Hidden">
+            <summary>
+            Is this text hidden or visible.
+            </summary>
+        </member>
+        <member name="P:Novacode.Formatting.CapsStyle">
+            <summary>
+            Capitalization style.
+            </summary>
+        </member>
+        <member name="P:Novacode.Formatting.FontFamily">
+            <summary>
+            The font familt of this formatting.
+            </summary>
+            <!-- 
+            Bug found and fixed by krugs525 on August 12 2009.
+            Use TFS compare to see exact code change.
+            -->
+        </member>
+        <member name="T:Novacode.Picture">
+            <summary>
+            Represents a Picture in this document, a Picture is a customized view of an Image.
+            </summary>
+        </member>
+        <member name="M:Novacode.Picture.#ctor(Novacode.DocX,System.String,System.String,System.String)">
+            <summary>
+            Create a new Picture.
+            </summary>
+            <param name="id">A unique id that identifies an Image embedded in this document.</param>
+            <param name="name">The name of this Picture.</param>
+            <param name="descr">The description of this Picture.</param>
+        </member>
+        <member name="M:Novacode.Picture.Remove">
+            <summary>
+            Remove this Picture from this document.
+            </summary>
+        </member>
+        <member name="M:Novacode.Picture.#ctor(System.Xml.Linq.XElement)">
+            <summary>
+            Wraps an XElement as an Image
+            </summary>
+            <param name="i">The XElement i to wrap</param>
+        </member>
+        <member name="M:Novacode.Picture.SetPictureShape(Novacode.BasicShapes)">
+            <summary>
+            Set the shape of this Picture to one in the BasicShapes enumeration.
+            </summary>
+            <param name="shape">A shape from the BasicShapes enumeration.</param>
+        </member>
+        <member name="M:Novacode.Picture.SetPictureShape(Novacode.RectangleShapes)">
+            <summary>
+            Set the shape of this Picture to one in the RectangleShapes enumeration.
+            </summary>
+            <param name="shape">A shape from the RectangleShapes enumeration.</param>
+        </member>
+        <member name="M:Novacode.Picture.SetPictureShape(Novacode.BlockArrowShapes)">
+            <summary>
+            Set the shape of this Picture to one in the BlockArrowShapes enumeration.
+            </summary>
+            <param name="shape">A shape from the BlockArrowShapes enumeration.</param>
+        </member>
+        <member name="M:Novacode.Picture.SetPictureShape(Novacode.EquationShapes)">
+            <summary>
+            Set the shape of this Picture to one in the EquationShapes enumeration.
+            </summary>
+            <param name="shape">A shape from the EquationShapes enumeration.</param>
+        </member>
+        <member name="M:Novacode.Picture.SetPictureShape(Novacode.FlowchartShapes)">
+            <summary>
+            Set the shape of this Picture to one in the FlowchartShapes enumeration.
+            </summary>
+            <param name="shape">A shape from the FlowchartShapes enumeration.</param>
+        </member>
+        <member name="M:Novacode.Picture.SetPictureShape(Novacode.StarAndBannerShapes)">
+            <summary>
+            Set the shape of this Picture to one in the StarAndBannerShapes enumeration.
+            </summary>
+            <param name="shape">A shape from the StarAndBannerShapes enumeration.</param>
+        </member>
+        <member name="M:Novacode.Picture.SetPictureShape(Novacode.CalloutShapes)">
+            <summary>
+            Set the shape of this Picture to one in the CalloutShapes enumeration.
+            </summary>
+            <param name="shape">A shape from the CalloutShapes enumeration.</param>
+        </member>
+        <member name="P:Novacode.Picture.Id">
+            <summary>
+            A unique id that identifies an Image embedded in this document.
+            </summary>
+        </member>
+        <member name="P:Novacode.Picture.FlipHorizontal">
+            <summary>
+            Flip this Picture Horizontally.
+            </summary>
+        </member>
+        <member name="P:Novacode.Picture.FlipVertical">
+            <summary>
+            Flip this Picture Vertically.
+            </summary>
+        </member>
+        <member name="P:Novacode.Picture.Rotation">
+            <summary>
+            The rotation in degrees of this image, actual value = value % 360
+            </summary>
+        </member>
+        <member name="P:Novacode.Picture.Name">
+            <summary>
+            Gets or sets the name of this Image.
+            </summary>
+        </member>
+        <member name="P:Novacode.Picture.Description">
+            <summary>
+            Gets or sets the description for this Image.
+            </summary>
+        </member>
+        <member name="P:Novacode.Picture.Width">
+            <summary>
+            Get or sets the Width of this Image.
+            </summary>
+        </member>
+        <member name="P:Novacode.Picture.Height">
+            <summary>
+            Get or sets the height of this Image.
+            </summary>
+        </member>
+        <member name="T:Novacode.Image">
+            <summary>
+            Represents an Image embedded in a document.
+            </summary>
+        </member>
+        <member name="F:Novacode.Image.id">
+            <summary>
+            A unique id which identifies this Image.
+            </summary>
+        </member>
+        <member name="P:Novacode.Image.Id">
+            <summary>
+            Returns the id of this Image.
+            </summary>
+        </member>
+        <member name="P:Novacode.Run.StartIndex">
+            <summary>
+            Gets the start index of this Text (text length before this text)
+            </summary>
+        </member>
+        <member name="P:Novacode.Run.EndIndex">
+            <summary>
+            Gets the end index of this Text (text length before this text + this texts length)
+            </summary>
+        </member>
+        <member name="P:Novacode.Run.Value">
+            <summary>
+            The text value of this text element
+            </summary>
+        </member>
+        <member name="T:Novacode.Paragraph">
+            <summary>
+            Represents a document paragraph.
+            </summary>
+        </member>
+        <member name="M:Novacode.Paragraph.Remove(System.Boolean)">
+             <summary>
+             Remove this Paragraph from the document.
+             </summary>
+             <param name="trackChanges">Should this remove be tracked as a change?</param>
+             <example>
+             Remove a Paragraph from a document and track it as a change.
+             <code>
+             // Create a document using a relative filename.
+             using (DocX document = DocX.Load(@"C:\Example\Test.docx"))
+             {
+                 // Create and Insert a new Paragraph into this document.
+                 Paragraph p = document.InsertParagraph("Hello", false);
+            
+                 // Remove the Paragraph and track this as a change.
+                 p.Remove(true);
+            
+                 // Save all changes made to this document.
+                 document.Save();
+             }// Release this document from memory.
+             </code>
+             </example>
+        </member>
+        <member name="M:Novacode.Paragraph.InsertPicture(System.String,System.String,System.String)">
+             <summary>
+             Insert a Picture at the end of this paragraph.
+             </summary>
+             <param name="description">A string to describe this Picture.</param>
+             <param name="imageID">The unique id that identifies the Image this Picture represents.</param>
+             <param name="name">The name of this image.</param>
+             <returns>A Picture.</returns>
+             <example>
+             <code>
+             // Create a document using a relative filename.
+             using (DocX document = DocX.Create(@"Test.docx"))
+             {
+                 // Add a new Paragraph to this document.
+                 Paragraph p = document.InsertParagraph("Here is Picture 1", false);
+            
+                 // Add an Image to this document.
+                 Novacode.Image img = document.AddImage(@"Image.jpg");
+            
+                 // Insert pic at the end of Paragraph p.
+                 Picture pic = p.InsertPicture(img.Id, "Photo 31415", "A pie I baked.");
+            
+                 // Rotate the Picture clockwise by 30 degrees. 
+                 pic.Rotation = 30;
+            
+                 // Resize the Picture.
+                 pic.Width = 400;
+                 pic.Height = 300;
+            
+                 // Set the shape of this Picture to be a cube.
+                 pic.SetPictureShape(BasicShapes.cube);
+            
+                 // Flip the Picture Horizontally.
+                 pic.FlipHorizontal = true;
+            
+                 // Save all changes made to this document.
+                 document.Save();
+             }// Release this document from memory.
+             </code>
+             </example>
+        </member>
+        <member name="M:Novacode.Paragraph.InsertPicture(System.Int32,System.String,System.String,System.String)">
+             <summary>
+             Insert a Picture into this Paragraph at a specified index.
+             </summary>
+             <param name="description">A string to describe this Picture.</param>
+             <param name="imageID">The unique id that identifies the Image this Picture represents.</param>
+             <param name="name">The name of this image.</param>
+             <param name="index">The index to insert this Picture at.</param>
+             <returns>A Picture.</returns>
+             <example>
+             <code>
+             // Create a document using a relative filename.
+             using (DocX document = DocX.Create(@"Test.docx"))
+             {
+                 // Add a new Paragraph to this document.
+                 Paragraph p = document.InsertParagraph("Here is Picture 1", false);
+            
+                 // Add an Image to this document.
+                 Novacode.Image img = document.AddImage(@"Image.jpg");
+            
+                 // Insert pic at the start of Paragraph p.
+                 Picture pic = p.InsertPicture(0, img.Id, "Photo 31415", "A pie I baked.");
+            
+                 // Rotate the Picture clockwise by 30 degrees. 
+                 pic.Rotation = 30;
+            
+                 // Resize the Picture.
+                 pic.Width = 400;
+                 pic.Height = 300;
+            
+                 // Set the shape of this Picture to be a cube.
+                 pic.SetPictureShape(BasicShapes.cube);
+            
+                 // Flip the Picture Horizontally.
+                 pic.FlipHorizontal = true;
+            
+                 // Save all changes made to this document.
+                 document.Save();
+             }// Release this document from memory.
+             </code>
+             </example>
+        </member>
+        <member name="M:Novacode.Paragraph.CreateEdit(Novacode.EditType,System.DateTime,System.Object)">
+            <summary>
+            Creates an Edit either a ins or a del with the specified content and date
+            </summary>
+            <param name="t">The type of this edit (ins or del)</param>
+            <param name="edit_time">The time stamp to use for this edit</param>
+            <param name="content">The initial content of this edit</param>
+            <returns></returns>
+        </member>
+        <member name="M:Novacode.Paragraph.GetElementTextLength(System.Xml.Linq.XElement)">
+            <!-- 
+            Bug found and fixed by krugs525 on August 12 2009.
+            Use TFS compare to see exact code change.
+            -->
+        </member>
+        <member name="M:Novacode.Paragraph.InsertText(System.Int32,System.String,System.Boolean)">
+             <summary>
+             Inserts a specified instance of System.String into a Novacode.DocX.Paragraph at a specified index position.
+             </summary>
+             <example>
+             <code> 
+             // Create a document using a relative filename.
+             using (DocX document = DocX.Load(@"C:\Example\Test.docx"))
+             {
+                 // Iterate through the Paragraphs in this document.
+                 foreach (Paragraph p in document.Paragraphs)
+                 {
+                     // Insert the string "Start: " at the begining of every Paragraph and flag it as a change.
+                     p.InsertText(0, "Start: ", true);
+                 }
+            
+                 // Save all changes made to this document.
+                 document.Save();
+             }// Release this document from memory.
+             </code>
+             </example>
+             <example>
+             Inserting tabs using the \t switch.
+             <code>  
+             // Create a document using a relative filename.
+             using (DocX document = DocX.Load(@"C:\Example\Test.docx"))
+             {
+                 // Iterate through the paragraphs in this document.
+                 foreach (Paragraph p in document.Paragraphs)
+                 {
+                     // Insert the string "\tStart:\t" at the begining of every paragraph and flag it as a change.
+                     p.InsertText(0, "\tStart:\t", true);
+                 }
+            
+                 // Save all changes made to this document.
+                 document.Save();
+             }// Release this document from memory.
+             </code>
+             </example>
+             <seealso cref="M:Novacode.Paragraph.RemoveText(System.Int32,System.Boolean)"/>
+             <seealso cref="M:Novacode.Paragraph.RemoveText(System.Int32,System.Int32,System.Boolean)"/>
+             <seealso cref="M:Novacode.Paragraph.ReplaceText(System.String,System.String,System.Boolean)"/>
+             <seealso cref="M:Novacode.Paragraph.ReplaceText(System.String,System.String,System.Boolean,System.Text.RegularExpressions.RegexOptions)"/>
+             <param name="index">The index position of the insertion.</param>
+             <param name="value">The System.String to insert.</param>
+             <param name="trackChanges">Flag this insert as a change.</param>
+        </member>
+        <member name="M:Novacode.Paragraph.InsertText(System.String,System.Boolean)">
+             <summary>
+             Inserts a specified instance of System.String into a Novacode.DocX.Paragraph at a specified index position.
+             </summary>
+             <example>
+             <code> 
+             // Create a document using a relative filename.
+             using (DocX document = DocX.Load(@"C:\Example\Test.docx"))
+             {
+                 // Iterate through the Paragraphs in this document.
+                 foreach (Paragraph p in document.Paragraphs)
+                 {
+                     // Insert the string "End: " at the end of every Paragraph and flag it as a change.
+                     p.InsertText("End: ", true);
+                 }
+                   
+                 // Save all changes made to this document.
+                 document.Save();
+             }// Release this document from memory.
+             </code>
+             </example>
+             <example>
+             Inserting tabs using the \t switch.
+             <code>  
+             // Create a document using a relative filename.
+             using (DocX document = DocX.Load(@"C:\Example\Test.docx"))
+             {
+                 // Iterate through the paragraphs in this document.
+                 foreach (Paragraph p in document.Paragraphs)
+                 {
+                     // Insert the string "\tEnd" at the end of every paragraph and flag it as a change.
+                     p.InsertText("\tEnd", true);
+                 }
+            
+                 // Save all changes made to this document.
+                 document.Save();
+             }// Release this document from memory.
+             </code>
+             </example>
+             <seealso cref="M:Novacode.Paragraph.RemoveText(System.Int32,System.Boolean)"/>
+             <seealso cref="M:Novacode.Paragraph.RemoveText(System.Int32,System.Int32,System.Boolean)"/>
+             <seealso cref="M:Novacode.Paragraph.ReplaceText(System.String,System.String,System.Boolean)"/>
+             <seealso cref="M:Novacode.Paragraph.ReplaceText(System.String,System.String,System.Boolean,System.Text.RegularExpressions.RegexOptions)"/>
+             <param name="value">The System.String to insert.</param>
+             <param name="trackChanges">Flag this insert as a change.</param>
+        </member>
+        <member name="M:Novacode.Paragraph.InsertText(System.String,System.Boolean,Novacode.Formatting)">
+             <summary>
+             Inserts a specified instance of System.String into a Novacode.DocX.Paragraph at a specified index position.
+             </summary>
+             <example>
+             <code> 
+             // Create a document using a relative filename.
+             using (DocX document = DocX.Load(@"C:\Example\Test.docx"))
+             {
+                 // Create a text formatting.
+                 Formatting f = new Formatting();
+                 f.FontColor = Color.Red;
+                 f.Size = 30;
+            
+                 // Iterate through the Paragraphs in this document.
+                 foreach (Paragraph p in document.Paragraphs)
+                 {
+                     // Insert the string "Start: " at the begining of every Paragraph and flag it as a change.
+                     p.InsertText("Start: ", true, f);
+                 }
+            
+                 // Save all changes made to this document.
+                 document.Save();
+             }// Release this document from memory.
+             </code>
+             </example>
+             <example>
+             Inserting tabs using the \t switch.
+             <code>  
+             // Create a document using a relative filename.
+             using (DocX document = DocX.Load(@"C:\Example\Test.docx"))
+             {
+                  // Create a text formatting.
+                  Formatting f = new Formatting();
+                  f.FontColor = Color.Red;
+                  f.Size = 30;
+                    
+                  // Iterate through the paragraphs in this document.
+                  foreach (Paragraph p in document.Paragraphs)
+                  {
+                      // Insert the string "\tEnd" at the end of every paragraph and flag it as a change.
+                      p.InsertText("\tEnd", true, f);
+                  }
+                   
+                 // Save all changes made to this document.
+                 document.Save();
+             }// Release this document from memory.
+             </code>
+             </example>
+             <seealso cref="M:Novacode.Paragraph.RemoveText(System.Int32,System.Boolean)"/>
+             <seealso cref="M:Novacode.Paragraph.RemoveText(System.Int32,System.Int32,System.Boolean)"/>
+             <seealso cref="M:Novacode.Paragraph.ReplaceText(System.String,System.String,System.Boolean)"/>
+             <seealso cref="M:Novacode.Paragraph.ReplaceText(System.String,System.String,System.Boolean,System.Text.RegularExpressions.RegexOptions)"/>
+             <param name="value">The System.String to insert.</param>
+             <param name="trackChanges">Flag this insert as a change.</param>
+             <param name="formatting">The text formatting.</param>
+        </member>
+        <member name="M:Novacode.Paragraph.InsertText(System.Int32,System.String,System.Boolean,Novacode.Formatting)">
+             <summary>
+             Inserts a specified instance of System.String into a Novacode.DocX.Paragraph at a specified index position.
+             </summary>
+             <example>
+             <code> 
+             // Create a document using a relative filename.
+             using (DocX document = DocX.Load(@"C:\Example\Test.docx"))
+             {
+                 // Create a text formatting.
+                 Formatting f = new Formatting();
+                 f.FontColor = Color.Red;
+                 f.Size = 30;
+            
+                 // Iterate through the Paragraphs in this document.
+                 foreach (Paragraph p in document.Paragraphs)
+                 {
+                     // Insert the string "Start: " at the begining of every Paragraph and flag it as a change.
+                     p.InsertText(0, "Start: ", true, f);
+                 }
+            
+                 // Save all changes made to this document.
+                 document.Save();
+             }// Release this document from memory.
+             </code>
+             </example>
+             <example>
+             Inserting tabs using the \t switch.
+             <code>  
+             // Create a document using a relative filename.
+             using (DocX document = DocX.Load(@"C:\Example\Test.docx"))
+             {
+                 // Create a text formatting.
+                 Formatting f = new Formatting();
+                 f.FontColor = Color.Red;
+                 f.Size = 30;
+            
+                 // Iterate through the paragraphs in this document.
+                 foreach (Paragraph p in document.Paragraphs)
+                 {
+                     // Insert the string "\tStart:\t" at the begining of every paragraph and flag it as a change.
+                     p.InsertText(0, "\tStart:\t", true, f);
+                 }
+            
+                 // Save all changes made to this document.
+                 document.Save();
+             }// Release this document from memory.
+             </code>
+             </example>
+             <seealso cref="M:Novacode.Paragraph.RemoveText(System.Int32,System.Boolean)"/>
+             <seealso cref="M:Novacode.Paragraph.RemoveText(System.Int32,System.Int32,System.Boolean)"/>
+             <seealso cref="M:Novacode.Paragraph.ReplaceText(System.String,System.String,System.Boolean)"/>
+             <seealso cref="M:Novacode.Paragraph.ReplaceText(System.String,System.String,System.Boolean,System.Text.RegularExpressions.RegexOptions)"/>
+             <param name="index">The index position of the insertion.</param>
+             <param name="value">The System.String to insert.</param>
+             <param name="trackChanges">Flag this insert as a change.</param>
+             <param name="formatting">The text formatting.</param>
+        </member>
+        <member name="M:Novacode.Paragraph.InsertDocProperty(Novacode.CustomProperty,Novacode.Formatting)">
+             <summary>
+             Insert a field of type document property, this field will display the custom property cp, at the end of this paragraph.
+             </summary>
+             <param name="cp">The custom property to display.</param>
+             <param name="f">The formatting to use for this text.</param>
+             <example>
+             Create, add and display a custom property in a document.
+             <code>
+             // Load a document
+             using (DocX document = DocX.Create(@"Test.docx"))
+             {
+                 // Create a custom property.
+                 CustomProperty name = new CustomProperty("name", "Cathal Coffey");
+                    
+                 // Add this custom property to this document.
+                 document.AddCustomProperty(name);
+            
+                 // Create a text formatting.
+                 Formatting f = new Formatting();
+                 f.Bold = true;
+                 f.Size = 14;
+                 f.StrikeThrough = StrickThrough.strike;
+            
+                 // Insert a new paragraph.
+                 Paragraph p = document.InsertParagraph("Author: ", false, f);
+            
+                 // Insert a field of type document property to display the custom property name
+                 p.InsertDocProperty(name, f);
+            
+                 // Save all changes made to this document.
+                 document.Save();
+             }// Release this document from memory.
+             </code>
+             </example>
+        </member>
+        <member name="M:Novacode.Paragraph.InsertDocProperty(Novacode.CustomProperty)">
+             <summary>
+             Insert a field of type document property, this field will display the custom property cp, at the end of this paragraph.
+             </summary>
+             <param name="cp">The custom property to display.</param>
+             <example>
+             Create, add and display a custom property in a document.
+             <code>
+             // Load a document
+             using (DocX document = DocX.Create(@"Test.docx"))
+             {
+                 // Create a custom property.
+                 CustomProperty name = new CustomProperty("name", "Cathal Coffey");
+                    
+                 // Add this custom property to this document.
+                 document.AddCustomProperty(name);
+            
+                 // Insert a new paragraph.
+                 Paragraph p = document.InsertParagraph("Author: ", false);
+                    
+                 // Insert a field of type document property to display the custom property name
+                 p.InsertDocProperty(name);
+            
+                 // Save all changes made to this document.
+                 document.Save();
+             }// Release this document from memory.
+             </code>
+             </example>
+        </member>
+        <member name="M:Novacode.Paragraph.RemoveText(System.Int32,System.Int32,System.Boolean)">
+            <summary>
+            Removes characters from a Novacode.DocX.Paragraph.
+            </summary>
+            <example>
+            <code>
+            // Create a document using a relative filename.
+            using (DocX document = DocX.Load(@"C:\Example\Test.docx"))
+            {
+                // Iterate through the paragraphs
+                foreach (Paragraph p in document.Paragraphs)
+                {
+                    // Remove the first two characters from every paragraph
+                    p.RemoveText(0, 2, false);
+                }
+                   
+                // Save all changes made to this document.
+                document.Save();
+            }// Release this document from memory.
+            </code>
+            </example>
+            <seealso cref="M:Novacode.Paragraph.ReplaceText(System.String,System.String,System.Boolean)"/>
+            <seealso cref="M:Novacode.Paragraph.ReplaceText(System.String,System.String,System.Boolean,System.Text.RegularExpressions.RegexOptions)"/>
+            <seealso cref="M:Novacode.Paragraph.InsertText(System.String,System.Boolean)"/>
+            <seealso cref="M:Novacode.Paragraph.InsertText(System.Int32,System.String,System.Boolean)"/>
+            <seealso cref="M:Novacode.Paragraph.InsertText(System.Int32,System.String,System.Boolean,Novacode.Formatting)"/>
+            <seealso cref="M:Novacode.Paragraph.InsertText(System.String,System.Boolean,Novacode.Formatting)"/>
+            <param name="index">The position to begin deleting characters.</param>
+            <param name="count">The number of characters to delete</param>
+            <param name="trackChanges">Track changes</param>
+        </member>
+        <member name="M:Novacode.Paragraph.RemoveText(System.Int32,System.Boolean)">
+            <summary>
+            Removes characters from a Novacode.DocX.Paragraph.
+            </summary>
+            <example>
+            <code>
+            // Create a document using a relative filename.
+            using (DocX document = DocX.Load(@"C:\Example\Test.docx"))
+            {
+                // Iterate through the paragraphs
+                foreach (Paragraph p in document.Paragraphs)
+                {
+                    // Remove all but the first 2 characters from this Paragraph.
+                    p.RemoveText(2, false);
+                }
+                   
+                // Save all changes made to this document.
+                document.Save();
+            }// Release this document from memory.
+            </code>
+            </example>
+            <seealso cref="M:Novacode.Paragraph.ReplaceText(System.String,System.String,System.Boolean)"/>
+            <seealso cref="M:Novacode.Paragraph.ReplaceText(System.String,System.String,System.Boolean,System.Text.RegularExpressions.RegexOptions)"/>
+            <seealso cref="M:Novacode.Paragraph.InsertText(System.String,System.Boolean)"/>
+            <seealso cref="M:Novacode.Paragraph.InsertText(System.Int32,System.String,System.Boolean)"/>
+            <seealso cref="M:Novacode.Paragraph.InsertText(System.Int32,System.String,System.Boolean,Novacode.Formatting)"/>
+            <seealso cref="M:Novacode.Paragraph.InsertText(System.String,System.Boolean,Novacode.Formatting)"/>
+            <param name="index">The position to begin deleting characters.</param>
+            <param name="trackChanges">Track changes</param>
+        </member>
+        <member name="M:Novacode.Paragraph.ReplaceText(System.String,System.String,System.Boolean,System.Text.RegularExpressions.RegexOptions)">
+            <summary>
+            Replaces all occurrences of a specified System.String in this instance, with another specified System.String.
+            </summary>
+            <example>
+            <code>
+            // Create a document using a relative filename.
+            using (DocX document = DocX.Load(@"C:\Example\Test.docx"))
+            {
+                // Iterate through the paragraphs in this document.
+                foreach (Paragraph p in document.Paragraphs)
+                {
+                    // Replace all instances of the string "wrong" with the string "right" and ignore case.
+                    p.ReplaceText("wrong", "right", false, RegexOptions.IgnoreCase);
+                }
+                   
+                // Save all changes made to this document.
+                document.Save();
+            }// Release this document from memory.
+            </code>
+            </example>
+            <seealso cref="M:Novacode.Paragraph.RemoveText(System.Int32,System.Int32,System.Boolean)"/>
+            <seealso cref="M:Novacode.Paragraph.RemoveText(System.Int32,System.Boolean)"/>
+            <seealso cref="M:Novacode.Paragraph.InsertText(System.String,System.Boolean)"/>
+            <seealso cref="M:Novacode.Paragraph.InsertText(System.Int32,System.String,System.Boolean)"/>
+            <seealso cref="M:Novacode.Paragraph.InsertText(System.Int32,System.String,System.Boolean,Novacode.Formatting)"/>
+            <seealso cref="M:Novacode.Paragraph.InsertText(System.String,System.Boolean,Novacode.Formatting)"/>
+            <param name="newValue">A System.String to replace all occurances of oldValue.</param>
+            <param name="oldValue">A System.String to be replaced.</param>
+            <param name="options">A bitwise OR combination of RegexOption enumeration options.</param>
+            <param name="trackChanges">Track changes</param>
+        </member>
+        <member name="M:Novacode.Paragraph.FindAll(System.String)">
+             <summary>
+             Find all instances of a string in this paragraph and return their indexes in a List.
+             </summary>
+             <param name="str">The string to find</param>
+             <returns>A list of indexes.</returns>
+             <example>
+             Find all instances of Hello in this document and insert 'don't' in frount of them.
+             <code>
+             // Load a document
+             using (DocX document = DocX.Load(@"Test.docx"))
+             {
+                 // Loop through the paragraphs in this document.
+                 foreach(Paragraph p in document.Paragraphs)
+                 {
+                     // Find all instances of 'go' in this paragraph.
+                     List&lt;int&gt; gos = document.FindAll("go");
+            
+                     /* 
+                      * Insert 'don't' in frount of every instance of 'go' in this document to produce 'don't go'.
+                      * An important trick here is to do the inserting in reverse document order. If you inserted 
+                      * in document order, every insert would shift the index of the remaining matches.
+                      */
+                     gos.Reverse();
+                     foreach (int index in gos)
+                     {
+                         p.InsertText(index, "don't ", false);
+                     }
+                 }
+            
+                 // Save all changes made to this document.
+                 document.Save();
+             }// Release this document from memory.
+             </code>
+             </example>
+        </member>
+        <member name="M:Novacode.Paragraph.FindAll(System.String,System.Text.RegularExpressions.RegexOptions)">
+             <summary>
+             Find all instances of a string in this paragraph and return their indexes in a List.
+             </summary>
+             <param name="str">The string to find</param>
+             <param name="options">The options to use when finding a string match.</param>
+             <returns>A list of indexes.</returns>
+             <example>
+             Find all instances of Hello in this document and insert 'don't' in frount of them.
+             <code>
+             // Load a document
+             using (DocX document = DocX.Load(@"Test.docx"))
+             {
+                 // Loop through the paragraphs in this document.
+                 foreach(Paragraph p in document.Paragraphs)
+                 {
+                     // Find all instances of 'go' in this paragraph (Ignore case).
+                     List&lt;int&gt; gos = document.FindAll("go", RegexOptions.IgnoreCase);
+            
+                     /* 
+                      * Insert 'don't' in frount of every instance of 'go' in this document to produce 'don't go'.
+                      * An important trick here is to do the inserting in reverse document order. If you inserted 
+                      * in document order, every insert would shift the index of the remaining matches.
+                      */
+                     gos.Reverse();
+                     foreach (int index in gos)
+                     {
+                         p.InsertText(index, "don't ", false);
+                     }
+                 }
+            
+                 // Save all changes made to this document.
+                 document.Save();
+             }// Release this document from memory.
+             </code>
+             </example>
+        </member>
+        <member name="M:Novacode.Paragraph.ReplaceText(System.String,System.String,System.Boolean)">
+            <summary>
+            Replaces all occurrences of a specified System.String in this instance, with another specified System.String.
+            </summary>
+            <example>
+            <code>
+            // Create a document using a relative filename.
+            using (DocX document = DocX.Load(@"C:\Example\Test.docx"))
+            {
+                // Iterate through the paragraphs in this document.
+                foreach (Paragraph p in document.Paragraphs)
+                {
+                    // Replace all instances of the string "wrong" with the string "right".
+                    p.ReplaceText("wrong", "right", false);
+                }
+                  
+                // Save all changes made to this document.
+                document.Save();
+            }// Release this document from memory.
+            </code>
+            </example>
+            <seealso cref="M:Novacode.Paragraph.RemoveText(System.Int32,System.Int32,System.Boolean)"/>
+            <seealso cref="M:Novacode.Paragraph.RemoveText(System.Int32,System.Boolean)"/>
+            <seealso cref="M:Novacode.Paragraph.InsertText(System.String,System.Boolean)"/>
+            <seealso cref="M:Novacode.Paragraph.InsertText(System.Int32,System.String,System.Boolean)"/>
+            <seealso cref="M:Novacode.Paragraph.InsertText(System.Int32,System.String,System.Boolean,Novacode.Formatting)"/>
+            <seealso cref="M:Novacode.Paragraph.InsertText(System.String,System.Boolean,Novacode.Formatting)"/>
+            <param name="newValue">A System.String to replace all occurances of oldValue.</param>
+            <param name="oldValue">A System.String to be replaced.</param>
+            <param name="trackChanges">Track changes</param>
+        </member>
+        <member name="P:Novacode.Paragraph.Pictures">
+            <summary>
+            Returns a list of Pictures in this Paragraph.
+            </summary>
+        </member>
+        <member name="P:Novacode.Paragraph.DocumentProperties">
+            <summary>
+            Returns a list of field type DocProperty in this document.
+            </summary>
+        </member>
+        <member name="P:Novacode.Paragraph.Alignment">
+            <summary>
+            Gets or set this Paragraphs text alignment.
+            </summary>
+        </member>
+        <member name="P:Novacode.Paragraph.Text">
+            <summary>
+            Gets the text value of this Paragraph.
+            </summary>
+        </member>
+        <member name="M:Novacode.CustomProperty.#ctor(System.String,System.String)">
+            <summary>
+            Create a new CustomProperty to hold a string.
+            </summary>
+            <param name="name">The name of this CustomProperty.</param>
+            <param name="value">The value of this CustomProperty.</param>
+        </member>
+        <member name="M:Novacode.CustomProperty.#ctor(System.String,System.Int32)">
+            <summary>
+            Create a new CustomProperty to hold an int.
+            </summary>
+            <param name="name">The name of this CustomProperty.</param>
+            <param name="value">The value of this CustomProperty.</param>
+        </member>
+        <member name="M:Novacode.CustomProperty.#ctor(System.String,System.Double)">
+            <summary>
+            Create a new CustomProperty to hold a double.
+            </summary>
+            <param name="name">The name of this CustomProperty.</param>
+            <param name="value">The value of this CustomProperty.</param>
+        </member>
+        <member name="M:Novacode.CustomProperty.#ctor(System.String,System.DateTime)">
+            <summary>
+            Create a new CustomProperty to hold a DateTime.
+            </summary>
+            <param name="name">The name of this CustomProperty.</param>
+            <param name="value">The value of this CustomProperty.</param>
+        </member>
+        <member name="M:Novacode.CustomProperty.#ctor(System.String,System.Boolean)">
+            <summary>
+            Create a new CustomProperty to hold a bool.
+            </summary>
+            <param name="name">The name of this CustomProperty.</param>
+            <param name="value">The value of this CustomProperty.</param>
+        </member>
+        <member name="P:Novacode.CustomProperty.Name">
+            <summary>
+            The name of this CustomProperty.
+            </summary>
+        </member>
+        <member name="P:Novacode.CustomProperty.Value">
+            <summary>
+            The value of this CustomProperty.
+            </summary>
+        </member>
+        <member name="M:Novacode.Text.PreserveSpace(System.Xml.Linq.XElement)">
+            <summary>
+            If a text element or delText element, starts or ends with a space,
+            it must have the attribute space, otherwise it must not have it.
+            </summary>
+            <param name="e">The (t or delText) element check</param>
+        </member>
+        <member name="P:Novacode.Text.StartIndex">
+            <summary>
+            Gets the start index of this Text (text length before this text)
+            </summary>
+        </member>
+        <member name="P:Novacode.Text.EndIndex">
+            <summary>
+            Gets the end index of this Text (text length before this text + this texts length)
+            </summary>
+        </member>
+        <member name="P:Novacode.Text.Value">
+            <summary>
+            The text value of this text element
+            </summary>
+        </member>
+        <member name="T:Novacode.Alignment">
+            <summary>
+            Text alignment of a paragraph
+            </summary>
+        </member>
+        <member name="F:Novacode.Alignment.left">
+            <summary>
+            Align text to the left.
+            </summary>
+        </member>
+        <member name="F:Novacode.Alignment.center">
+            <summary>
+            Center text.
+            </summary>
+        </member>
+        <member name="F:Novacode.Alignment.right">
+            <summary>
+            Align text to the right.
+            </summary>
+        </member>
+        <member name="F:Novacode.Alignment.both">
+            <summary>
+            Align text to both the left and right margins, adding extra space between words as necessary.
+            </summary>
+        </member>
+        <member name="T:Novacode.EditType">
+            <summary>
+            Paragraph edit types
+            </summary>
+        </member>
+        <member name="F:Novacode.EditType.ins">
+            <summary>
+            A ins is a tracked insertion
+            </summary>
+        </member>
+        <member name="F:Novacode.EditType.del">
+            <summary>
+            A del is  tracked deletion
+            </summary>
+        </member>
+        <member name="T:Novacode.CustomPropertyType">
+            <summary>
+            Custom property types.
+            </summary>
+        </member>
+        <member name="F:Novacode.CustomPropertyType.Text">
+            <summary>
+            System.String
+            </summary>
+        </member>
+        <member name="F:Novacode.CustomPropertyType.Date">
+            <summary>
+            System.DateTime
+            </summary>
+        </member>
+        <member name="F:Novacode.CustomPropertyType.NumberInteger">
+            <summary>
+            System.Int32
+            </summary>
+        </member>
+        <member name="F:Novacode.CustomPropertyType.NumberDecimal">
+            <summary>
+            System.Double
+            </summary>
+        </member>
+        <member name="F:Novacode.CustomPropertyType.YesOrNo">
+            <summary>
+            System.Boolean
+            </summary>
+        </member>
+        <member name="T:Novacode.RunTextType">
+            <summary>
+            Text types in a Run
+            </summary>
+        </member>
+        <member name="F:Novacode.RunTextType.Text">
+            <summary>
+            System.String
+            </summary>
+        </member>
+        <member name="F:Novacode.RunTextType.DelText">
+            <summary>
+            System.String
+            </summary>
+        </member>
+    </members>
+</doc>

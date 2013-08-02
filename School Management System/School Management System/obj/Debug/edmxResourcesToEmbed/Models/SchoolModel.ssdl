@@ -1,0 +1,168 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="schooldbModel.Store" Alias="Self" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.6" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+  <EntityContainer Name="schooldbModelStoreContainer">
+    <EntitySet Name="attendance" EntityType="schooldbModel.Store.attendance" store:Type="Tables" Schema="schooldb" />
+    <EntitySet Name="classes" EntityType="schooldbModel.Store.classes" store:Type="Tables" Schema="schooldb" />
+    <EntitySet Name="family" EntityType="schooldbModel.Store.family" store:Type="Tables" Schema="schooldb" />
+    <EntitySet Name="fees" EntityType="schooldbModel.Store.fees" store:Type="Tables" Schema="schooldb" />
+    <EntitySet Name="sections" EntityType="schooldbModel.Store.sections" store:Type="Tables" Schema="schooldb" />
+    <EntitySet Name="student" EntityType="schooldbModel.Store.student" store:Type="Tables" Schema="schooldb" />
+    <EntitySet Name="teacher" EntityType="schooldbModel.Store.teacher" store:Type="Tables" Schema="schooldb" />
+    <EntitySet Name="timings" EntityType="schooldbModel.Store.timings" store:Type="Tables" Schema="schooldb" />
+    <AssociationSet Name="fees_ibfk_1" Association="schooldbModel.Store.fees_ibfk_1">
+      <End Role="student" EntitySet="student" />
+      <End Role="fees" EntitySet="fees" />
+    </AssociationSet>
+    <AssociationSet Name="sections_ibfk_1" Association="schooldbModel.Store.sections_ibfk_1">
+      <End Role="classes" EntitySet="classes" />
+      <End Role="sections" EntitySet="sections" />
+    </AssociationSet>
+    <AssociationSet Name="student_ibfk_1" Association="schooldbModel.Store.student_ibfk_1">
+      <End Role="classes" EntitySet="classes" />
+      <End Role="student" EntitySet="student" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="attendance">
+    <Key>
+      <PropertyRef Name="AttendanceDate" />
+      <PropertyRef Name="teacherId" />
+    </Key>
+    <Property Name="attendanceId" Type="int" />
+    <Property Name="AttendanceDate" Type="datetime" Nullable="false" />
+    <Property Name="teacherId" Type="int" Nullable="false" />
+    <Property Name="IsPresent" Type="varchar" MaxLength="5" />
+    <Property Name="SalaryDeduction" Type="double" />
+    <Property Name="AttendanceExitDate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="classes">
+    <Key>
+      <PropertyRef Name="classId" />
+    </Key>
+    <Property Name="classId" Type="int" Nullable="false" />
+    <Property Name="className" Type="varchar" MaxLength="15" />
+    <Property Name="classFee" Type="int" />
+  </EntityType>
+  <EntityType Name="family">
+    <Key>
+      <PropertyRef Name="familyId" />
+    </Key>
+    <Property Name="familyId" Type="int" Nullable="false" />
+    <Property Name="FatherName" Type="varchar" MaxLength="20" />
+    <Property Name="FatherNIC" Type="varchar" MaxLength="15" />
+    <Property Name="FatherEducation" Type="varchar" MaxLength="20" />
+    <Property Name="FatherIncome" Type="varchar" MaxLength="20" />
+    <Property Name="FatherOccupation" Type="varchar" MaxLength="20" />
+    <Property Name="MotherName" Type="varchar" MaxLength="20" />
+    <Property Name="MotherNIC" Type="varchar" MaxLength="15" />
+    <Property Name="MotherEducation" Type="varchar" MaxLength="20" />
+    <Property Name="MotherIncome" Type="varchar" MaxLength="20" />
+    <Property Name="MotherOccupation" Type="varchar" MaxLength="20" />
+    <Property Name="Religion" Type="varchar" MaxLength="20" />
+    <Property Name="Caste" Type="varchar" MaxLength="20" />
+    <Property Name="Nationality" Type="varchar" MaxLength="20" />
+  </EntityType>
+  <EntityType Name="fees">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Month" Type="varchar" Nullable="false" MaxLength="100" />
+    <Property Name="Year" Type="varchar" Nullable="false" MaxLength="100" />
+    <Property Name="Basic_Fee" Type="float" Nullable="false" />
+    <Property Name="Concession" Type="float" />
+    <Property Name="Net_Fee" Type="float" Nullable="false" />
+    <Property Name="Is_Paid" Type="bit" Nullable="false" />
+    <Property Name="studentId" Type="int" Nullable="false" />
+    <Property Name="Day" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="sections">
+    <Key>
+      <PropertyRef Name="sectionId" />
+    </Key>
+    <Property Name="sectionId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="sectionName" Type="varchar" MaxLength="45" />
+    <Property Name="classId" Type="int" />
+  </EntityType>
+  <EntityType Name="student">
+    <Key>
+      <PropertyRef Name="studentId" />
+    </Key>
+    <Property Name="studentId" Type="int" Nullable="false" />
+    <Property Name="DateOfAdmission" Type="datetime" />
+    <Property Name="EducationMedium" Type="varchar" MaxLength="20" />
+    <Property Name="StudyClass" Type="varchar" MaxLength="20" />
+    <Property Name="classId" Type="int" />
+    <Property Name="StudentGender" Type="varchar" MaxLength="10" />
+    <Property Name="StudentName" Type="varchar" MaxLength="20" />
+    <Property Name="StudentDOB" Type="datetime" />
+    <Property Name="StudentAddress" Type="varchar" MaxLength="50" />
+    <Property Name="Telephone" Type="decimal" Precision="15" />
+    <Property Name="CellPhone" Type="decimal" Precision="15" />
+    <Property Name="StudentRollNumber" Type="varchar" MaxLength="20" />
+    <Property Name="StudentFee" Type="double" />
+    <Property Name="SchoolBranch" Type="varchar" MaxLength="20" />
+    <Property Name="familyId" Type="int" />
+    <Property Name="StudentStatus" Type="int" />
+  </EntityType>
+  <EntityType Name="teacher">
+    <Key>
+      <PropertyRef Name="teacherId" />
+    </Key>
+    <Property Name="teacherId" Type="int" Nullable="false" />
+    <Property Name="TeacherName" Type="varchar" MaxLength="20" />
+    <Property Name="TeacherDOB" Type="datetime" />
+    <Property Name="JoinDate" Type="datetime" />
+    <Property Name="TeacherAddress" Type="varchar" MaxLength="50" />
+    <Property Name="Telephone" Type="decimal" Precision="15" />
+    <Property Name="CellPhone" Type="decimal" Precision="11" />
+    <Property Name="MaritalStatus" Type="varchar" MaxLength="10" />
+    <Property Name="Gender" Type="varchar" MaxLength="10" />
+    <Property Name="Designation" Type="varchar" MaxLength="20" />
+    <Property Name="MonthlyTotal" Type="double" />
+    <Property Name="BasicSalary" Type="double" />
+  </EntityType>
+  <EntityType Name="timings">
+    <Key>
+      <PropertyRef Name="TimingsId" />
+    </Key>
+    <Property Name="TimingsId" Type="int" Nullable="false" />
+    <Property Name="TimeIn" Type="time" />
+    <Property Name="TimeOut" Type="time" />
+  </EntityType>
+  <Association Name="fees_ibfk_1">
+    <End Role="student" Type="schooldbModel.Store.student" Multiplicity="1" />
+    <End Role="fees" Type="schooldbModel.Store.fees" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="student">
+        <PropertyRef Name="studentId" />
+      </Principal>
+      <Dependent Role="fees">
+        <PropertyRef Name="studentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="sections_ibfk_1">
+    <End Role="classes" Type="schooldbModel.Store.classes" Multiplicity="0..1" />
+    <End Role="sections" Type="schooldbModel.Store.sections" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="classes">
+        <PropertyRef Name="classId" />
+      </Principal>
+      <Dependent Role="sections">
+        <PropertyRef Name="classId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="student_ibfk_1">
+    <End Role="classes" Type="schooldbModel.Store.classes" Multiplicity="0..1" />
+    <End Role="student" Type="schooldbModel.Store.student" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="classes">
+        <PropertyRef Name="classId" />
+      </Principal>
+      <Dependent Role="student">
+        <PropertyRef Name="classId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

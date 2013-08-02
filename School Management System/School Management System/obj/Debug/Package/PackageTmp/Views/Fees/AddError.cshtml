@@ -1,0 +1,24 @@
+﻿
+
+<link rel="stylesheet" href="../../Content/Site.css"type="text/css" />
+@{
+    
+    Layout = "../Shared/Layout_1.cshtml";
+    
+    }
+
+
+
+@{
+    ViewBag.Title = "AddError";
+}
+
+<h2>Add Error</h2>
+<font color="red">You cannot add fee of this student for this month again! <br />
+If you want to change kindly use edit option.<br />
+</font>
+
+<br /><br />
+
+@Html.ActionLink("Back to index", "../Home/Family")
+

@@ -1,0 +1,13 @@
+C:\Users\Usman\documents\visual studio 2010\Projects\School Management System\School Management System\bin\School Management System.dll
+C:\Users\Usman\documents\visual studio 2010\Projects\School Management System\School Management System\bin\School Management System.pdb
+C:\Users\Usman\documents\visual studio 2010\Projects\School Management System\School Management System\bin\EntityFramework.dll
+C:\Users\Usman\documents\visual studio 2010\Projects\School Management System\School Management System\bin\System.Data.DataSetExtensions.dll
+C:\Users\Usman\documents\visual studio 2010\Projects\School Management System\School Management System\bin\System.Data.dll
+C:\Users\Usman\documents\visual studio 2010\Projects\School Management System\School Management System\bin\System.Data.Entity.dll
+C:\Users\Usman\documents\visual studio 2010\Projects\School Management System\School Management System\bin\System.Web.dll
+C:\Users\Usman\documents\visual studio 2010\Projects\School Management System\School Management System\bin\DocX.pdb
+C:\Users\Usman\documents\visual studio 2010\Projects\School Management System\School Management System\bin\DocX.xml
+C:\Users\Usman\documents\visual studio 2010\Projects\School Management System\School Management System\bin\EntityFramework.xml
+C:\Users\Usman\documents\visual studio 2010\Projects\School Management System\School Management System\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\Usman\documents\visual studio 2010\Projects\School Management System\School Management System\obj\Debug\School Management System.dll
+C:\Users\Usman\documents\visual studio 2010\Projects\School Management System\School Management System\obj\Debug\School Management System.pdb

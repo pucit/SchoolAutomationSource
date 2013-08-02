@@ -1,0 +1,63 @@
+﻿@model  School_Management_System.Models.MonthYearClassName
+
+
+<link rel="stylesheet" href="../../Content/Site.css"type="text/css" />
+@{
+    
+    Layout = "../Shared/Layout_1.cshtml";
+    
+    }
+
+
+@{
+    ViewBag.Title = "YearDetails";
+}
+
+<h2>Year Details</h2>
+<br />
+
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+
+@using (Html.BeginForm("Details", "Fees", FormMethod.Get, new { id = ViewBag.id }))
+{
+    @Html.ValidationSummary(true)
+    <fieldset>
+        <div class="editor-label">
+            <label>Family ID:</label>
+            <br />
+            @Html.EditorFor(model => model.id)
+            @Html.ValidationMessageFor(model => model.id)
+        </div>
+        <div class="editor-label">
+            <label>Select Year</label>
+        </div>
+        <br />
+        <div class="editor-field">
+            @Html.DropDownListFor(model => model.year, new List<SelectListItem> {
+           new SelectListItem{ Selected = DateTime.Today.Year == 2012, Text = "2012", Value = "2012"}, 
+           new SelectListItem{ Selected = DateTime.Today.Year == 2013, Text = "2013", Value = "2013"},
+           new SelectListItem{ Selected = DateTime.Today.Year == 2014, Text = "2014", Value = "2014"},
+           new SelectListItem{ Selected = DateTime.Today.Year == 2015, Text = "2015", Value = "2015"},
+           new SelectListItem{ Selected = DateTime.Today.Year == 2016, Text = "2016", Value = "2016"},
+           new SelectListItem{ Selected = DateTime.Today.Year == 2017, Text = "2017", Value = "2017"},
+           new SelectListItem{ Selected = DateTime.Today.Year == 2018, Text = "2018", Value = "2018"},
+           new SelectListItem{ Selected = DateTime.Today.Year == 2019, Text = "2019", Value = "2019"},
+           new SelectListItem{ Selected = DateTime.Today.Year == 2020, Text = "2020", Value = "2020"},
+           new SelectListItem{ Selected = DateTime.Today.Year == 2021, Text = "2021", Value = "2021"},
+           new SelectListItem{ Selected = DateTime.Today.Year == 2022, Text = "2022", Value = "2022"},
+           new SelectListItem{ Selected = DateTime.Today.Year == 2023, Text = "2023", Value = "2023"},
+           })
+            @Html.ValidationMessageFor(model => model.year)
+        </div>
+        <br /><br />
+        <p>
+            <input type="submit" value="View" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to Home", "Index", "Home")
+</div>
+

@@ -1,0 +1,81 @@
+﻿@model IEnumerable<School_Management_System.Models.fee>
+
+
+
+<link rel="stylesheet" href="../../Content/Site.css"type="text/css" />
+@{
+    
+    Layout = "../Shared/Layout_1.cshtml";
+    
+    }
+
+
+@{
+    ViewBag.Title = "PaidClassStudentsList";
+}
+
+<h2>Paid Class Students List</h2>
+
+<font color = "Blue"> Month: @ViewBag.month &nbsp&nbsp&nbsp&nbsp&nbsp Year: @ViewBag.year
+&nbsp&nbsp&nbsp&nbsp&nbsp Class: @ViewBag.className
+</font>
+<br /><br />
+<table>
+    <tr>
+        <th>
+            ID
+        </th>
+        <th>
+            Name
+        </th>
+        <th>
+            Class Name
+        </th>
+        <th>
+            Family ID
+        </th>
+        <th>
+            Amount Paid
+        </th>
+        <th>
+            Status
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    if (item == null) { continue; }
+    <tr>
+        <td>
+            @item.studentId
+        </td>
+        <td>
+            @item.student.StudentName
+        </td>
+        <td>
+            @{
+    School_Management_System.Models.schooldbEntities db = new School_Management_System.Models.schooldbEntities();
+    var clsName = (from c in db.classes where c.classId == @item.student.classId select c.className).First();
+            
+            }
+            @clsName
+        </td>
+        <td>
+            @item.student.familyId
+        </td>
+        <td>
+            @item.Basic_Fee
+        </td>
+        <td>
+            <font color="green">OK</font>
+        </td>
+    </tr>
+}
+
+</table>
+
+<br /><br />
+&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+<font color="blue" size="3">Total Amount: @ViewBag.sum</font>
+<br />
+<br />
+@Html.ActionLink("Back to Paid Menu", "FeePaid")

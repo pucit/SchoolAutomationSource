@@ -1,0 +1,18 @@
+﻿@{
+    
+    Layout = "../Shared/Layout_1.cshtml";
+    
+    }
+
+@{
+    ViewBag.Title = "ReportIndex";
+}
+
+<h2>ReportIndex</h2>
+<br /><br />
+       <ul style="color:black; font-size:30px;">
+            <li>@Html.ActionLink("View Subject Wise Report", "selectClass", "Result")</li>
+            <li>@Html.ActionLink("ViewClass Wise Report", "classWiseReport", "Result")</li>
+            <li>@Html.ActionLink("Print Class Wise Result Cards", "", "Result")</li>
+            <li>@Html.ActionLink("Print Single Student Result Cards", "", "Result")</li>
+       </ul>

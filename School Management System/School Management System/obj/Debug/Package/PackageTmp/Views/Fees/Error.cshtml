@@ -1,0 +1,23 @@
+﻿
+
+<link rel="stylesheet" href="../../Content/Site.css"type="text/css" />
+@{
+    
+    Layout = "../Shared/Layout_1.cshtml";
+    
+    }
+
+
+@{
+    ViewBag.Title = "Error";
+}
+
+<h2>Error</h2>
+
+<font color="red">You haven't added fee for this student. <br />
+First add fee of the student and then try to edit fee!
+</font>
+
+<br /><br />
+
+@Html.ActionLink("Back to index", "../Home/Family")

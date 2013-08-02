@@ -1,0 +1,70 @@
+﻿@model IEnumerable<School_Management_System.Models.student>
+
+
+<link rel="stylesheet" href="../../Content/Site.css"type="text/css" />
+@{
+    
+    Layout = "../Shared/Layout_1.cshtml";
+    
+    }
+
+
+
+@{
+    ViewBag.Title = "Index";
+}
+<h2>Fees Module</h2>
+
+<font color="blue">Family ID:&nbsp&nbsp&nbsp&nbsp&nbsp @ViewBag.id</font>
+<br /><br />
+<table>
+    <tr>
+        <th>
+            Name
+        </th>
+        <th>
+            Admission Id
+        </th>
+        <th>
+            Class
+        </th>
+        <th>
+            Basic Fee
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @item.StudentName
+        </td>
+        <td>
+            @item.studentId
+        </td>
+        <td>
+             @{
+            School_Management_System.Models.schooldbEntities db = new School_Management_System.Models.schooldbEntities();
+            var clsName = (from c in db.classes where c.classId == @item.classId select c.className).First();
+            
+            }
+            @clsName
+        </td>
+        <td>
+            @item.StudentFee
+        </td>
+    </tr>
+}
+
+</table>
+
+<br /><br />
+<font color="blue" size="2"> Net Amount to be Paid:&nbsp&nbsp&nbsp&nbsp @ViewBag.total</font>
+<br /><br />
+&nbsp&nbsp&nbsp&nbsp&nbsp   @Html.ActionLink("Add", "Create", new { id = ViewBag.id, total = ViewBag.total })
+&nbsp&nbsp&nbsp&nbsp&nbsp   @Html.ActionLink("View", "YearDetails", new { id = ViewBag.id })
+&nbsp&nbsp&nbsp&nbsp&nbsp   @Html.ActionLink("Edit", "EditFee", new { id = ViewBag.id })
+<br /><br /><br />
+&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp 
+&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
+@Html.ActionLink("Reports", "Reports") &nbsp
+@Html.ActionLink("Back to index", "../Home/Family")

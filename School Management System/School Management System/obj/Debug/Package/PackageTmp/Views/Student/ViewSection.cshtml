@@ -1,0 +1,41 @@
+﻿@model School_Management_System.Models.student           
+
+
+<link rel="stylesheet" href="../../Content/Site.css"type="text/css" />
+@{
+    
+    Layout = "../Shared/Layout_1.cshtml";
+    
+    }
+
+
+@{
+    ViewBag.Title = "ViewSection";
+}
+
+<h2>Select Section to View Students</h2>
+<br /><br />
+
+@using (Html.BeginForm())
+{
+    <fieldset>
+    <legend>student</legend>
+            
+        <div class="editor-label">
+            @Html.Label("Section")
+        </div>
+        <br />
+        <div class="editor-field">
+            @Html.DropDownListFor(model => model.StudyClass, new SelectList(@ViewBag.sectionList, "Text"), "-- Select Section--")
+        </div>
+        <br /><br />
+        <p>
+            <input type="submit" value="Filter" />
+        </p>  
+    </fieldset>
+}
+
+<br />
+<br />
+<br />
+<a href="../StudentViewMenu" style="color:red; font-size:20px;">  Back to MANAGE STUDENTS  </a>

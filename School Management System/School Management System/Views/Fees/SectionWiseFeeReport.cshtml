@@ -1,0 +1,44 @@
+﻿@model  School_Management_System.Models.MonthYearClassName
+            @using School_Management_System.Models
+
+
+<link rel="stylesheet" href="../../Content/Site.css"type="text/css" />
+@{
+    
+    Layout = "../Shared/Layout_1.cshtml";
+    
+    }
+
+
+@{
+    ViewBag.Title = "SectionWiseFeeReport";
+}
+
+<h2>Section Wise Fee Report</h2>
+<br />
+@using (Html.BeginForm("SectionWiseFeeReportB", "Fees"))
+{
+    @Html.ValidationSummary(true)
+            <font color="black"> Select Class
+            </font>
+            <br /><br />
+            schooldbEntities db = new schooldbEntities();
+           var list = (from tmp in db.classes select tmp).ToList();
+           List<SelectListItem> classlist = new List<SelectListItem>();
+           foreach (@class tmp in list)
+           {
+               classlist.Add(new SelectListItem { Selected = false, Text = tmp.className, Value = Convert.ToString(tmp.classId) });
+           }
+            
+            @Html.DropDownListFor(model => model.name, classlist)
+            <br /><br />
+    <p>
+        
+        <input type="submit" value="Submit" />
+    </p>
+}
+
+<br />
+<br />
+@Html.ActionLink("Back to Reports Menu", "Reports")
+

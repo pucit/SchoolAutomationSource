@@ -1,0 +1,461 @@
+﻿@model  School_Management_System.Models.ReportStructure
+            @using School_Management_System.Models
+
+
+<link rel="stylesheet" href="../../Content/Site.css"type="text/css" />
+@{
+    
+    Layout = "../Shared/Layout_1.cshtml";
+    
+    }
+
+
+@{
+    ViewBag.Title = "YearWiseFeeReportList";
+}
+
+<h2>Year Wise Fee Report List</h2>
+        
+
+<font color="blue">Class: &nbsp&nbsp&nbsp&nbsp @ViewBag.className &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+    Year: &nbsp&nbsp&nbsp&nbsp @ViewBag.year
+</font>
+<br /> <br />
+
+<div style="overflow:scroll">
+<table >
+    <tr>
+        <th>
+            Admission ID
+        </th>
+        <th>
+            Name
+        </th>
+        <th>
+            Basic Fee
+        </th>
+        @foreach (var month in Model.month)
+        {
+            <th>
+                @month
+            </th>
+            <th>
+                Status
+            </th>
+            <th>
+                Day
+            </th>
+        }
+    </tr>
+@{int i = 0;}
+
+@foreach (var item in Model.stdList)
+{
+    <tr>
+        <td>
+            @item.studentId
+        </td>
+        <td>
+            @item.StudentName
+        </td>
+        <td>
+            @item.StudentFee
+        </td>
+        <td>
+            @Model.feeList1[i]
+        </td>
+        @if(Model.feesList1[i] != null)
+        {
+           
+        
+        if (Model.feesList1[i].Is_Paid)
+        {
+            <td>
+            <font color="green">@Model.feesList1[i].Is_Paid</font>
+            </td>
+        }
+        else
+        {
+            <td>
+            <font color="red">@Model.feesList1[i].Is_Paid</font>
+            </td>
+        }
+        <td>
+            @Model.feesList1[i].Day
+        </td>
+        }
+        else
+        {
+            <td></td> <td></td>
+        }
+
+        <td>
+            @Model.feeList2[i]
+        </td>
+        @if (Model.feesList2[i] != null)
+        {
+
+            if (Model.feesList2[i].Is_Paid)
+            {
+            <td>
+            <font color="green">@Model.feesList2[i].Is_Paid</font>
+            </td>
+            }
+            else
+            {
+            <td>
+            <font color="red">@Model.feesList2[i].Is_Paid</font>
+            </td>
+            }
+        <td>
+            @Model.feesList2[i].Day
+        </td>
+        }
+        else
+        {
+            <td></td> <td></td>
+        }
+        
+        <td>
+            @Model.feeList3[i]
+        </td>
+        @if (Model.feesList3[i] != null)
+        {
+
+            if (Model.feesList3[i].Is_Paid)
+            {
+            <td>
+            <font color="green">@Model.feesList3[i].Is_Paid</font>
+            </td>
+            }
+            else
+            {
+            <td>
+            <font color="red">@Model.feesList3[i].Is_Paid</font>
+            </td>
+            }
+        <td>
+            @Model.feesList3[i].Day
+        </td>
+        }
+        else
+        {
+            <td></td> <td></td>
+        }
+
+        <td>
+            @Model.feeList4[i]
+        </td>
+        @if (Model.feesList4[i] != null)
+        {
+
+            if (Model.feesList4[i].Is_Paid)
+            {
+            <td>
+            <font color="green">@Model.feesList4[i].Is_Paid</font>
+            </td>
+            }
+            else
+            {
+            <td>
+            <font color="red">@Model.feesList4[i].Is_Paid</font>
+            </td>
+            }
+        <td>
+            @Model.feesList4[i].Day
+        </td>
+        }
+        else
+        {
+            <td></td> <td></td>
+        }
+
+        <td>
+            @Model.feeList5[i]
+        </td>
+        @if (Model.feesList5[i] != null)
+        {
+
+            if (Model.feesList5[i].Is_Paid)
+            {
+            <td>
+            <font color="green">@Model.feesList5[i].Is_Paid</font>
+            </td>
+            }
+            else
+            {
+            <td>
+            <font color="red">@Model.feesList5[i].Is_Paid</font>
+            </td>
+            }
+        <td>
+            @Model.feesList5[i].Day
+        </td>
+        }
+        else
+        {
+            <td></td> <td></td>
+        }
+
+        <td>
+            @Model.feeList6[i]
+        </td>
+        @if (Model.feesList6[i] != null)
+        {
+
+            if (Model.feesList6[i].Is_Paid)
+            {
+            <td>
+            <font color="green">@Model.feesList6[i].Is_Paid</font>
+            </td>
+            }
+            else
+            {
+            <td>
+            <font color="red">@Model.feesList6[i].Is_Paid</font>
+            </td>
+            }
+        <td>
+            @Model.feesList6[i].Day
+        </td>
+        }
+        else
+        {
+            <td></td> <td></td>
+        }
+            
+        <td>
+            @Model.feeList7[i]
+        </td>
+        @if (Model.feesList7[i] != null)
+        {
+
+            if (Model.feesList7[i].Is_Paid)
+            {
+            <td>
+            <font color="green">@Model.feesList7[i].Is_Paid</font>
+            </td>
+            }
+            else
+            {
+            <td>
+            <font color="red">@Model.feesList7[i].Is_Paid</font>
+            </td>
+            }
+        <td>
+            @Model.feesList7[i].Day
+        </td>
+        }
+        else
+        {
+            <td></td> <td></td>
+        }
+            
+        <td>
+            @Model.feeList8[i]
+        </td>
+        @if (Model.feesList8[i] != null)
+        {
+
+            if (Model.feesList8[i].Is_Paid)
+            {
+            <td>
+            <font color="green">@Model.feesList8[i].Is_Paid</font>
+            </td>
+            }
+            else
+            {
+            <td>
+            <font color="red">@Model.feesList8[i].Is_Paid</font>
+            </td>
+            }
+        <td>
+            @Model.feesList8[i].Day
+        </td>
+        }
+        else
+        {
+            <td></td> <td></td>
+        }
+            
+        <td>
+            @Model.feeList9[i]
+        </td>
+        @if (Model.feesList9[i] != null)
+        {
+
+            if (Model.feesList9[i].Is_Paid)
+            {
+            <td>
+            <font color="green">@Model.feesList9[i].Is_Paid</font>
+            </td>
+            }
+            else
+            {
+            <td>
+            <font color="red">@Model.feesList9[i].Is_Paid</font>
+            </td>
+            }
+        <td>
+            @Model.feesList9[i].Day
+        </td>
+        }
+        else
+        {
+            <td></td> <td></td>
+        }
+            
+        <td>
+            @Model.feeList10[i]
+        </td>
+        @if (Model.feesList10[i] != null)
+        {
+
+            if (Model.feesList10[i].Is_Paid)
+            {
+            <td>
+            <font color="green">@Model.feesList10[i].Is_Paid</font>
+            </td>
+            }
+            else
+            {
+            <td>
+            <font color="red">@Model.feesList10[i].Is_Paid</font>
+            </td>
+            }
+        <td>
+            @Model.feesList10[i].Day
+        </td>
+        }
+        else
+        {
+            <td></td> <td></td>
+        }
+            
+        <td>
+            @Model.feeList11[i]
+        </td>
+        @if (Model.feesList11[i] != null)
+        {
+
+            if (Model.feesList11[i].Is_Paid)
+            {
+            <td>
+            <font color="green">@Model.feesList11[i].Is_Paid</font>
+            </td>
+            }
+            else
+            {
+            <td>
+            <font color="red">@Model.feesList11[i].Is_Paid</font>
+            </td>
+            }
+        <td>
+            @Model.feesList11[i].Day
+        </td>
+        }
+        else
+        {
+            <td></td> <td></td>
+        }
+            
+        <td>
+            @Model.feeList12[i]
+        </td>
+        @if (Model.feesList12[i] != null)
+        {
+
+            if (Model.feesList12[i].Is_Paid)
+            {
+            <td>
+            <font color="green">@Model.feesList12[i].Is_Paid</font>
+            </td>
+            }
+            else
+            {
+            <td>
+            <font color="red">@Model.feesList12[i].Is_Paid</font>
+            </td>
+            }
+        <td>
+            @Model.feesList12[i].Day
+        </td>
+        }
+        else
+        {
+            <td></td> <td></td>
+        }
+       
+    </tr>
+        i++;
+}
+<tr></tr><tr></tr>
+    <tr>
+        <th>Total</th>
+        <td></td>
+        <td></td>
+        <td>
+            @Model.feeList1.Sum()
+        </td>
+        <td></td><td></td>
+        <td>
+            @Model.feeList2.Sum()
+        </td>
+        <td></td><td></td>
+        <td>
+            @Model.feeList3.Sum()
+        </td>
+        <td></td><td></td>
+        <td>
+            @Model.feeList4.Sum()
+        </td>
+        <td></td><td></td>
+        <td>
+            @Model.feeList5.Sum()
+        </td>
+        <td></td><td></td>
+        <td>
+            @Model.feeList6.Sum()
+        </td>
+        <td></td><td></td>
+        <td>
+            @Model.feeList7.Sum()
+        </td>
+        <td></td><td></td>
+        <td>
+            @Model.feeList8.Sum()
+        </td>
+        <td></td><td></td>
+        <td>
+            @Model.feeList9.Sum()
+        </td>
+        <td></td><td></td>
+        <td>
+            @Model.feeList10.Sum()
+        </td>
+        <td></td><td></td>
+        <td>
+            @Model.feeList11.Sum()
+        </td>
+        <td></td><td></td>
+        <td>
+            @Model.feeList12.Sum()
+        </td>
+        <td></td><td></td>
+    </tr>
+</table>
+</div>
+
+<br /> <br /> <br />
+@{double? sum = Model.feeList1.Sum() + Model.feeList2.Sum() + Model.feeList3.Sum() + Model.feeList4.Sum() + Model.feeList5.Sum() + Model.feeList6.Sum() +
+      Model.feeList7.Sum() + Model.feeList8.Sum() + Model.feeList9.Sum() + Model.feeList10.Sum() + Model.feeList11.Sum() + Model.feeList12.Sum();
+}
+
+&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+<font color="blue" size="2">Total Amount in a Year is &nbsp @sum</font>
+
+<br />
+<br />
+<br />
+
+@Html.ActionLink("Back to Reports","Reports")

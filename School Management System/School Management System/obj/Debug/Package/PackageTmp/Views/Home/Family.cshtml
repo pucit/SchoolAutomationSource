@@ -1,0 +1,49 @@
+﻿@model School_Management_System.Models.family
+@using School_Management_System.Models
+
+<link rel="stylesheet" href="../../Content/Site.css"type="text/css" />
+@{
+    
+    Layout = "../Shared/Layout_1.cshtml";
+    
+    }
+
+@{
+    ViewBag.Title = "Family";
+}
+
+<h2>Family</h2>
+<br />
+
+@{
+    List<SelectListItem> familyList = new List<SelectListItem>();
+    schooldbEntities db = new schooldbEntities();
+    List<family> list = (from tmp in db.families select tmp).ToList();
+    foreach (family tmp in list)
+    {
+        familyList.Add(new SelectListItem { Selected = false, Text = tmp.familyId.ToString(), Value = tmp.familyId.ToString() });  
+    }    
+}
+
+@using (Html.BeginForm("Index", "Fees"))
+{
+        <font color="black"> Select Family ID
+        </font>
+        <br /><br />
+    @Html.DropDownListFor(model => model.familyId, familyList)
+    <br /><br />
+    <p>
+        
+        <input type="submit" value="View Student List" />
+    </p>
+    
+}
+
+
+<br />
+<br />
+@Html.ActionLink("Back to Home", "Index")
+&nbsp
+@Html.ActionLink("Reports", "../Fees/reports")
+
+

@@ -1,0 +1,139 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="schooldbModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+  <EntityContainer Name="schooldbEntities8" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="attendances" EntityType="schooldbModel.attendance" />
+    <EntitySet Name="classes" EntityType="schooldbModel.class" />
+    <EntitySet Name="families" EntityType="schooldbModel.family" />
+    <EntitySet Name="fees" EntityType="schooldbModel.fee" />
+    <EntitySet Name="students" EntityType="schooldbModel.student" />
+    <EntitySet Name="teachers" EntityType="schooldbModel.teacher" />
+    <AssociationSet Name="student_ibfk_1" Association="schooldbModel.student_ibfk_1">
+      <End Role="classes" EntitySet="classes" />
+      <End Role="student" EntitySet="students" />
+    </AssociationSet>
+    <AssociationSet Name="fees_ibfk_1" Association="schooldbModel.fees_ibfk_1">
+      <End Role="student" EntitySet="students" />
+      <End Role="fees" EntitySet="fees" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="attendance">
+    <Key>
+      <PropertyRef Name="AttendanceDate" />
+      <PropertyRef Name="teacherId" />
+    </Key>
+    <Property Name="attendanceId" Type="Int32" />
+    <Property Name="AttendanceDate" Type="DateTime" Nullable="false" />
+    <Property Name="teacherId" Type="Int32" Nullable="false" />
+    <Property Name="IsPresent" Type="String" MaxLength="5" Unicode="false" FixedLength="false" />
+    <Property Name="SalaryDeduction" Type="Double" />
+  </EntityType>
+  <EntityType Name="class">
+    <Key>
+      <PropertyRef Name="classId" />
+    </Key>
+    <Property Name="classId" Type="Int32" Nullable="false" />
+    <Property Name="className" Type="String" MaxLength="15" Unicode="false" FixedLength="false" />
+    <NavigationProperty Name="students" Relationship="schooldbModel.student_ibfk_1" FromRole="classes" ToRole="student" />
+  </EntityType>
+  <EntityType Name="family">
+    <Key>
+      <PropertyRef Name="familyId" />
+    </Key>
+    <Property Name="familyId" Type="Int32" Nullable="false" />
+    <Property Name="FatherName" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
+    <Property Name="FatherNIC" Type="String" MaxLength="15" Unicode="false" FixedLength="false" />
+    <Property Name="FatherEducation" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
+    <Property Name="FatherIncome" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
+    <Property Name="FatherOccupation" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
+    <Property Name="MotherName" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
+    <Property Name="MotherNIC" Type="String" MaxLength="15" Unicode="false" FixedLength="false" />
+    <Property Name="MotherEducation" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
+    <Property Name="MotherIncome" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
+    <Property Name="MotherOccupation" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
+    <Property Name="Religion" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
+    <Property Name="Caste" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
+    <Property Name="Nationality" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="fee">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="Month" Type="String" Nullable="false" MaxLength="100" Unicode="false" FixedLength="false" />
+    <Property Name="Year" Type="String" Nullable="false" MaxLength="100" Unicode="false" FixedLength="false" />
+    <Property Name="Basic_Fee" Type="Single" Nullable="false" />
+    <Property Name="Concession" Type="Single" />
+    <Property Name="Net_Fee" Type="Single" Nullable="false" />
+    <Property Name="Is_Paid" Type="Boolean" Nullable="false" />
+    <Property Name="studentId" Type="Int32" Nullable="false" />
+    <Property Name="Day" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="student" Relationship="schooldbModel.fees_ibfk_1" FromRole="fees" ToRole="student" />
+  </EntityType>
+  <EntityType Name="student">
+    <Key>
+      <PropertyRef Name="studentId" />
+    </Key>
+    <Property Name="studentId" Type="Int32" Nullable="false" />
+    <Property Name="DateOfAdmission" Type="DateTime" />
+    <Property Name="EducationMedium" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
+    <Property Name="StudyClass" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
+    <Property Name="classId" Type="Int32" />
+    <Property Name="StudentGender" Type="String" MaxLength="10" Unicode="false" FixedLength="false" />
+    <Property Name="StudentName" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
+    <Property Name="StudentDOB" Type="DateTime" />
+    <Property Name="StudentAddress" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="Telephone" Type="Decimal" />
+    <Property Name="CellPhone" Type="Decimal" />
+    <Property Name="StudentRollNumber" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
+    <Property Name="StudentFee" Type="Double" />
+    <Property Name="SchoolBranch" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
+    <Property Name="familyId" Type="Int32" />
+    <Property Name="StudentStatus" Type="Int32" />
+    <NavigationProperty Name="class" Relationship="schooldbModel.student_ibfk_1" FromRole="student" ToRole="classes" />
+    <NavigationProperty Name="fees" Relationship="schooldbModel.fees_ibfk_1" FromRole="student" ToRole="fees" />
+  </EntityType>
+  <EntityType Name="teacher">
+    <Key>
+      <PropertyRef Name="teacherId" />
+    </Key>
+    <Property Name="teacherId" Type="Int32" Nullable="false" />
+    <Property Name="TeacherName" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
+    <Property Name="TeacherDOB" Type="DateTime" />
+    <Property Name="JoinDate" Type="DateTime" />
+    <Property Name="TeacherAddress" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="Telephone" Type="Decimal" />
+    <Property Name="CellPhone" Type="Decimal" />
+    <Property Name="MaritalStatus" Type="String" MaxLength="10" Unicode="false" FixedLength="false" />
+    <Property Name="Gender" Type="String" MaxLength="10" Unicode="false" FixedLength="false" />
+    <Property Name="Designation" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
+    <Property Name="MonthlyTotal" Type="Double" />
+    <Property Name="BasicSalary" Type="Double" />
+    <Property Name="Account_Number" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
+    <Property Name="Status" Type="String" MaxLength="10" Unicode="false" FixedLength="false" />
+    <Property Name="PaymentMode" Type="String" MaxLength="10" Unicode="false" FixedLength="false" />
+  </EntityType>
+  <Association Name="student_ibfk_1">
+    <End Role="classes" Type="schooldbModel.class" Multiplicity="0..1" />
+    <End Role="student" Type="schooldbModel.student" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="classes">
+        <PropertyRef Name="classId" />
+      </Principal>
+      <Dependent Role="student">
+        <PropertyRef Name="classId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fees_ibfk_1">
+    <End Role="student" Type="schooldbModel.student" Multiplicity="1" />
+    <End Role="fees" Type="schooldbModel.fee" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="student">
+        <PropertyRef Name="studentId" />
+      </Principal>
+      <Dependent Role="fees">
+        <PropertyRef Name="studentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

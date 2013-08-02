@@ -1,0 +1,41 @@
+﻿@model School_Management_System.Models.student           
+
+
+<link rel="stylesheet" href="../../Content/Site.css"type="text/css" />
+@{
+    
+    Layout = "../Shared/Layout_1.cshtml";
+    
+    }
+
+
+@{
+    ViewBag.Title = "ViewMedium";
+}
+
+<h2>Select Education Medium to View Students</h2>
+<br /><br />
+
+@using (Html.BeginForm())
+{
+    <fieldset>
+    <legend>student</legend>
+            
+        <div class="editor-label">
+            @Html.Label("Education Medium")
+        </div>
+        <br />
+        <div class="editor-field">
+            @Html.DropDownListFor(model => model.EducationMedium, new SelectList(@ViewBag.mediumList, "Text"), "-- Select Medium--")
+        </div>
+        <br /><br />
+        <p>
+            <input type="submit" value="Filter" />
+        </p>  
+    </fieldset>
+}
+
+<br />
+<br />
+<br />
+<a href="../StudentViewMenu" style="color:red; font-size:20px;">  Back to MANAGE STUDENTS  </a>

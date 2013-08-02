@@ -1,0 +1,64 @@
+﻿@{
+    
+    Layout = "../Shared/Layout_1.cshtml";
+    
+    }
+
+@{
+    School_Management_System.Models.schooldbEntities db = new School_Management_System.Models.schooldbEntities();
+
+    ViewBag.Title = "selectClass";
+    
+    List<SelectListItem> Lsss = new List<SelectListItem>();
+    var list2 = (from temp in db.exams select temp).ToList();
+    foreach (var item in list2)
+    {
+        Lsss.Add(new SelectListItem() { Text = item.examName, Value = item.examId.ToString() });
+    }
+    List<SelectListItem> Lss = new List<SelectListItem>();
+    var list1 = (from temp in db.classes select temp).ToList();
+    foreach (var item in list1)
+    {
+        Lss.Add(new SelectListItem() { Text = item.className, Value = item.classId.ToString() });
+    }
+    List<SelectListItem> Ls = new List<SelectListItem>();
+    var list = (from temp in db.subjects select temp).ToList();
+    foreach (var item in list)
+    {
+        Ls.Add(new SelectListItem() { Text = item.subjectName, Value = item.subjectId.ToString() });
+    }
+}
+
+<h2>selectClass</h2>
+<br /><br />
+@using (Html.BeginForm("classReport","Result",FormMethod.Post)) {
+ 
+    <div class="editor-label">
+        @Html.Label("Exam Name: ")
+        </div>
+    <br/><br/>
+    <div class="editor-field">        
+        @Html.DropDownList("examId", Lsss)
+        </div>
+    <br /><br/>
+    <div class="editor-label">
+        @Html.Label("Class Name: ")
+        </div>
+    <br /><br/>
+    <div class="editor-field">        
+        @Html.DropDownList("classId",Lss)
+        </div>
+    <br/><br/>
+    <div class="editor-label">
+        @Html.Label("Subject Name: ")
+        </div>
+    <br/><br/>
+    <div class="editor-field">        
+        @Html.DropDownList("subjectId",Ls)
+        </div>
+ 
+    <br /><br />
+    <p>
+        <input type="submit" value="Submit" />
+    </p>
+}

@@ -1,0 +1,99 @@
+﻿@model IEnumerable<School_Management_System.Models.result>
+@using School_Management_System.Models
+
+@{
+    
+    Layout = "../Shared/Layout_1.cshtml";
+    
+    }
+
+@{
+    School_Management_System.Models.schooldbEntities db = new School_Management_System.Models.schooldbEntities();
+    ViewBag.Title = "Add Class Result";
+    int exmId = Convert.ToInt32(ViewBag.exm);
+    int id = Convert.ToInt32(ViewBag.subject);
+    int cls = Convert.ToInt32(ViewBag.clas);
+    var obj = (from sub in db.class_subject where sub.classId == cls select sub).ToList<class_subject>();
+    var obj1 = (from sub in db.exams where sub.examId == exmId select sub).FirstOrDefault<exam>();
+    var obj2 = (from sub in db.classes where sub.classId == cls select sub).FirstOrDefault<@class>();
+    var obj3 = (from sub in db.class_subject where sub.classId == cls && sub.subjectId==id select sub).ToList<class_subject>();
+    List<result> ListToBeReturned = new List<result>();
+    }
+
+<h2>Add Class Result</h2>
+<br />
+<br />
+@Html.BeginForm("saveClassResult","Result",FormMethod.Post)
+<table>
+    <tr>
+        <th>
+            Roll No.
+        </th>
+        <th>
+            Student Name
+        </th>
+        <th>
+            Class ID
+        </th>
+        <th>
+            Exam ID
+        </th>
+        <th>
+            Total Marks
+        </th>
+        @foreach(var item in obj){
+        <th>
+            @item.subject.subjectName
+        </th>
+        }
+    </tr>
+    
+        @foreach (student item in ViewBag.stdList ) { 
+            <tr>
+                <td>
+                    @Html.Label(item.StudentRollNumber.ToString())
+                </td>
+                <td>
+                    @Html.Label(item.StudentName)
+                    
+                </td>
+                <td>
+                    @Html.Label(@obj2.className)
+                    
+                </td>
+                <td>
+                    @Html.Label(@obj1.examName)
+                    
+                </td>
+                <td>
+                    
+                </td>
+                @foreach (class_subject item1 in obj){
+                <td>
+                    @{
+                        result res =null;                    
+                        try
+                      {
+                        res = (from sub in db.results where sub.studentId == item.studentId && sub.examId == obj1.examId && sub.csId == item1.csId select sub).First();
+                      }
+                      catch(Exception e)
+                      {}
+                    if (res != null)
+                    {
+                        <input type="text" name="@item.studentId;@obj1.examId;@item1.subjectId;@item1.classId;" value="@res.obtainedMarks"/>
+                    }
+                     else
+                     {
+                        <input type="text" name="@item.studentId;@obj1.examId;@item1.subjectId;@item1.classId;"/>    
+                
+                     }
+                 }
+                        </td>
+                    }
+            </tr>
+        }
+</table>
+            <p>
+                <input type="submit" value="Submit" />
+            </p>
+       @{Html.EndForm();} 

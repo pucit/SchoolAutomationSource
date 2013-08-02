@@ -1,0 +1,115 @@
+﻿@model IEnumerable<School_Management_System.Models.teacher>
+
+
+
+<link rel="stylesheet" href="../../Content/Site.css"type="text/css" />
+@{
+    
+    Layout = "../Shared/Layout_1.cshtml";
+    
+    }
+
+@{
+    ViewBag.Title = "GenderView";
+}
+
+<h2>Employees By Gender</h2>
+<br /><br />
+
+
+<table>
+    <tr>
+        <th>
+            Employee ID
+        </th>
+        <th>
+            Employee Name
+        </th>
+        
+        <th>
+            Join Date
+        </th>
+        <th>
+            Address
+        </th>
+        <th>
+            Telephone
+        </th>
+        <th>
+            CellPhone
+        </th>
+        <th>
+            Marital Status
+        </th>
+        <th>
+            Gender
+        </th>
+        <th>
+            Designation
+        </th>        
+        <th>
+            BasicSalary
+        </th>
+        <th>
+            PaymentMode
+        </th>
+        <th>
+            Account_Number
+        </th>        
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @item.teacherId
+        </td>        
+        <td>
+            @item.TeacherName
+        </td>
+        
+        <td>
+            @String.Format("{0:g}", item.JoinDate)
+        </td>
+        <td>
+            @item.TeacherAddress
+        </td>
+        <td>
+            @String.Format("{0:F}", item.Telephone)
+        </td>
+        <td>
+            @String.Format("{0:F}", item.CellPhone)
+        </td>
+        <td>
+            @item.MaritalStatus
+        </td>
+        <td>
+            @item.Gender
+        </td>
+        <td>
+            @item.Designation
+        </td>
+        
+        <td>
+            @String.Format("{0:F}", item.BasicSalary)
+        </td>
+        <td>
+            @item.PaymentMode
+        </td>
+        <td>
+            @item.Account_Number
+        </td>
+        
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.teacherId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.teacherId })
+        </td>
+    </tr>
+}
+
+</table>
+
+<br />
+<br />
+<br />
+<a href="../Teacher/GenderView/1" style="color:red; font-size:20px;">  Back to Gender VIEW  </a>

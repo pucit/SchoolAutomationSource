@@ -1,0 +1,22 @@
+﻿@{
+    ViewBag.Title = "FeePaid";
+}
+
+
+<link rel="stylesheet" href="../../Content/Site.css"type="text/css" />
+@{
+    
+    Layout = "../Shared/Layout_1.cshtml";
+    
+    }
+
+
+<h2>Fee Paid Menu</h2>
+@Html.ActionLink("All Students", "PaidStudents")
+<br />
+@Html.ActionLink("Particular Class Students", "PaidClassStudents")
+<br />
+@Html.ActionLink("Daily Collected Fee Report", "DailyFeeReport")
+<br />
+<br />
+@Html.ActionLink("Back to reports", "Reports")

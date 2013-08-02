@@ -1,0 +1,126 @@
+﻿@model School_Management_System.Models.login
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Rainbow Grammar | The School System</title>
+
+<link REL="SHORTCUT ICON" HREF="http://starblazestudios.com/favicon.ico">
+
+<link href="../../css/style.css" type="text/css" rel="stylesheet" media="all" />
+
+
+<script type="text/javascript" src="../../scripts/jquery-1.4.1.min.js"></script>
+<script type="text/javascript" src="../../scripts/jquery.backgroundPosition.js"></script>
+<script type="text/javascript" src="../../scripts/script.js"></script>
+<script type="text/javascript" src="../../scripts/cufon-yui.js"></script>
+<script type="text/javascript"  src="../../scripts/SansationRegular_400.font.js"></script>
+<script type="text/javascript"  src="../../scripts/SansationLight_300.font.js"></script>
+
+<script type="text/javascript">
+    Cufon.replace('h1, h2 ,#portfolio-filter a', { hover: true, fontFamily: 'SansationLight' });
+    Cufon.replace('#topNav a,h3, h4', { hover: true, fontFamily: 'SansationRegular' });
+</script>
+</head>
+
+<body>
+	<div id="wrap">
+		<div id="container">
+			
+			
+			<!-- ## HEADER ## -->
+			
+			<div id="header" height="10">
+			<h1>Rainbow Grammar School </h1>
+				
+				<ul id="topNav">
+					<li><a href="../Home/Index">HOME</a></li>
+					<li><a href="../Home/admission">ADMISSION</a></li>
+					<li><a href="../Home/about">ABOUT</a></li>
+					<li><a href="../Home/contact">CONTACT</a></li>
+				</ul>
+			</div><!-- end: header -->
+				
+                <div id="signinform">
+
+                @using (@Html.BeginForm("SchoolIndex", "Home"))
+                {
+                    <fieldset>
+                    
+
+                @Html.Label("User Name")
+                <br/><br />
+                @Html.EditorFor(model => model.username)
+                
+                @Html.Label("Password")
+                <br /><br />
+                @Html.PasswordFor(model => model.password)
+                <br /><br />
+
+                <p>
+                <input type="submit" id="submit" value="SIGNIN" size="10px" />
+                </p>
+                
+
+                    </fieldset>
+
+                }
+                </div>
+
+
+			
+			<!-- ## INFORMATION ## -->
+			
+			<div id="info">
+							
+				<!-- WRITE YOUR TEXT HERE -->
+
+				
+			</div><!-- end: INFORMATION -->
+			
+			
+			
+			<!-- ## LINKS ## -->
+			
+			<!-- end: Bottom Links -->
+			
+		</div><!--end: container -->
+		
+		<!-- ## FOOTER ## -->
+		
+		<div id="footer">
+			<div id="footerContainer">
+				<p>
+					Open to working with anyone on creatively challenging
+					projects anywhere in the world.<br />
+					
+					
+					
+					Software Solutions<br/><br/><br/>
+					Copyright &copy; 2013 - All Rights Reserved - <a href="https://www.facebook.com/chronosolutions" title="Chrono Solutions">Chrono Solutions</a>
+				</p>
+			</div><!-- end: Footer Container -->
+		</div><!-- end: footer -->
+			
+	</div><!--end: wrap -->
+
+</body>
+
+</html>
+
+<script src="../../Scripts/jquery-1.4.4.min.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        $("#submit").click(function () {
+
+            if ($("#username").val() == "" || $("#password").val() == "")
+                return false;
+        });
+
+    });
+
+</script>

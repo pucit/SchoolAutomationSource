@@ -1,0 +1,20 @@
+﻿@{
+    
+    Layout = "../Shared/Layout_1.cshtml";
+    
+    }
+
+@{
+    ViewBag.Title = "ResultIndex";
+}
+<h2>Result Module</h2>
+<br /><br />
+
+<div>
+                <ul style="color:white; font-size:30px;">
+                    <li>@Html.ActionLink("Exams", "ExamIndex", "Result")</li>
+                    <li>@Html.ActionLink("Subjects", "SubjectIndex", "Result")</li>
+                    <li>@Html.ActionLink("Result", "ResultIndex", "Result")</li>
+                    <li>@Html.ActionLink("Reports", "ReportIndex", "Result")</li>
+                </ul>
+</div>

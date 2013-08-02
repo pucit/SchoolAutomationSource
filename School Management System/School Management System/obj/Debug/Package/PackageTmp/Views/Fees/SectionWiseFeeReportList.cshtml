@@ -1,0 +1,89 @@
+﻿@model IEnumerable< School_Management_System.Models.fee>
+
+
+<link rel="stylesheet" href="../../Content/Site.css"type="text/css" />
+@{
+    
+    Layout = "../Shared/Layout_1.cshtml";
+    
+    }
+
+
+@{
+    ViewBag.Title = "SectionWiseFeeReportList";
+}
+
+<h2>Section Wise Fee Report List</h2>
+
+<font color="blue"> Class: &nbsp&nbsp&nbsp&nbsp @ViewBag.className &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp Section: &nbsp&nbsp&nbsp&nbsp @ViewBag.section
+<br /><br />
+Month: &nbsp&nbsp&nbsp&nbsp @ViewBag.month &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp Year: &nbsp&nbsp&nbsp&nbsp @ViewBag.year
+</font>
+<br /><br />
+<table>
+    <tr>
+        <th>
+            Admission ID
+        </th>
+        <th>
+            Name
+        </th>
+        <th>
+            Amount Paid
+        </th>
+        <th>
+            Is_Paid
+        </th>
+        <th>
+            Status
+        </th>
+        <th>
+            Day
+        </th>
+    </tr>
+
+@foreach (var item in Model)
+{
+    if (item == null) { continue; }
+    <tr>
+        <td>
+            @item.student.studentId
+        </td>
+        <td>
+            @item.student.StudentName
+        </td>
+        <td>
+            @String.Format("{0:F}", item.student.StudentFee)
+        </td>
+        <td>
+            @if (item.Is_Paid)
+            {
+                <font color="green">@item.Is_Paid</font>
+            }
+            else
+            {
+                <font color="red">@item.Is_Paid</font>
+            }
+        </td>
+        <td>
+            @if (item.Is_Paid)
+            {
+                <font color="green">OK</font>
+            }
+            else
+            {
+                <font color="red">DEFUALTER</font>
+            }
+        </td>
+        <td>
+            @item.Day
+        </td>
+    </tr>
+}
+
+</table>
+
+<br />
+<br />
+<br />
+@Html.ActionLink("Back to Reports Menu", "Reports")

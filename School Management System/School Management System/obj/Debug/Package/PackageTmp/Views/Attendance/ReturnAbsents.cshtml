@@ -1,0 +1,112 @@
+﻿@using School_Management_System.Models
+<table>
+    <tr>
+        <th>
+            Teacher Name
+        </th>
+        <th>
+            Absents
+        </th>
+        <th>
+            Leaves
+        </th>
+    </tr>
+    @{
+        
+        
+        timing fridayTiming = (from t in new schooldbEntities().timings
+                         select t).Where<timing>(time => time.TimingsId == 2).FirstOrDefault<timing>();
+        timing otherTiming = (from t in new schooldbEntities().timings
+                         select t).Where<timing>(time => time.TimingsId == 1).FirstOrDefault<timing>();
+    }
+    @foreach(teacher t in ViewBag.teacherList){
+        int halfDay = 0;
+        int absent = 0;
+        int late = 0;
+        int leave = 0;
+        schooldbEntities sc = new schooldbEntities();
+        List<attendance> attendanceOfThisTeacher = (from a in sc.attendances
+                                                    select a).Where(at => at.teacherId == t.teacherId)
+                                                    .ToList<attendance>();
+        for (int i = 1; i < 32; i++)
+        {
+            try
+            {
+
+                DateTime dt = new DateTime(ViewBag.year, ViewBag.month, i);
+                int temp = 0;
+                if (!((temp = DateTime.Compare(dt, DateTime.Now.ToUniversalTime().AddHours(5))) < 0))
+                {
+                    break;
+                }
+                if (dt.DayOfWeek != DayOfWeek.Sunday)
+                {
+                    attendance a = (from attend in attendanceOfThisTeacher
+                                    select attend).Where<attendance>(ate => ate.AttendanceDate.Date == dt.Date).FirstOrDefault<attendance>();
+                    if (a == null)
+                    {
+                        absent++;
+                    }
+                    else if (a.IsPresent.Equals("L"))
+                    {
+                        leave++;
+                    }
+                    else if (dt.DayOfWeek == DayOfWeek.Friday)
+                    {
+
+                        try
+                        {
+                            double diff = a.AttendanceDate.TimeOfDay.TotalMinutes - fridayTiming.TimeIn.Value.TotalMinutes;
+                            if (diff > 0 && diff < 15)
+                            {
+                                late++;
+                            }
+                            if (diff >= 15 && diff < 30)
+                            {
+                                late = late + 2;
+                            }
+                            if (diff >= 30)
+                            {
+                                halfDay++;
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                        }
+
+                    }
+                    else
+                    {
+
+                        try
+                        {
+                            double diff = a.AttendanceDate.TimeOfDay.TotalMinutes - otherTiming.TimeIn.Value.TotalMinutes;
+                            if (diff > 0 && diff < 15)
+                            {
+                                late++;
+                            }
+                            if (diff >= 15 && diff < 30)
+                            {
+                                late = late + 2;
+                            }
+                            if (diff >= 30)
+                            {
+                                halfDay++;
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                        }
+                    }
+                }
+            }
+            catch (ArgumentOutOfRangeException ex)
+            {
+                break;
+            }
+
+        }
+        @:<tr><td>@t.TeacherName</td><td>@absent</td><td>@leave</td></tr>
+    }
+
+</table>

@@ -1,0 +1,66 @@
+﻿@model IEnumerable<School_Management_System.Models.@class>
+
+
+<link rel="stylesheet" href="../../Content/Site.css"type="text/css" />
+@{
+    
+    Layout = "../Shared/Layout_1.cshtml";
+    
+    }
+
+
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>CLASSES</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table>
+    <tr>
+       <th>
+            classId
+       </th>
+        <th>
+            className
+        </th>
+        <th>
+            class Fee English medium
+        </th>
+        <th>
+            class Fee Urdu medium
+        </th>
+         <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @item.classId
+        </td>
+        <td>
+            @item.className
+        </td>
+        <td>
+            @item.classFee
+        </td>
+
+        <td>
+            
+            @item.classFeeU
+        </td>
+
+        <td>
+            @Html.ActionLink("View Sections", "viewsection", new { id=item.classId }) |
+            @Html.ActionLink("Edit", "Edit", new { id=item.classId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.classId })
+            
+        </td>
+    </tr>
+}
+
+</table>
+<br/><br/><br/>

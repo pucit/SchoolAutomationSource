@@ -1,0 +1,21 @@
+﻿@{
+    ViewBag.Title = "SubjectClass";
+}
+
+@{
+    
+    Layout = "../Shared/Layout_1.cshtml";
+    
+    }
+
+<h2>SubjectClass</h2>
+<br /><br />
+@model List<SelectListItem>
+@Html.Label("Class ID")
+<br /> <br />
+@using (Html.BeginForm("fillSubject","Result",FormMethod.Get))
+{
+    @Html.DropDownList("val",Model.AsEnumerable())
+    <br /><br />
+    <input type="submit" value="View" />
+}
